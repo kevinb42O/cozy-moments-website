@@ -40,7 +40,7 @@ const Loyalty = () => {
               <motion.div
                 animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
                 transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-                className="absolute -bottom-4 -right-4 z-30 bg-white rounded-2xl shadow-2xl px-4 py-3 border border-latte-200 flex items-center gap-3"
+                className="absolute -bottom-4 right-0 sm:-right-4 z-30 bg-white rounded-2xl shadow-2xl px-4 py-3 border border-latte-200 flex items-center gap-3"
               >
                 <div className="text-2xl">🎁</div>
                 <div>
@@ -50,7 +50,7 @@ const Loyalty = () => {
               </motion.div>
 
               {/* Floating Badge */}
-              <div className="absolute -right-4 top-1/4 z-20 bg-white p-4 rounded-2xl shadow-xl border border-latte-200 animate-bounce-slow">
+              <div className="absolute right-0 sm:-right-4 top-1/4 z-20 bg-white p-4 rounded-2xl shadow-xl border border-latte-200 animate-bounce-slow">
                 <div className="flex items-center gap-3">
                   <div className="bg-gold-500 p-2 rounded-lg text-white">
                     <Gift size={24} />

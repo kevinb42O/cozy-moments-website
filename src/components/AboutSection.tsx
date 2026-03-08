@@ -26,7 +26,7 @@ const features = [
 
 const AboutSection = () => {
   return (
-    <section className="py-24 bg-latte-100 relative overflow-hidden">
+    <section className="pt-24 pb-0 bg-latte-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Image Grid */}
@@ -43,7 +43,7 @@ const AboutSection = () => {
               className="rounded-2xl shadow-xl w-full h-64 object-cover mt-12"
             />
             <img 
-              src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+              src="/inspi6.png" 
               alt="Cozy interior" 
               className="rounded-2xl shadow-xl w-full h-64 object-cover"
             />

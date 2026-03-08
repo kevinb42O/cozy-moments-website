@@ -14,7 +14,7 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-[90vh] flex items-center justify-center overflow-hidden">
+    <section ref={ref} className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-coffee-900">
       {/* Background Image with Overlay */}
       <motion.div 
         style={{ y, opacity }}
@@ -61,7 +61,7 @@ const Hero = () => {
             to="/menu"
             className="group relative px-8 py-4 bg-gold-500 text-coffee-900 font-medium uppercase tracking-widest hover:bg-latte-100 transition-colors duration-300 overflow-hidden rounded-full"
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center justify-center gap-2">
               Bekijk Drankkaart <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </span>
           </Link>
@@ -72,13 +72,6 @@ const Hero = () => {
             Vind Ons
           </Link>
         </motion.div>
-      </div>
-
-      {/* Wave transition to next section */}
-      <div className="absolute bottom-0 left-0 right-0 z-20">
-        <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
-          <path d="M0,45 C240,62 480,22 720,50 C960,68 1200,28 1440,44 L1440,90 L0,90 Z" fill="#F5F0EB" />
-        </svg>
       </div>
     </section>
   );

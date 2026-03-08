@@ -41,7 +41,7 @@ const LoyaltySection = () => {
               <motion.div 
                 animate={{ y: [0, 5, 0], rotate: [0, 5, 0] }}
                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="absolute -top-6 -right-6 bg-gold-500 text-coffee-900 p-3 rounded-xl shadow-xl flex items-center gap-2 z-20"
+                className="absolute -top-4 right-2 sm:-top-6 sm:-right-6 bg-gold-500 text-coffee-900 p-3 rounded-xl shadow-xl flex items-center gap-2 z-20"
               >
                 <div className="bg-white/20 p-1.5 rounded-full">
                   <Star size={16} fill="currentColor" />

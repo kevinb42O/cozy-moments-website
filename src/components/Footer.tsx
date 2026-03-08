@@ -4,72 +4,124 @@ import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CLEAN, ADDRESS_LINE_1, ADDR
 
 const Footer = () => {
   return (
-    <footer className="bg-coffee-900 text-latte-200 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+    <footer className="bg-coffee-900 text-latte-200">
+      {/* Subtle top border accent */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-14 pb-6">
+
+        {/* Main grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-10">
+
           {/* Brand */}
-          <div className="space-y-4 text-center md:text-left">
-            <div className="inline-flex flex-col items-end leading-none mx-auto md:mx-0">
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <div className="inline-flex flex-col items-end leading-none">
               <span className="font-rounded font-extrabold text-4xl text-latte-100 tracking-tight">COZY</span>
               <span className="font-script text-2xl text-latte-200 -mt-2 mr-1">Moments</span>
             </div>
-            <p className="text-sm leading-relaxed opacity-80 max-w-xs mx-auto md:mx-0 pt-2">
+            <p className="text-sm leading-relaxed opacity-70 max-w-[260px] text-center md:text-left">
               Een plek waar gezelligheid, warmte en oprechte verbinding altijd op de eerste plaats komen.
             </p>
-            <div className="flex justify-center md:justify-start gap-4 pt-2">
-              <a href="https://www.instagram.com/cozymoments_blankenberge/" target="_blank" rel="noopener noreferrer" className="hover:text-gold-500 transition-colors"><Instagram size={20} /></a>
-              <a href="https://www.facebook.com/profile.php?id=61576070607157&locale=nl_NL" target="_blank" rel="noopener noreferrer" className="hover:text-gold-500 transition-colors"><Facebook size={20} /></a>
+            <div className="flex items-center gap-3 pt-1">
+              <a
+                href="https://www.instagram.com/cozymoments_blankenberge/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-latte-200 hover:border-gold-500 hover:text-gold-500 transition-all duration-200"
+              >
+                <Instagram size={16} />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61576070607157&locale=nl_NL"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-latte-200 hover:border-gold-500 hover:text-gold-500 transition-all duration-200"
+              >
+                <Facebook size={16} />
+              </a>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="text-center">
-            <h4 className="font-serif text-lg text-latte-100 mb-6">Navigatie</h4>
-            <ul className="space-y-3 text-sm uppercase tracking-wider">
-              <li><Link to="/" className="hover:text-gold-500 transition-colors">Home</Link></li>
-              <li><Link to="/menu" className="hover:text-gold-500 transition-colors">Drankkaart</Link></li>
-              <li><Link to="/inspiration" className="hover:text-gold-500 transition-colors">Inspiratie</Link></li>
-              <li><Link to="/about" className="hover:text-gold-500 transition-colors">Over Ons</Link></li>
-              <li><Link to="/info" className="hover:text-gold-500 transition-colors">Contact</Link></li>
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Navigatie</h4>
+            <ul className="space-y-2.5 text-sm">
+              {[
+                { to: '/', label: 'Home' },
+                { to: '/menu', label: 'Drankkaart' },
+                { to: '/inspiration', label: 'Inspiratie' },
+                { to: '/about', label: 'Over Ons' },
+                { to: '/info', label: 'Contact' },
+              ].map(({ to, label }) => (
+                <li key={to}>
+                  <Link
+                    to={to}
+                    className="opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
-          <div className="text-center md:text-right space-y-4">
-            <h4 className="font-serif text-lg text-latte-100 mb-6">Contact</h4>
-            <div className="flex flex-col items-center md:items-end gap-3 text-sm opacity-80">
-              <a href={`https://maps.google.com/?q=${encodeURIComponent(ADDRESS_LINE_1 + ', ' + ADDRESS_LINE_2)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-gold-500 transition-colors">
-                <span>{ADDRESS_LINE_1}, {ADDRESS_LINE_2}</span>
-                <MapPin size={16} />
-              </a>
-              <a href={`tel:${CONTACT_PHONE_CLEAN}`} className="flex items-center gap-2 hover:text-gold-500 transition-colors">
-                <span>{CONTACT_PHONE}</span>
-                <Phone size={16} />
-              </a>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-2 hover:text-gold-500 transition-colors">
-                <span>{CONTACT_EMAIL}</span>
-                <Mail size={16} />
-              </a>
-            </div>
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Contact</h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(ADDRESS_LINE_1 + ', ' + ADDRESS_LINE_2)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2.5 opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                >
+                  <MapPin size={15} className="mt-0.5 shrink-0" />
+                  <span>{ADDRESS_LINE_1}<br />{ADDRESS_LINE_2}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${CONTACT_PHONE_CLEAN}`}
+                  className="flex items-center gap-2.5 opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                >
+                  <Phone size={15} className="shrink-0" />
+                  <span>{CONTACT_PHONE}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="flex items-center gap-2.5 opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                >
+                  <Mail size={15} className="shrink-0" />
+                  <span>{CONTACT_EMAIL}</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-coffee-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs opacity-60 uppercase tracking-widest">
-          <p>&copy; {new Date().getFullYear()} COZY Moments. All rights reserved.</p>
-          <a 
-            href="https://www.webaanzee.be" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="group flex items-center gap-1 hover:opacity-100 transition-opacity"
+        {/* Bottom bar */}
+        <div className="border-t border-white/8 pt-5 flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] opacity-45">
+          <p>&copy; {new Date().getFullYear()} COZY Moments. Alle rechten voorbehouden.</p>
+          <a
+            href="https://www.webaanzee.be"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-80 transition-opacity"
           >
-            <span>Website realisatie door</span>
-            <span className="font-bold">
-              <span className="text-white">Web</span>
-              <span className="text-amber-500">aan</span>
-              <span className="text-white">Zee.be</span>
+            Website door{' '}
+            <span className="font-semibold">
+              <span className="text-white/70">Web</span>
+              <span className="text-amber-500/70">aan</span>
+              <span className="text-white/70">Zee.be</span>
             </span>
           </a>
         </div>
+
       </div>
     </footer>
   );
