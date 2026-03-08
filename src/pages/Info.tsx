@@ -22,7 +22,7 @@ const Info = () => {
         title="Contact & Info"
         subtitle="Altijd Welkom"
         description="Heb je een vraag, wil je reserveren of gewoon even hallo zeggen? We horen graag van je."
-        imageSrc="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+        imageSrc="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
       />
 
       {/* Main Content */}

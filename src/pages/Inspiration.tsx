@@ -16,7 +16,7 @@ const images = [
 
 const Inspiration = () => {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-latte-100 min-h-screen">
       <SEO 
         title="Inspiratie & Sfeer | COZY Moments"
         description="Bekijk sfeerbeelden van COZY Moments. Een impressie van onze gezellige koffiebar en lounge in Blankenberge."
@@ -39,13 +39,15 @@ const Inspiration = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.5, delay: Math.min(idx * 0.08, 0.4) }}
               className="group relative aspect-square overflow-hidden rounded-2xl shadow-md cursor-pointer"
             >
               <img
                 src={src}
-                alt={`Inspiration ${idx + 1}`}
+                alt={`Sfeerbeeld COZY Moments Blankenberge ${idx + 1}`}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-coffee-900/0 group-hover:bg-coffee-900/20 transition-colors duration-300" />
             </motion.div>

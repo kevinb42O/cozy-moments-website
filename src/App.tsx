@@ -3,10 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import { AnimatePresence } from 'motion/react';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+};
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -15,6 +21,8 @@ const Inspiration = lazy(() => import('./pages/Inspiration'));
 const About = lazy(() => import('./pages/About'));
 const Info = lazy(() => import('./pages/Info'));
 const Loyalty = lazy(() => import('./pages/Loyalty'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-screen bg-latte-100 text-coffee-900">
@@ -35,6 +43,8 @@ const AnimatedRoutes = () => {
             <Route path="/about" element={<About />} />
             <Route path="/info" element={<Info />} />
             <Route path="/klantenkaart" element={<Loyalty />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </div>
@@ -45,6 +55,7 @@ const AnimatedRoutes = () => {
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <AnimatedRoutes />
       </Layout>

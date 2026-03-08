@@ -28,7 +28,7 @@ const Home = () => {
       </div>
       <AboutSection />
       {/* Smooth gradient transition between latte-100 and latte-200 */}
-      <div className="h-24 bg-gradient-to-b from-latte-100 to-latte-200" />
+      <div className="h-24 bg-linear-to-b from-latte-100 to-latte-200" />
       <MenuSection />
       <LoyaltySection />
       <InfoSection />

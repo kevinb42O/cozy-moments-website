@@ -23,6 +23,60 @@
 
     <!-- Preload Hero Image for LCP -->
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#1A2E2A" />
+
+    <!-- JSON-LD Structured Data: LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CafeOrCoffeeShop",
+      "name": "COZY Moments",
+      "url": "https://cozy-moments.be",
+      "telephone": "+3250731616",
+      "email": "info@cozy-moments.be",
+      "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "priceRange": "€€",
+      "servesCuisine": ["Koffie", "Cocktails", "Belgisch bier"],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Grote Markt 2/0002",
+        "addressLocality": "Blankenberge",
+        "postalCode": "8370",
+        "addressCountry": "BE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.3133,
+        "longitude": 3.1322
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday"],
+          "opens": "10:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Thursday", "Friday", "Saturday"],
+          "opens": "10:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Sunday"],
+          "opens": "12:00",
+          "closes": "22:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/cozymoments_blankenberge/",
+        "https://www.facebook.com/profile.php?id=61576070607157"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

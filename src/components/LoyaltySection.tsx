@@ -139,6 +139,7 @@ const PhoneMockup = () => {
             <button
               key={i}
               onClick={() => setIndex(i)}
+              aria-label={`Toon klantenkaart afbeelding ${i + 1}`}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 i === index ? 'bg-gold-500 w-4' : 'bg-white/50'
               }`}

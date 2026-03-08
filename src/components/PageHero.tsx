@@ -21,40 +21,50 @@ const PageHero = ({ title, subtitle, description, imageSrc, imagePosition = 'obj
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <div ref={ref} className="relative h-[50vh] min-h-100 overflow-hidden flex items-center justify-center pt-20">
-      {/* Parallax Background Image */}
-      <motion.div 
-        style={{ y, opacity }}
-        className="absolute inset-0 z-0"
-      >
-        <img
-          src={imageSrc}
-          alt={title}
-          className={`w-full h-full object-cover ${imagePosition}`}
-        />
-        <div className="absolute inset-0 bg-coffee-900/60" /> {/* Dark overlay for text readability */}
-      </motion.div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+    <>
+      <div ref={ref} className="relative h-[50vh] min-h-100 overflow-hidden flex items-center justify-center pt-20">
+        {/* Parallax Background Image */}
+        <motion.div 
+          style={{ y, opacity }}
+          className="absolute inset-0 z-0"
         >
-          <span className="inline-block px-4 py-1.5 mb-4 border border-gold-500/30 rounded-full text-gold-500 text-sm font-bold uppercase tracking-widest bg-gold-500/10 backdrop-blur-sm font-sans shadow-sm">
-            {subtitle}
-          </span>
-          <h1 className="text-5xl md:text-7xl font-rounded font-extrabold text-latte-100 mb-6 tracking-tight drop-shadow-lg">
-            {title}
-          </h1>
-          <p className="text-latte-100/90 text-lg max-w-xl mx-auto font-sans leading-relaxed drop-shadow-md font-medium">
-            {description}
-          </p>
-          {children && <div className="mt-8">{children}</div>}
+          <img
+            src={imageSrc}
+            alt={title}
+            className={`w-full h-full object-cover ${imagePosition}`}
+            loading="eager"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-coffee-900/60" /> {/* Dark overlay for text readability */}
         </motion.div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <span className="inline-block px-4 py-1.5 mb-4 border border-gold-500/30 rounded-full text-gold-500 text-sm font-bold uppercase tracking-widest bg-gold-500/10 backdrop-blur-sm font-sans shadow-sm">
+              {subtitle}
+            </span>
+            <h1 className="text-5xl md:text-7xl font-rounded font-extrabold text-latte-100 mb-6 tracking-tight drop-shadow-lg">
+              {title}
+            </h1>
+            <p className="text-latte-100/90 text-lg max-w-xl mx-auto font-sans leading-relaxed drop-shadow-md font-medium">
+              {description}
+            </p>
+            {children && <div className="mt-8">{children}</div>}
+          </motion.div>
+        </div>
       </div>
-    </div>
+      {/* Wave divider — matches homepage hero wave */}
+      <div className="relative z-10 -mt-5.5 md:-mt-28 pointer-events-none">
+        <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
+          <path d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z" fill="#F5F0EB" />
+        </svg>
+      </div>
+    </>
   );
 };
 

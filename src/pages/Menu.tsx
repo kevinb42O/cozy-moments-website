@@ -241,8 +241,7 @@ const menuCategories = [
       { name: "Cava Brisa Nova Fles", price: "€ 35,00" },
       { name: "Champagne Charles Latour Glas", price: "€ 12,50" },
       { name: "Champagne Charles Latour Fles", price: "€ 62,00" },
-      { name: "Champagne Barbichon", price: "" },
-      { name: "Champagne Barbichon", price: "" },
+      { name: "Champagne Barbichon", price: "Op aanvraag" },
       { name: "Champagne Vranken Fles", price: "€ 49,00" },
     ]
   },
@@ -317,7 +316,7 @@ const Menu = () => {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="scroll-mt-32 bg-white p-8 rounded-3xl shadow-sm border border-white/50"
             >
-              <h2 className="text-3xl font-rounded font-bold text-coffee-800 mb-8 border-b border-coffee-100 pb-4 inline-block pr-12">
+              <h2 className="text-3xl font-rounded font-extrabold tracking-tight text-coffee-800 mb-8 border-b border-coffee-100 pb-4 inline-block pr-12">
                 {category.title}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">

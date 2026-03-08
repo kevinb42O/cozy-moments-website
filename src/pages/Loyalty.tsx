@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
-import { ArrowRight, Gift, Coffee, Wine, Beer, Star, ExternalLink } from 'lucide-react';
+import { ArrowRight, Coffee, Wine, Beer, Star, ExternalLink, Droplets } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { LOYALTY_APP_URL } from '../constants';
@@ -49,18 +49,6 @@ const Loyalty = () => {
                 </div>
               </motion.div>
 
-              {/* Floating Badge */}
-              <div className="absolute right-0 sm:-right-4 top-1/4 z-20 bg-white p-4 rounded-2xl shadow-xl border border-latte-200 animate-bounce-slow">
-                <div className="flex items-center gap-3">
-                  <div className="bg-gold-500 p-2 rounded-lg text-white">
-                    <Gift size={24} />
-                  </div>
-                  <div>
-                    <p className="font-rounded font-bold text-coffee-900">Gratis Drankje</p>
-                    <p className="text-xs text-coffee-600 font-sans">Bij een volle kaart</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
 
@@ -90,17 +78,24 @@ const Loyalty = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="bg-latte-200 text-coffee-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">3</span>
-                  <span>Spaar punten voor gratis koffie, wijn of bier!</span>
+                  <span>Spaar punten voor gratis koffie, frisdrank, wijn of bier!</span>
                 </li>
               </ul>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="bg-white p-4 rounded-2xl shadow-sm border border-white/50 text-center">
                 <div className="bg-coffee-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 text-coffee-800">
                   <Coffee size={24} />
                 </div>
                 <p className="font-rounded font-bold text-coffee-900">Koffie</p>
+                <p className="text-xs text-coffee-600">10 stempels</p>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-white/50 text-center">
+                <div className="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 text-blue-500">
+                  <Droplets size={24} />
+                </div>
+                <p className="font-rounded font-bold text-coffee-900">Frisdrank</p>
                 <p className="text-xs text-coffee-600">10 stempels</p>
               </div>
               <div className="bg-white p-4 rounded-2xl shadow-sm border border-white/50 text-center">
@@ -117,6 +112,15 @@ const Loyalty = () => {
                 <p className="font-rounded font-bold text-coffee-900">Bier</p>
                 <p className="text-xs text-coffee-600">10 stempels</p>
               </div>
+            </div>
+
+            {/* Welkomstbonus */}
+            <div className="flex items-start gap-3 bg-gold-500/10 border border-gold-500/30 rounded-2xl px-5 py-4">
+              <Star size={18} className="text-gold-500 fill-gold-500 shrink-0 mt-0.5" />
+              <p className="text-sm text-coffee-800 font-sans leading-relaxed">
+                <span className="font-bold text-coffee-900">Welkomstbonus:</span> bij het aanmaken van een nieuwe klantenkaart ontvang je eenmalig{' '}
+                <span className="font-bold text-gold-600">2 gratis stempels</span>.
+              </p>
             </div>
 
             <div className="pt-4 flex flex-col sm:items-start gap-4">
@@ -180,6 +184,7 @@ const PhoneCarousel = () => {
           <button
             key={i}
             onClick={() => setIndex(i)}
+            aria-label={`Toon klantenkaart afbeelding ${i + 1}`}
             className={`h-2 rounded-full transition-all duration-300 ${
               i === index ? 'bg-gold-500 w-4' : 'bg-white/50 w-2'
             }`}

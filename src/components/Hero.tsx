@@ -22,8 +22,10 @@ const Hero = () => {
       >
         <img
           src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-          alt="Cozy cafe atmosphere"
+          alt="Sfeervolle koffiebar bij COZY Moments in Blankenberge"
           className="w-full h-full object-cover"
+          fetchPriority="high"
+          decoding="sync"
         />
         <div className="absolute inset-0 bg-linear-to-b from-coffee-900/60 via-coffee-900/40 to-coffee-900/80" />
       </motion.div>

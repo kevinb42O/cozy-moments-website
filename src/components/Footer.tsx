@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-coffee-900 text-latte-200">
       {/* Subtle top border accent */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" />
+      <div className="h-px bg-linear-to-r from-transparent via-gold-500/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-14 pb-6">
 
@@ -54,6 +54,7 @@ const Footer = () => {
                 { to: '/inspiration', label: 'Inspiratie' },
                 { to: '/about', label: 'Over Ons' },
                 { to: '/info', label: 'Contact' },
+                { to: '/privacy', label: 'Privacybeleid' },
               ].map(({ to, label }) => (
                 <li key={to}>
                   <Link

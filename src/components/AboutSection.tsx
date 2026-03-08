@@ -39,13 +39,17 @@ const AboutSection = () => {
           >
             <img 
               src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-              alt="Coffee detail" 
+              alt="Koffiedetail" 
               className="rounded-2xl shadow-xl w-full h-64 object-cover mt-12"
+              loading="lazy"
+              decoding="async"
             />
             <img 
               src="/inspi6.png" 
-              alt="Cozy interior" 
+              alt="Gezellig interieur van COZY Moments" 
               className="rounded-2xl shadow-xl w-full h-64 object-cover"
+              loading="lazy"
+              decoding="async"
             />
             {/* Decorative Element */}
             <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-coffee-200/20 rounded-full blur-3xl" />

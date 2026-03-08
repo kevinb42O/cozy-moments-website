@@ -112,7 +112,9 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`md:hidden relative z-10 p-2 rounded-full transition-colors duration-300 ${getTextColor(isOpen, useWhiteText, 'text-latte-100 hover:bg-white/10', 'text-coffee-800 hover:bg-black/5')}`}
-              aria-label="Toggle menu"
+              aria-label={isOpen ? 'Sluit menu' : 'Open menu'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               <AnimatePresence mode="wait">
                 {isOpen ? (
@@ -145,6 +147,7 @@ const Navbar = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              id="mobile-menu"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
