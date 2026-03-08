@@ -6,7 +6,7 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, MotionConfig } from 'motion/react';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -54,11 +54,13 @@ const AnimatedRoutes = () => {
 
 export default function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Layout>
-        <AnimatedRoutes />
-      </Layout>
-    </Router>
+    <MotionConfig reducedMotion="user">
+      <Router>
+        <ScrollToTop />
+        <Layout>
+          <AnimatedRoutes />
+        </Layout>
+      </Router>
+    </MotionConfig>
   );
 }
