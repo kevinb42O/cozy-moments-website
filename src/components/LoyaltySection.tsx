@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
-import { Smartphone, Star, Coffee, Gift, QrCode } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect } from 'react';
+import { Smartphone, Star, Gift } from 'lucide-react';
 import { LOYALTY_APP_URL } from '../constants';
 
 const LoyaltySection = () => {
@@ -87,95 +88,78 @@ const LoyaltySection = () => {
           </motion.div>
 
           {/* Visual/Phone Mockup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex justify-center lg:justify-end"
-          >
-            <div className="relative w-72 h-125 bg-[#F9F9F7] rounded-[3rem] border-8 border-coffee-900 shadow-2xl overflow-hidden">
-              {/* Screen Content */}
-              <div className="absolute inset-0 bg-[#F9F9F7] flex flex-col pt-12 px-4 overflow-hidden">
-                
-                {/* Header */}
-                <div className="flex justify-between items-center mb-6 px-2">
-                   <div className="flex flex-col items-start leading-none">
-                      <span className="font-rounded font-extrabold text-xl text-gray-900 tracking-tight">COZY</span>
-                      <span className="font-script text-sm text-gray-600 -mt-1 mr-0.5">Moments</span>
-                    </div>
-                   <div className="w-8 h-8 rounded-full bg-[#E8E6DE] flex items-center justify-center text-[#8C8A80] font-serif text-sm">k</div>
-                </div>
-
-                {/* Koffie Kaart Preview */}
-                <div className="bg-white rounded-3xl p-4 shadow-sm mb-4 transform scale-95 origin-top">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#5C4033] flex items-center justify-center text-white shrink-0">
-                        <Coffee size={18} />
-                      </div>
-                      <div>
-                        <h3 className="font-serif text-lg text-gray-800">Koffie Kaart</h3>
-                        <p className="text-[8px] font-bold text-gray-400 uppercase tracking-widest">COZY MOMENTS</p>
-                      </div>
-                    </div>
-                    <div className="px-2 py-0.5 rounded-full bg-[#E8E6DE] text-[#8C8A80] text-xs font-bold">
-                      2/10
-                    </div>
-                  </div>
-
-                  {/* Stamps Grid */}
-                  <div className="grid grid-cols-5 gap-2 mb-2">
-                    {Array.from({ length: 10 }, (_, i) => {
-                      let stamp;
-                      if (i < 2) {
-                        stamp = (
-                          <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white shadow-sm">
-                            <Gift size={14} />
-                          </div>
-                        );
-                      } else if (i === 9) {
-                        stamp = (
-                          <div className="w-8 h-8 rounded-full bg-[#F5F5F0] border border-[#E8E6DE] flex items-center justify-center">
-                            <span className="text-[8px] text-[#C0BEB5] font-medium">Gratis</span>
-                          </div>
-                        );
-                      } else {
-                        stamp = (
-                          <div className="w-8 h-8 rounded-full bg-[#F5F5F0] border border-[#E8E6DE] flex items-center justify-center text-[#DCDAD4]">
-                            <Coffee size={12} />
-                          </div>
-                        );
-                      }
-                      return (
-                        <div key={`stamp-${i}`} className="flex justify-center">
-                          {stamp}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                 {/* Floating Action Button Preview */}
-                <div className="absolute bottom-6 left-0 right-0 px-6 flex justify-center">
-                  <div className="bg-white text-gray-900 w-full py-3 rounded-4xl shadow-lg flex items-center justify-center gap-2 border border-gray-100">
-                    <QrCode size={18} className="text-gray-800" />
-                    <span className="font-sans text-sm font-medium tracking-wide">Scan QR Code</span>
-                  </div>
-                </div>
-
-              </div>
-              
-              {/* Phone Notch */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-coffee-900 rounded-b-xl" />
-            </div>
-            
-            {/* Floating Elements */}
-          </motion.div>
-
+          <PhoneMockup />
         </div>
       </div>
     </section>
+  );
+};
+
+const images = ['/klantenkaart1.png', '/klantenkaart2.png'];
+
+const PhoneMockup = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % images.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
+      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="relative flex justify-center lg:justify-end"
+    >
+      <div className="relative w-72 h-125 rounded-[3rem] border-8 border-coffee-900 shadow-2xl overflow-hidden bg-coffee-900">
+        {/* Phone Notch */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-coffee-900 rounded-b-xl z-20" />
+
+        {/* Crossfading images */}
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={index}
+            src={images[index]}
+            alt={`Klantenkaart ${index + 1}`}
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+          />
+        </AnimatePresence>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i === index ? 'bg-gold-500 w-4' : 'bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Gratis drankje badge */}
+      <motion.div
+        animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
+        transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+        className="absolute -bottom-4 -right-6 z-30 bg-white rounded-2xl shadow-2xl px-4 py-3 border border-latte-200 flex items-center gap-3 max-w-[180px]"
+      >
+        <div className="text-2xl">🎁</div>
+        <div>
+          <p className="font-rounded font-bold text-coffee-900 text-sm leading-tight">Gratis drankje</p>
+          <p className="text-[11px] text-coffee-700 leading-tight">bij een volle kaart!</p>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

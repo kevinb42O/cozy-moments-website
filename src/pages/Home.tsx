@@ -1,5 +1,4 @@
 import Hero from '../components/Hero';
-import WaveDivider from '../components/WaveDivider';
 import AboutSection from '../components/AboutSection';
 import MenuSection from '../components/MenuSection';
 import InfoSection from '../components/InfoSection';
@@ -21,7 +20,6 @@ const Home = () => {
         canonical="https://cozy-moments.be/"
       />
       <Hero />
-      <WaveDivider />
       <AboutSection />
       <MenuSection />
       <LoyaltySection />

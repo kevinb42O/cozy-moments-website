@@ -74,7 +74,12 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator - Removed as per user request */}
+      {/* Wave transition to next section */}
+      <div className="absolute bottom-0 left-0 right-0 z-20">
+        <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
+          <path d="M0,45 C240,62 480,22 720,50 C960,68 1200,28 1440,44 L1440,90 L0,90 Z" fill="#F5F0EB" />
+        </svg>
+      </div>
     </section>
   );
 };

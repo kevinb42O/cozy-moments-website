@@ -6,10 +6,11 @@ interface PageHeroProps {
   subtitle: string;
   description: string;
   imageSrc: string;
+  imagePosition?: string;
   children?: ReactNode;
 }
 
-const PageHero = ({ title, subtitle, description, imageSrc, children }: PageHeroProps) => {
+const PageHero = ({ title, subtitle, description, imageSrc, imagePosition = 'object-center', children }: PageHeroProps) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -29,7 +30,7 @@ const PageHero = ({ title, subtitle, description, imageSrc, children }: PageHero
         <img
           src={imageSrc}
           alt={title}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover ${imagePosition}`}
         />
         <div className="absolute inset-0 bg-coffee-900/60" /> {/* Dark overlay for text readability */}
       </motion.div>

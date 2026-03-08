@@ -3,12 +3,15 @@ import SEO from '../components/SEO';
 import PageHero from '../components/PageHero';
 
 const images = [
-  "https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1529003600303-bd51f39627fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  "/inspi1.jpg",
+  "/inspi2.jpg",
+  "/inspi3.jpg",
+  "/inspi4.jpg",
+  "/inspi5.png",
+  "/inspi6.png",
+  "/inspi7.webp",
+  "/inspi8.png",
+  "/inspi9.png"
 ];
 
 const Inspiration = () => {

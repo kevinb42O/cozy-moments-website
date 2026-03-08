@@ -7,12 +7,12 @@
   --font-rounded: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Allura", cursive;
 
-  --color-coffee-900: #2C2420;
-  --color-coffee-800: #4A3B32;
-  --color-coffee-700: #6D584C;
+  --color-coffee-900: #1A2E2A;
+  --color-coffee-800: #2D4A42;
+  --color-coffee-700: #4D7A6A;
   --color-latte-100: #F5F0EB;
   --color-latte-200: #E8DED5;
-  --color-gold-500: #C8A165;
+  --color-gold-500: #B8975A;
 }
 
 body {

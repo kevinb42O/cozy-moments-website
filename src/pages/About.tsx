@@ -20,7 +20,8 @@ const About = () => {
         title="Over Ons"
         subtitle="Het Verhaal"
         description="Het verhaal achter COZY moments"
-        imageSrc="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+        imageSrc="/sixtine.jpeg"
+        imagePosition="object-right"
       />
       
       <section className="py-24 bg-white relative z-20 -mt-20 rounded-t-[3rem]">
@@ -36,7 +37,7 @@ const About = () => {
             >
               <div className="aspect-3/4 rounded-2xl overflow-hidden shadow-xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  src="/sixtinefoto.jpg" 
                   alt="Sixtine in COZY moments" 
                   className="w-full h-full object-cover"
                 />
@@ -62,20 +63,20 @@ const About = () => {
                   <p>
                     Midden juli 2025 opende ik de Sixtine's, maar na enkele maanden besefte ik dat het meer was dan alleen 'mijn' plekje.
                     Het was er echt cozy... en zo ontstond 
-                    <span className="inline-flex flex-col items-start leading-none align-middle mx-1.5 translate-y-2">
+                    <span className="inline-flex items-baseline gap-1 align-baseline mx-1">
                         <span className="font-rounded font-extrabold text-lg text-coffee-900 tracking-tight">COZY</span>
-                        <span className="font-script text-sm text-coffee-800 -mt-1">Moments</span>
+                        <span className="font-script text-xl text-coffee-800">Moments</span>
                     </span>.
                   </p>
                   <p>
-                    De COZY is mijn manier om momenten van intens geluk te delen.
+                    De <span className="font-rounded font-extrabold text-coffee-900 tracking-tight">COZY</span> is mijn manier om momenten van intens geluk te delen.
                     Ik ben een vrolijke, enthousiaste meid en dat probeer ik over te dragen met een 'Big Smile' en een flinke dosis pure gekkigheid.
                   </p>
                   <p className="font-medium text-coffee-900 italic border-l-4 border-gold-500 pl-4">
                     "Hier kan je helemaal jezelf zijn, ontspannen en genieten van gezellige verbinding."
                   </p>
                   <p>
-                    Mijn ouders zorgen dagelijks voor extra sfeer en gezelligheid en ook mijn vaste vriendjes (klanten) dragen bij aan de fijne momenten die de COZY zo bijzonder maken.
+                    Mijn ouders zorgen dagelijks voor extra sfeer en gezelligheid en ook mijn vaste vriendjes (klanten) dragen bij aan de fijne momenten die de <span className="font-rounded font-extrabold text-coffee-900 tracking-tight">COZY</span> zo bijzonder maken.
                   </p>
                   <p>
                     Samen creëren we een plek waar warmte, lachen en samenzijn op de eerste plaats komen.

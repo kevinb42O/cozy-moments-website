@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect } from 'react';
 import { ArrowRight, Gift, Coffee, Wine, Beer, Star, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
@@ -19,16 +20,7 @@ const Loyalty = () => {
         subtitle="Spaar mee"
         description="Bij COZY moments belonen we graag onze trouwe klanten. Spaar voor gratis drankjes en geniet van exclusieve voordelen."
         imageSrc="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      >
-        <a 
-          href={LOYALTY_APP_URL}
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-gold-500 text-white font-bold uppercase tracking-widest hover:bg-gold-600 transition-colors duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-sans"
-        >
-          Open Klantenkaart <ExternalLink size={18} />
-        </a>
-      </PageHero>
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
@@ -42,12 +34,21 @@ const Loyalty = () => {
           >
             <div className="relative w-full max-w-sm">
               <div className="absolute inset-0 bg-gold-500/20 rounded-full blur-3xl transform scale-90 translate-y-4" />
-              <img 
-                src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="COZY moments Loyalty App" 
-                className="relative z-10 rounded-[2.5rem] shadow-2xl border-8 border-white w-full h-auto object-cover aspect-9/19"
-              />
-              
+              <PhoneCarousel />
+
+              {/* Gratis drankje badge */}
+              <motion.div
+                animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+                className="absolute -bottom-4 -right-4 z-30 bg-white rounded-2xl shadow-2xl px-4 py-3 border border-latte-200 flex items-center gap-3"
+              >
+                <div className="text-2xl">🎁</div>
+                <div>
+                  <p className="font-rounded font-bold text-coffee-900 text-sm leading-tight">Gratis drankje</p>
+                  <p className="text-[11px] text-coffee-700 leading-tight">bij een volle kaart!</p>
+                </div>
+              </motion.div>
+
               {/* Floating Badge */}
               <div className="absolute -right-4 top-1/4 z-20 bg-white p-4 rounded-2xl shadow-xl border border-latte-200 animate-bounce-slow">
                 <div className="flex items-center gap-3">
@@ -145,3 +146,46 @@ const Loyalty = () => {
 };
 
 export default Loyalty;
+
+const loyaltyImages = ['/klantenkaart1.png', '/klantenkaart2.png'];
+
+const PhoneCarousel = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % loyaltyImages.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="relative z-10 rounded-[2.5rem] shadow-2xl border-8 border-white overflow-hidden w-full aspect-9/19 bg-coffee-900">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={index}
+          src={loyaltyImages[index]}
+          alt={`Klantenkaart ${index + 1}`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
+        />
+      </AnimatePresence>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+        {loyaltyImages.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === index ? 'bg-gold-500 w-4' : 'bg-white/50 w-2'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};

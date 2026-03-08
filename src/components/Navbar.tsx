@@ -66,11 +66,17 @@ const Navbar = () => {
         <div className="px-6 py-3 sm:px-8 sm:py-4">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 group z-10 relative">
-              <div className="flex flex-col items-end leading-none">
-                <span className={`font-rounded font-extrabold text-3xl tracking-tight transition-colors duration-300 ${getTextColor(isOpen, useWhiteText, 'text-latte-100', 'text-coffee-900')}`}>COZY</span>
-                <span className={`font-script text-xl -mt-2 mr-1 transition-colors duration-300 ${getTextColor(isOpen, useWhiteText, 'text-latte-200', 'text-coffee-800')}`}>Moments</span>
-              </div>
+            <Link to="/" className="flex items-center z-10 relative h-10 w-32">
+              <img
+                src="/cozy_logo_wit.png"
+                alt="COZY Moments"
+                className={`absolute inset-0 h-10 w-auto object-contain transition-opacity duration-500 ${useWhiteText && !isOpen ? 'opacity-100' : 'opacity-0'}`}
+              />
+              <img
+                src="/cozy_logo.png"
+                alt="COZY Moments"
+                className={`absolute inset-0 h-10 w-auto object-contain transition-opacity duration-500 ${useWhiteText && !isOpen ? 'opacity-0' : 'opacity-100'}`}
+              />
             </Link>
 
             {/* Desktop Menu */}
