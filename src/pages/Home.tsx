@@ -20,12 +20,18 @@ const Home = () => {
         canonical="https://cozy-moments.be/"
       />
       <Hero />
-      <AboutSection />
-      {/* Smooth gradient transition between latte-100 and latte-200 */}
-      <div className="h-24 bg-linear-to-b from-latte-100 to-latte-200" />
-      <MenuSection />
-      <LoyaltySection />
-      <InfoSection />
+      <div className="-mt-px">
+        <AboutSection />
+      </div>
+      <div className="-mt-px">
+        <MenuSection />
+      </div>
+      <div className="-mt-px">
+        <LoyaltySection />
+      </div>
+      <div className="-mt-px">
+        <InfoSection />
+      </div>
     </motion.div>
   );
 };

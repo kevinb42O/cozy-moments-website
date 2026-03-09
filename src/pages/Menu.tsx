@@ -1,10 +1,17 @@
 import { motion } from 'motion/react';
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import SEO from '../components/SEO';
 import PageHero from '../components/PageHero';
 
-const menuCategories = [
+const ease: [number, number, number, number] = [0.76, 0, 0.24, 1];
+
+const menuCategories: {
+  id: string;
+  title: string;
+  items: { name: string; price: string; desc?: string; isExtra?: boolean }[];
+  note?: string;
+}[] = [
   {
     id: "koffie-choco-melk",
     title: "Koffie, Choco & Melk",
@@ -275,6 +282,8 @@ const menuCategories = [
 
 const Menu = () => {
   const { hash } = useLocation();
+  const [activeId, setActiveId] = useState(menuCategories[0].id);
+  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (hash) {
@@ -289,75 +298,150 @@ const Menu = () => {
     }
   }, [hash]);
 
+  // Intersection observer → highlight active category in sticky nav
+  useEffect(() => {
+    const ids = menuCategories.map((c) => c.id);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  // Scroll nav pill into view when active changes
+  useEffect(() => {
+    if (!navRef.current) return;
+    const btn = navRef.current.querySelector(`[data-cat="${activeId}"]`);
+    if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }, [activeId]);
+
   return (
     <div className="bg-latte-100 min-h-screen">
-      <SEO 
+      <SEO
         title="Drankkaart | COZY Moments Blankenberge"
         description="Bekijk onze uitgebreide drankkaart met koffie, thee, wijnen, bieren en cocktails. Geniet van een heerlijk moment bij COZY Moments."
         canonical="https://cozy-moments.be/menu"
       />
-      {/* Hero Header */}
       <PageHero
         title="Drankkaart"
         subtitle="Onze Kaart"
-        description="Geniet van onze zorgvuldig samengestelde selectie dranken. Van de perfecte koffie tot een verfrissend aperitief."
+        description="Geniet van onze zorgvuldig samengestelde selectie dranken."
         imageSrc="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20 pb-12">
-        <div className="space-y-16">
-          {menuCategories.map((category, idx) => (
+      {/* ── Sticky category nav ── */}
+      <div className="sticky top-20 sm:top-24 z-40 bg-latte-100/80 backdrop-blur-xl border-b border-coffee-900/5">
+        <div
+          ref={navRef}
+          className="max-w-6xl mx-auto px-4 flex gap-2 overflow-x-auto scrollbar-hide py-3"
+        >
+          {menuCategories.map((cat) => (
+            <button
+              key={cat.id}
+              data-cat={cat.id}
+              onClick={() => {
+                document.getElementById(cat.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-sans font-medium uppercase tracking-wider transition-all duration-300 ${
+                activeId === cat.id
+                  ? 'bg-coffee-900 text-latte-100'
+                  : 'bg-transparent text-coffee-700 hover:bg-coffee-900/5'
+              }`}
+            >
+              {cat.title}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Menu sections ── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-28">
+        {menuCategories.map((category, catIdx) => (
+          <section key={category.id} id={category.id} className="scroll-mt-36 sm:scroll-mt-40">
+            {/* Category header — large editorial type */}
             <motion.div
-              key={idx}
-              id={category.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="scroll-mt-32 bg-white p-8 rounded-3xl shadow-sm border border-white/50"
+              transition={{ duration: 0.7, ease }}
+              className="mb-10"
             >
-              <h2 className="text-3xl font-rounded font-extrabold tracking-tight text-coffee-800 mb-8 border-b border-coffee-100 pb-4 inline-block pr-12">
+              <span className="text-[10px] font-mono text-coffee-900/20 uppercase tracking-widest">
+                {String(catIdx + 1).padStart(2, '0')}
+              </span>
+              <h2 className="text-4xl md:text-5xl font-serif text-coffee-900 mt-1 leading-tight">
                 {category.title}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
-                {category.items.map((item, itemIdx) => (
-                  <div key={itemIdx} className={`flex justify-between items-baseline group ${item.isExtra ? 'pl-4 text-sm opacity-80' : ''}`}>
-                    <div className="flex-1">
-                      <h3 className={`font-medium text-coffee-900 ${item.isExtra ? 'font-sans' : 'font-rounded text-lg'} group-hover:text-gold-500 transition-colors`}>
-                        {item.name}
-                      </h3>
-                      {item.desc && (
-                        <p className="text-sm text-coffee-700/60 italic mt-1 font-sans">{item.desc}</p>
-                      )}
-                    </div>
-                    {item.price && (
-                      <div className="flex items-baseline ml-4">
-                        <div className="grow border-b border-dotted border-coffee-300 mx-2 w-12 opacity-30" />
-                        <span className="font-sans font-bold text-coffee-800">{item.price}</span>
-                      </div>
+              <div className="mt-4 h-px w-16 bg-gold-500" />
+            </motion.div>
+
+            {/* Items — editorial list, no white boxes */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-0">
+              {category.items.map((item, itemIdx) => (
+                <motion.div
+                  key={itemIdx}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: Math.min(itemIdx * 0.03, 0.3), ease }}
+                  className={`flex items-baseline justify-between py-3 border-b border-coffee-900/5 group ${
+                    item.isExtra ? 'pl-5' : ''
+                  }`}
+                >
+                  <div className="flex-1 min-w-0">
+                    <span
+                      className={`${
+                        item.isExtra
+                          ? 'text-sm text-coffee-600 font-sans'
+                          : 'text-base font-sans font-medium text-coffee-900 group-hover:text-gold-600 transition-colors duration-200'
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                    {item.desc && (
+                      <span className="block text-xs text-coffee-500 italic mt-0.5">{item.desc}</span>
                     )}
                   </div>
-                ))}
-              </div>
-              {category.note && (
-                <div className="mt-6 pt-4 border-t border-coffee-50 text-sm text-coffee-700/60 italic font-sans">
-                  {category.note}
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-        
-        <div className="mt-20 text-center space-y-4 bg-coffee-900 text-latte-100 p-12 rounded-3xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl -mr-20 -mt-20" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-latte-100/10 rounded-full blur-2xl -ml-10 -mb-10" />
-          
-          <div className="relative z-10">
-            <p className="font-rounded font-bold text-xl tracking-wide mb-2">KLEINE EXTRA'S MAKEN HET MOMENT</p>
-            <p className="text-sm text-latte-200/80 italic font-sans max-w-lg mx-auto">
-              ZIN IN EEN SCHIJFJE CITROEN OF EXTRA IJSBLOKJES? VRAAG HET GERUST, WIJ REGELEN HET GRAAG!
-            </p>
-          </div>
+                  <span
+                    className={`ml-4 flex-shrink-0 tabular-nums ${
+                      item.isExtra
+                        ? 'text-sm text-coffee-500'
+                        : 'text-sm font-semibold text-coffee-800'
+                    }`}
+                  >
+                    {item.price}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+
+            {category.note && (
+              <p className="mt-6 text-xs text-coffee-500 italic font-sans">{category.note}</p>
+            )}
+          </section>
+        ))}
+      </div>
+
+      {/* ── Bottom callout ── */}
+      <div className="bg-coffee-900 text-latte-100">
+        <div className="max-w-4xl mx-auto px-6 py-16 text-center">
+          <p className="font-serif text-2xl md:text-3xl leading-snug">
+            Kleine extra's maken
+            <span className="italic text-gold-500"> het moment</span>
+          </p>
+          <p className="mt-4 text-sm text-latte-200/60 font-sans max-w-md mx-auto">
+            Zin in een schijfje citroen of extra ijsblokjes? Vraag het gerust, wij regelen het graag!
+          </p>
         </div>
       </div>
     </div>

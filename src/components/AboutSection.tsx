@@ -26,7 +26,7 @@ const features = [
 
 const AboutSection = () => {
   return (
-    <section className="pt-24 pb-0 bg-latte-100 relative overflow-hidden">
+    <section className="pt-24 pb-16 sm:pb-20 md:pb-28 bg-latte-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Image Grid */}
@@ -94,6 +94,22 @@ const AboutSection = () => {
             </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Wave transition into dark MenuSection — mirrors Hero wave */}
+      <div className="absolute inset-x-0 bottom-0 z-20 pointer-events-none">
+        <svg
+          viewBox="0 0 1440 120"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-[58px] sm:h-[72px] md:h-[110px] block"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z"
+            fill="#1A2E2A"
+          />
+        </svg>
       </div>
     </section>
   );

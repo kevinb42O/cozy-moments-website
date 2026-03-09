@@ -8,7 +8,7 @@ const LoyaltySection = () => {
     <section className="py-20 bg-coffee-900 text-latte-100 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-gold-500 rounded-full blur-3xl" />
+        <div className="absolute top-32 -left-24 w-96 h-96 bg-gold-500 rounded-full blur-3xl" />
         <div className="absolute top-1/2 right-0 w-64 h-64 bg-latte-100 rounded-full blur-3xl" />
       </div>
 
@@ -90,6 +90,22 @@ const LoyaltySection = () => {
           {/* Visual/Phone Mockup */}
           <PhoneMockup />
         </div>
+      </div>
+
+      {/* Wave transition to InfoSection */}
+      <div className="absolute inset-x-0 bottom-0 z-20 pointer-events-none">
+        <svg
+          viewBox="0 0 1440 120"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-[58px] sm:h-[72px] md:h-[110px] block"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z"
+            fill="#FFFFFF"
+          />
+        </svg>
       </div>
     </section>
   );

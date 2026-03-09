@@ -1,6 +1,6 @@
 const WaveDivider = () => {
   return (
-    <div className="relative -mt-40 z-10 pointer-events-none">
+    <div className="relative -mt-[100px] lg:-mt-40 z-10 pointer-events-none">
       <svg
         viewBox="0 0 1440 150"
         xmlns="http://www.w3.org/2000/svg"
