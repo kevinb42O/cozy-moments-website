@@ -14,7 +14,10 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-coffee-900">
+    <section
+      ref={ref}
+      className="relative h-[100svh] min-h-[620px] md:h-[90vh] flex items-center justify-center overflow-hidden bg-coffee-900"
+    >
       {/* Background Image with Overlay */}
       <motion.div 
         style={{ y, opacity }}
@@ -31,7 +34,7 @@ const Hero = () => {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-latte-100 px-4 max-w-4xl mx-auto space-y-8">
+      <div className="relative z-10 text-center text-latte-100 px-4 pb-14 sm:pb-16 md:pb-10 max-w-4xl mx-auto space-y-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,6 +77,22 @@ const Hero = () => {
             Vind Ons
           </Link>
         </motion.div>
+      </div>
+
+      {/* Anchored wave keeps the transition consistent across mobile viewport sizes */}
+      <div className="absolute inset-x-0 bottom-0 z-20 pointer-events-none">
+        <svg
+          viewBox="0 0 1440 120"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-[58px] sm:h-[72px] md:h-[110px] block"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z"
+            fill="#F5F0EB"
+          />
+        </svg>
       </div>
     </section>
   );
