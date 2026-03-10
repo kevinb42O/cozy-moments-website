@@ -239,27 +239,33 @@ const DrinkMenuPage = () => {
       />
 
       {siteSettings.drink_menu_sections.length > 0 && (
-        <div className="sticky top-20 sm:top-24 z-40 bg-latte-100/80 backdrop-blur-xl border-b border-coffee-900/5">
-          <div
-            ref={navRef}
-            className="max-w-6xl mx-auto flex gap-2 overflow-x-auto px-4 py-3 scrollbar-hide"
-          >
-            {siteSettings.drink_menu_sections.map((section) => (
-              <button
-                key={section.id}
-                data-cat={section.id}
-                onClick={() => {
-                  document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className={`shrink-0 rounded-full px-4 py-1.5 text-xs font-sans font-medium uppercase tracking-wider transition-all duration-300 ${
-                  activeId === section.id
-                    ? 'bg-coffee-900 text-latte-100'
-                    : 'bg-transparent text-coffee-700 hover:bg-coffee-900/5'
-                }`}
+        <div className="sticky top-20 sm:top-24 z-40 border-b border-coffee-900/5 bg-latte-100/80 backdrop-blur-xl">
+          <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
+            <div className="relative overflow-hidden rounded-3xl border border-coffee-900/8 bg-latte-100/95 shadow-[0_12px_30px_-24px_rgba(26,46,42,0.55)]">
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-linear-to-r from-latte-100/95 to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-linear-to-l from-latte-100/95 to-transparent" />
+              <div
+                ref={navRef}
+                className="scrollbar-hide flex snap-x gap-2 overflow-x-auto px-3 py-3 sm:px-4"
               >
-                {section.title}
-              </button>
-            ))}
+                {siteSettings.drink_menu_sections.map((section) => (
+                  <button
+                    key={section.id}
+                    data-cat={section.id}
+                    onClick={() => {
+                      document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    className={`shrink-0 snap-start rounded-full px-4 py-2 text-xs font-sans font-semibold uppercase tracking-[0.16em] transition-all duration-300 ${
+                      activeId === section.id
+                        ? 'bg-coffee-900 text-latte-100 shadow-[0_10px_20px_-14px_rgba(26,46,42,0.9)]'
+                        : 'bg-coffee-900/3 text-coffee-700 hover:bg-coffee-900/7 hover:text-coffee-900'
+                    }`}
+                  >
+                    {section.title}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}
