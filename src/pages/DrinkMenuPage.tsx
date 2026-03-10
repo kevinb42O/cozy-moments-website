@@ -331,19 +331,29 @@ const DrinkMenuPage = () => {
                           whileInView={{ opacity: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.4, delay: Math.min(itemIndex * 0.03, 0.3), ease }}
-                          className="group flex items-baseline justify-between border-b border-coffee-900/5 py-3"
+                          className={`group flex items-baseline justify-between rounded-2xl border py-4 px-4 transition-colors duration-200 ${
+                            isOpenBottlePromoActive
+                              ? 'border-gold-500/35 bg-gold-500/10 shadow-[0_16px_30px_-24px_rgba(184,151,90,0.95)]'
+                              : 'border-transparent border-b-coffee-900/5'
+                          }`}
                         >
                           <div className="min-w-0 flex-1 pr-4">
-                            <span className="block text-base font-sans font-medium text-coffee-900 transition-colors duration-200 group-hover:text-gold-600">
+                            <span className={`block text-base font-sans font-medium transition-colors duration-200 ${
+                              isOpenBottlePromoActive
+                                ? 'text-coffee-900'
+                                : 'text-coffee-900 group-hover:text-gold-600'
+                            }`}>
                               {item.name}
                             </span>
                             {isOpenBottlePromoActive && (
-                              <span className="mt-2 inline-flex rounded-full border border-gold-500/40 bg-gold-500/10 px-3 py-1 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
+                              <span className="mt-2 inline-flex rounded-full border border-gold-600/35 bg-gold-500/15 px-3 py-1 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
                                 Extra stempel op klantenkaart
                               </span>
                             )}
                           </div>
-                          <span className="shrink-0 tabular-nums text-sm font-semibold text-coffee-800">
+                          <span className={`shrink-0 tabular-nums text-sm font-semibold ${
+                            isOpenBottlePromoActive ? 'text-gold-700' : 'text-coffee-800'
+                          }`}>
                             {item.price}
                           </span>
                         </motion.div>
