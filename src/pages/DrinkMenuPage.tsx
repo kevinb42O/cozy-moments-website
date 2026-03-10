@@ -299,7 +299,7 @@ const DrinkMenuPage = () => {
 
         {!isLoading && !errorMessage && siteSettings.drink_menu_sections.length > 0 && (
           <div className="space-y-28">
-            {siteSettings.drink_menu_sections.map((section, sectionIndex) => (
+            {siteSettings.drink_menu_sections.map((section) => (
               <section key={section.id} id={section.id} className="scroll-mt-36 sm:scroll-mt-40">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -308,9 +308,6 @@ const DrinkMenuPage = () => {
                   transition={{ duration: 0.7, ease }}
                   className="mb-10"
                 >
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-coffee-900/20">
-                    {String(sectionIndex + 1).padStart(2, '0')}
-                  </span>
                   <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
                     <span className="rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.3em] text-gold-700">
                       {section.sectionCode}
