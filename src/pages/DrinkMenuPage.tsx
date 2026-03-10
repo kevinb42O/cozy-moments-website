@@ -308,10 +308,7 @@ const DrinkMenuPage = () => {
                   transition={{ duration: 0.7, ease }}
                   className="mb-10"
                 >
-                  <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <span className="rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.3em] text-gold-700">
-                      {section.sectionCode}
-                    </span>
+                  <div className="mt-3">
                     <h2 className="text-4xl md:text-5xl font-serif leading-tight text-coffee-900">
                       {section.title}
                     </h2>
