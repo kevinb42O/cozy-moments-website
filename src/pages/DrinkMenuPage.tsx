@@ -24,6 +24,62 @@ const toStringArray = (value: unknown): string[] => {
   return value.filter((entry): entry is string => typeof entry === 'string');
 };
 
+const normalizeComparableText = (value: string): string => {
+  return value
+    .normalize('NFD')
+    .replaceAll(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replaceAll(/[^a-z0-9]+/g, '-')
+    .replaceAll(/^-+|-+$/g, '');
+};
+
+const resolvePromoItemIds = (siteSettings: SiteSettings): string[] => {
+  const directPromoIds = new Set(siteSettings.promo_drink_menu_item_ids);
+
+  const allItems = siteSettings.drink_menu_sections.flatMap((section) => section.items);
+
+  const openBottleMatches = allItems
+    .filter(
+      (item) =>
+        Boolean(item.openBottleProductId) &&
+        item.openBottleProductId === siteSettings.promo_open_bottle_product_id &&
+        Boolean(siteSettings.open_bottles?.[item.openBottleProductId])
+    )
+    .map((item) => item.id);
+
+  openBottleMatches.forEach((id) => directPromoIds.add(id));
+
+  if (directPromoIds.size > 0 || !siteSettings.promo_open_bottle_product_id) {
+    return [...directPromoIds];
+  }
+
+  const normalizedPromoProductId = normalizeComparableText(siteSettings.promo_open_bottle_product_id);
+
+  const fuzzyMatches = allItems.filter((item) => {
+    const normalizedItemId = normalizeComparableText(item.id);
+    const normalizedItemName = normalizeComparableText(item.name);
+
+    return (
+      normalizedItemId.includes(normalizedPromoProductId) ||
+      normalizedItemName.includes(normalizedPromoProductId) ||
+      normalizedPromoProductId.includes(normalizedItemId)
+    );
+  });
+
+  const glassMatches = fuzzyMatches.filter((item) => {
+    const normalizedItemId = normalizeComparableText(item.id);
+    const normalizedItemName = normalizeComparableText(item.name);
+
+    return normalizedItemId.includes('glas') || normalizedItemName.includes('glas');
+  });
+
+  const resolvedMatches = glassMatches.length > 0 ? glassMatches : fuzzyMatches;
+
+  resolvedMatches.forEach((item) => directPromoIds.add(item.id));
+
+  return [...directPromoIds];
+};
+
 const normalizeMenuItem = (value: unknown): DrinkMenuItem | null => {
   if (!isRecord(value)) {
     return null;
@@ -237,6 +293,13 @@ const DrinkMenuPage = () => {
     }
   }, [activeId]);
 
+  const promoItemIds = resolvePromoItemIds(siteSettings);
+  const promoItemIdSet = new Set(promoItemIds);
+  const promoItems = siteSettings.drink_menu_sections.flatMap((section) =>
+    section.items.filter((item) => promoItemIdSet.has(item.id))
+  );
+  const primaryPromoItem = promoItems[0] ?? null;
+
   return (
     <div className="bg-latte-100 min-h-screen">
       <Seo
@@ -250,6 +313,24 @@ const DrinkMenuPage = () => {
         description="Ontdek onze actuele selectie dranken en zie meteen welke fles vandaag extra in de kijker staat."
         imageSrc="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
       />
+
+      {!isLoading && !errorMessage && primaryPromoItem && (
+        <div className="border-b border-gold-500/20 bg-gold-500/10">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+            <div>
+              <p className="text-xs font-sans font-semibold uppercase tracking-[0.22em] text-gold-700">
+                Promo in de kijker
+              </p>
+              <p className="mt-1 text-lg font-serif text-coffee-900">
+                {primaryPromoItem.name}
+              </p>
+            </div>
+            <span className="inline-flex rounded-full border border-gold-600/35 bg-gold-500/15 px-4 py-2 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
+              Extra stempel op klantenkaart
+            </span>
+          </div>
+        </div>
+      )}
 
       {siteSettings.drink_menu_sections.length > 0 && (
         <div className="sticky top-20 sm:top-24 z-40 border-b border-coffee-900/5 bg-latte-100/80 backdrop-blur-xl">
@@ -332,14 +413,7 @@ const DrinkMenuPage = () => {
                 {section.items.length > 0 ? (
                   <div className="grid grid-cols-1 gap-x-16 gap-y-0 md:grid-cols-2">
                     {section.items.map((item, itemIndex) => {
-                      const isOpenBottlePromoActive =
-                        Boolean(item.openBottleProductId) &&
-                        item.openBottleProductId === siteSettings.promo_open_bottle_product_id &&
-                        Boolean(siteSettings.open_bottles?.[item.openBottleProductId]);
-
-                      const isDirectPromoItem = siteSettings.promo_drink_menu_item_ids.includes(item.id);
-
-                      const isPromoActive = isOpenBottlePromoActive || isDirectPromoItem;
+                      const isPromoActive = promoItemIdSet.has(item.id);
 
                       return (
                         <motion.div
