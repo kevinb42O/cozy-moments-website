@@ -16,6 +16,14 @@ const toNullableString = (value: unknown): string | null => {
   return typeof value === 'string' ? value : null;
 };
 
+const toStringArray = (value: unknown): string[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.filter((entry): entry is string => typeof entry === 'string');
+};
+
 const normalizeMenuItem = (value: unknown): DrinkMenuItem | null => {
   if (!isRecord(value)) {
     return null;
@@ -88,6 +96,7 @@ const normalizeSiteSettings = (value: unknown): SiteSettings => {
       drink_menu_sections: [],
       open_bottles: null,
       promo_open_bottle_product_id: null,
+      promo_drink_menu_item_ids: [],
     };
   }
 
@@ -97,6 +106,7 @@ const normalizeSiteSettings = (value: unknown): SiteSettings => {
     drink_menu_sections: normalizeMenuSections(value.drink_menu_sections),
     open_bottles: isRecord(value.open_bottles) ? value.open_bottles : null,
     promo_open_bottle_product_id: toNullableString(promoOpenBottleProductId),
+    promo_drink_menu_item_ids: toStringArray(value.promo_drink_menu_item_ids),
   };
 };
 
@@ -106,6 +116,7 @@ const DrinkMenuPage = () => {
     drink_menu_sections: [],
     open_bottles: null,
     promo_open_bottle_product_id: null,
+    promo_drink_menu_item_ids: [],
   });
   const [activeId, setActiveId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -126,6 +137,7 @@ const DrinkMenuPage = () => {
           drink_menu_sections: [],
           open_bottles: null,
           promo_open_bottle_product_id: null,
+          promo_drink_menu_item_ids: [],
         });
         setIsLoading(false);
         return;
@@ -136,7 +148,7 @@ const DrinkMenuPage = () => {
 
       const { data, error } = await supabase
         .from('site_settings')
-        .select('drink_menu_sections, open_bottles, promo_open_bottle_product_id')
+        .select('drink_menu_sections, open_bottles, promo_open_bottle_product_id, promo_drink_menu_item_ids')
         .eq('id', 'default')
         .maybeSingle();
 
@@ -150,6 +162,7 @@ const DrinkMenuPage = () => {
           drink_menu_sections: [],
           open_bottles: null,
           promo_open_bottle_product_id: null,
+          promo_drink_menu_item_ids: [],
         });
         setIsLoading(false);
         return;
@@ -324,6 +337,10 @@ const DrinkMenuPage = () => {
                         item.openBottleProductId === siteSettings.promo_open_bottle_product_id &&
                         Boolean(siteSettings.open_bottles?.[item.openBottleProductId]);
 
+                      const isDirectPromoItem = siteSettings.promo_drink_menu_item_ids.includes(item.id);
+
+                      const isPromoActive = isOpenBottlePromoActive || isDirectPromoItem;
+
                       return (
                         <motion.div
                           key={item.id}
@@ -331,28 +348,28 @@ const DrinkMenuPage = () => {
                           whileInView={{ opacity: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.4, delay: Math.min(itemIndex * 0.03, 0.3), ease }}
-                          className={`group flex items-baseline justify-between rounded-2xl border py-4 px-4 transition-colors duration-200 ${
-                            isOpenBottlePromoActive
+                          className={`group flex items-baseline justify-between rounded-2xl border px-4 py-4 transition-colors duration-200 ${
+                            isPromoActive
                               ? 'border-gold-500/35 bg-gold-500/10 shadow-[0_16px_30px_-24px_rgba(184,151,90,0.95)]'
                               : 'border-transparent border-b-coffee-900/5'
                           }`}
                         >
                           <div className="min-w-0 flex-1 pr-4">
                             <span className={`block text-base font-sans font-medium transition-colors duration-200 ${
-                              isOpenBottlePromoActive
+                              isPromoActive
                                 ? 'text-coffee-900'
                                 : 'text-coffee-900 group-hover:text-gold-600'
                             }`}>
                               {item.name}
                             </span>
-                            {isOpenBottlePromoActive && (
+                            {isPromoActive && (
                               <span className="mt-2 inline-flex rounded-full border border-gold-600/35 bg-gold-500/15 px-3 py-1 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
                                 Extra stempel op klantenkaart
                               </span>
                             )}
                           </div>
                           <span className={`shrink-0 tabular-nums text-sm font-semibold ${
-                            isOpenBottlePromoActive ? 'text-gold-700' : 'text-coffee-800'
+                            isPromoActive ? 'text-gold-700' : 'text-coffee-800'
                           }`}>
                             {item.price}
                           </span>
