@@ -107,7 +107,7 @@ const AboutSection = () => {
         >
           <path
             d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z"
-            fill="#1A2E2A"
+            className="fill-coffee-900"
           />
         </svg>
       </div>

@@ -61,7 +61,7 @@ const PageHero = ({ title, subtitle, description, imageSrc, imagePosition = 'obj
       {/* Wave divider — matches homepage hero wave */}
       <div className="relative z-10 -mt-5.5 md:-mt-28 pointer-events-none">
         <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
-          <path d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z" fill="#F5F0EB" />
+          <path d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z" className="fill-latte-100" />
         </svg>
       </div>
     </>
