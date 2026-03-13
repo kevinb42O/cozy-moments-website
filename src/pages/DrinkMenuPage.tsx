@@ -33,6 +33,46 @@ const normalizeComparableText = (value: string): string => {
     .replaceAll(/^-+|-+$/g, '');
 };
 
+const categoryAliases: Record<string, string[]> = {
+  wine: ['wine', 'wijn', 'wijnen', 'bubbels', 'bubbles', 'prosecco', 'cava', 'champagne'],
+  beer: ['beer', 'bier', 'bieren', 'speciaalbier', 'speciaalbieren'],
+  cocktail: ['cocktail', 'cocktails', 'alcoholvrij', 'mocktail', 'mocktails', 'zero-zero', 'virgin'],
+};
+
+const resolveSectionIdFromCategory = (sections: DrinkMenuSection[], category: string): string | null => {
+  const normalizedCategory = normalizeComparableText(category);
+  const aliasTokens = categoryAliases[normalizedCategory] ?? [normalizedCategory];
+  const tokens = aliasTokens
+    .flatMap((token) => token.split('-'))
+    .filter((token) => token.length >= 3);
+
+  let bestMatch: { id: string; score: number } | null = null;
+
+  for (const section of sections) {
+    const normalizedId = normalizeComparableText(section.id);
+    const normalizedTitle = normalizeComparableText(section.title);
+    const normalizedCode = normalizeComparableText(section.sectionCode);
+    const haystack = [normalizedId, normalizedTitle, normalizedCode].join(' ');
+
+    if ([normalizedId, normalizedTitle, normalizedCode].includes(normalizedCategory)) {
+      return section.id;
+    }
+
+    let score = 0;
+    for (const token of tokens) {
+      if (haystack.includes(token)) {
+        score += 1;
+      }
+    }
+
+    if (score > 0 && (!bestMatch || score > bestMatch.score)) {
+      bestMatch = { id: section.id, score };
+    }
+  }
+
+  return bestMatch?.id ?? null;
+};
+
 const resolvePromoItemIds = (siteSettings: SiteSettings): string[] => {
   const directPromoIds = new Set(siteSettings.promo_drink_menu_item_ids);
 
@@ -167,7 +207,7 @@ const normalizeSiteSettings = (value: unknown): SiteSettings => {
 };
 
 const DrinkMenuPage = () => {
-  const { hash } = useLocation();
+  const { hash, search } = useLocation();
   const [siteSettings, setSiteSettings] = useState<SiteSettings>({
     drink_menu_sections: [],
     open_bottles: null,
@@ -242,9 +282,20 @@ const DrinkMenuPage = () => {
       return;
     }
 
-    if (hash) {
-      const element = document.getElementById(hash.replace('#', ''));
+    const searchParams = new URLSearchParams(search);
+    const category = searchParams.get('category');
+    const hashTarget = hash.replace('#', '');
+
+    const targetId = hashTarget
+      ? hashTarget
+      : category
+        ? resolveSectionIdFromCategory(siteSettings.drink_menu_sections, category)
+        : null;
+
+    if (targetId) {
+      const element = document.getElementById(targetId);
       if (element) {
+        setActiveId(targetId);
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
@@ -253,7 +304,7 @@ const DrinkMenuPage = () => {
     }
 
     window.scrollTo(0, 0);
-  }, [hash, isLoading, siteSettings.drink_menu_sections]);
+  }, [hash, isLoading, search, siteSettings.drink_menu_sections]);
 
   useEffect(() => {
     if (siteSettings.drink_menu_sections.length === 0) {

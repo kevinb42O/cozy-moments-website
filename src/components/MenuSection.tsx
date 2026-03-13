@@ -59,11 +59,11 @@ const MenuSection = () => {
             {/* Category list — editorial style, no cards */}
             <div className="space-y-0 border-t border-white/10">
               {[
-                { name: 'Koffie, Choco & Melk', count: '30+ soorten', link: '/menu#koffie-choco-melk' },
-                { name: 'Thee, Chai & Matcha', count: '18 variaties', link: '/menu#thee-chai-matcha' },
-                { name: 'Wijnen & Bubbels', count: 'Per glas of fles', link: '/menu#witte-wijn' },
-                { name: 'Speciaalbieren', count: '40+ Belgisch & meer', link: '/menu#bieren' },
-                { name: 'Cocktails & 0.0%', count: 'Klassiek & virgin', link: '/menu#alcoholvrij' },
+                { name: 'Koffie, Choco & Melk', count: '30+ soorten', link: '/menu?category=koffie-choco-melk' },
+                { name: 'Thee, Chai & Matcha', count: '18 variaties', link: '/menu?category=thee-chai-matcha' },
+                { name: 'Wijnen & Bubbels', count: 'Per glas of fles', link: '/menu?category=wine' },
+                { name: 'Speciaalbieren', count: '40+ Belgisch & meer', link: '/menu?category=beer' },
+                { name: 'Cocktails & 0.0%', count: 'Klassiek & virgin', link: '/menu?category=cocktail' },
               ].map((cat, i) => (
                 <motion.div
                   key={cat.name}
