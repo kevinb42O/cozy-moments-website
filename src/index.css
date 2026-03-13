@@ -7,20 +7,20 @@
   --font-rounded: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Allura", cursive;
 
-  --color-coffee-900: #1A2E2A;
-  --color-coffee-800: #2D4A42;
-  --color-coffee-700: #4D7A6A;
-  --color-coffee-500: #7A6354;
-  --color-coffee-400: #9D8879;
-  --color-coffee-300: #C4B5A5;
-  --color-coffee-200: #DDD3C7;
-  --color-coffee-100: #EFE9E1;
-  --color-coffee-50:  #FAF8F5;
-  --color-latte-100: #F5F0EB;
-  --color-latte-200: #E8DED5;
-  --color-gold-700: #7A5F2A;
-  --color-gold-600: #9E7D3E;
-  --color-gold-500: #B8975A;
+  --color-coffee-900: #1f2937;
+  --color-coffee-800: #2f3a4d;
+  --color-coffee-700: #475569;
+  --color-coffee-500: #64748b;
+  --color-coffee-400: #8b99ae;
+  --color-coffee-300: #bbc4d3;
+  --color-coffee-200: #dde3ee;
+  --color-coffee-100: #edf1f7;
+  --color-coffee-50:  #f7f9fc;
+  --color-latte-100: #f9fafc;
+  --color-latte-200: #eceff5;
+  --color-gold-700: #9f4f45;
+  --color-gold-600: #b66359;
+  --color-gold-500: #cf7d72;
 }
 
 body {
@@ -67,8 +67,8 @@ h1, h2, h3, h4, h5, h6 {
   overflow: visible;
   clip: auto;
   white-space: normal;
-  background-color: #1A2E2A;
-  color: #F5F0EB;
+  background-color: #1f2937;
+  color: #f9fafc;
   border-radius: 9999px;
   font-family: var(--font-sans);
   font-weight: 600;
@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Focus-visible ring (keyboard navigation only) ────────── */
 :focus-visible {
-  outline: 2px solid #B8975A;
+  outline: 2px solid #cf7d72;
   outline-offset: 3px;
   border-radius: 4px;
 }

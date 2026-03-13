@@ -99,27 +99,19 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Bedrijfsgegevens</h4>
+            <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Juridisch</h4>
             <dl className="space-y-3 text-sm w-full max-w-xs">
               <div className="flex flex-col">
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Naam</dt>
-                <dd className="text-latte-100/90">Janssens, Sixtine</dd>
+                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Uitbater</dt>
+                <dd className="text-latte-100/90">Janssens, Sixtine (eenmanszaak)</dd>
               </div>
               <div className="flex flex-col">
                 <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Ondernemingsnummer (BTW)</dt>
                 <dd className="font-mono text-latte-100/90">BE1021.623.893</dd>
               </div>
               <div className="flex flex-col">
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Adres</dt>
+                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Maatschappelijke zetel</dt>
                 <dd className="text-latte-100/90">Grote Markt 2, 8370 Blankenberge</dd>
-              </div>
-              <div className="flex flex-col">
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Status</dt>
-                <dd className="text-latte-100/90">Actief</dd>
-              </div>
-              <div className="flex flex-col">
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Opgericht</dt>
-                <dd className="text-latte-100/90">01-04-2025</dd>
               </div>
             </dl>
           </div>
