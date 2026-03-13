@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="h-px bg-linear-to-r from-transparent via-gold-500/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-14 pb-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 xl:gap-8 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-10">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="inline-flex flex-col items-end leading-none">
               <span className="font-rounded font-extrabold text-4xl text-latte-100 tracking-tight">COZY</span>
@@ -17,7 +17,7 @@ const Footer = () => {
             <p className="text-sm leading-relaxed opacity-70 max-w-[260px] text-center md:text-left">
               Een plek waar gezelligheid, warmte en oprechte verbinding altijd op de eerste plaats komen.
             </p>
-            <p className="text-xs uppercase tracking-[0.18em] text-gold-500/90 font-semibold">Blankenberge, Belgie</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-latte-100/90 font-semibold">Blankenberge, Belgie</p>
             <div className="flex items-center gap-3 pt-1">
               <a
                 href="https://www.instagram.com/cozymoments_blankenberge/"
@@ -29,7 +29,7 @@ const Footer = () => {
                 <Instagram size={16} />
               </a>
               <a
-                href="https://www.facebook.com/profile.php?id=61576070607157&locale=nl_NL"
+                href="https://www.facebook.com/p/COZY-moments-61576070607157/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -49,7 +49,6 @@ const Footer = () => {
                 { to: '/inspiration', label: 'Inspiratie' },
                 { to: '/about', label: 'Over Ons' },
                 { to: '/info', label: 'Contact' },
-                { to: '/privacy', label: 'Privacybeleid' },
               ].map(({ to, label }) => (
                 <li key={to}>
                   <Link
@@ -100,18 +99,14 @@ const Footer = () => {
 
           <div className="flex flex-col items-center md:items-start">
             <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Juridisch</h4>
-            <dl className="space-y-3 text-sm w-full max-w-xs">
+            <dl className="space-y-4 text-sm w-full max-w-xs text-left">
               <div className="flex flex-col">
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Uitbater</dt>
-                <dd className="text-latte-100/90">Janssens, Sixtine (eenmanszaak)</dd>
+                <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-latte-200/55">Uitbater</dt>
+                <dd className="text-latte-100/90 leading-relaxed">Janssens, Sixtine (eenmanszaak)</dd>
               </div>
               <div className="flex flex-col">
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Ondernemingsnummer (BTW)</dt>
-                <dd className="font-mono text-latte-100/90">BE1021.623.893</dd>
-              </div>
-              <div className="flex flex-col">
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-latte-200/45">Maatschappelijke zetel</dt>
-                <dd className="text-latte-100/90">Grote Markt 2, 8370 Blankenberge</dd>
+                <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-latte-200/55">Ondernemingsnummer (BTW)</dt>
+                <dd className="font-mono text-latte-100/90 leading-relaxed">BE1021.623.893</dd>
               </div>
             </dl>
           </div>
@@ -121,6 +116,7 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()} COZY Moments - Janssens, Sixtine. Alle rechten voorbehouden.</p>
           <div className="flex items-center gap-4">
             <Link to="/privacy" className="hover:text-gold-500 transition-colors">Privacybeleid</Link>
+            <span aria-hidden="true" className="text-latte-200/45">|</span>
             <a
               href="https://www.webaanzee.be"
               target="_blank"
