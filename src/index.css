@@ -40,6 +40,11 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+/* ─── Promo banner crossfade ───────────────────────────────── */
+.promo-banner-content {
+  transition: opacity 0.4s ease-in-out;
+}
+
 /* ─── Skip-to-content link ─────────────────────────────────── */
 .skip-to-content {
   position: absolute;

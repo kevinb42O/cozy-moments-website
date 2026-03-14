@@ -14,9 +14,16 @@ export type DrinkMenuSection = {
   items: DrinkMenuItem[];
 };
 
+export type ActivePromo = {
+  productId: string;
+  promoMessage: string;
+  drinkMenuItemIds: string[];
+};
+
 export type SiteSettings = {
   drink_menu_sections: DrinkMenuSection[];
   open_bottles: Record<string, unknown> | null;
   promo_open_bottle_product_id: string | null;
   promo_drink_menu_item_ids: string[];
+  active_promos: ActivePromo[];
 };

@@ -1,10 +1,11 @@
 import { motion } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PageHero from '../components/PageHero';
 import Seo from '../components/SEO';
+import { PROMO_ROTATION_INTERVAL_MS } from '../constants';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
-import type { DrinkMenuItem, DrinkMenuSection, SiteSettings } from '../types/drinkMenu';
+import type { ActivePromo, DrinkMenuItem, DrinkMenuSection, SiteSettings } from '../types/drinkMenu';
 
 const ease: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
@@ -186,6 +187,30 @@ const normalizeMenuSections = (value: unknown): DrinkMenuSection[] => {
   });
 };
 
+const normalizeActivePromos = (value: unknown): ActivePromo[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.flatMap((entry) => {
+    if (!isRecord(entry)) {
+      return [];
+    }
+
+    if (typeof entry.productId !== 'string' || typeof entry.promoMessage !== 'string') {
+      return [];
+    }
+
+    return [
+      {
+        productId: entry.productId,
+        promoMessage: entry.promoMessage,
+        drinkMenuItemIds: toStringArray(entry.drinkMenuItemIds),
+      },
+    ];
+  });
+};
+
 const normalizeSiteSettings = (value: unknown): SiteSettings => {
   if (!isRecord(value)) {
     return {
@@ -193,16 +218,39 @@ const normalizeSiteSettings = (value: unknown): SiteSettings => {
       open_bottles: null,
       promo_open_bottle_product_id: null,
       promo_drink_menu_item_ids: [],
+      active_promos: [],
     };
   }
 
   const promoOpenBottleProductId = value.promo_open_bottle_product_id;
+
+  const activePromos = normalizeActivePromos(value.active_promos);
+
+  // Backward compat: if active_promos is empty, build a single-element array
+  // from the old columns (if they contain data).
+  const promoMessage = typeof value.promo_message === 'string' ? value.promo_message : null;
+  const legacyPromoItemIds = toStringArray(value.promo_drink_menu_item_ids);
+  const legacyProductId = toNullableString(promoOpenBottleProductId);
+
+  const resolvedPromos =
+    activePromos.length > 0
+      ? activePromos
+      : promoMessage && legacyProductId
+        ? [
+            {
+              productId: legacyProductId,
+              promoMessage,
+              drinkMenuItemIds: legacyPromoItemIds,
+            },
+          ]
+        : [];
 
   return {
     drink_menu_sections: normalizeMenuSections(value.drink_menu_sections),
     open_bottles: isRecord(value.open_bottles) ? value.open_bottles : null,
     promo_open_bottle_product_id: toNullableString(promoOpenBottleProductId),
     promo_drink_menu_item_ids: toStringArray(value.promo_drink_menu_item_ids),
+    active_promos: resolvedPromos,
   };
 };
 
@@ -213,11 +261,52 @@ const DrinkMenuPage = () => {
     open_bottles: null,
     promo_open_bottle_product_id: null,
     promo_drink_menu_item_ids: [],
+    active_promos: [],
   });
   const [activeId, setActiveId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
+
+  // Promo banner rotation state
+  const [activePromoIndex, setActivePromoIndex] = useState(0);
+  const [promoVisible, setPromoVisible] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const rotationTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const clearRotationTimer = useCallback(() => {
+    if (rotationTimerRef.current !== null) {
+      clearInterval(rotationTimerRef.current);
+      rotationTimerRef.current = null;
+    }
+  }, []);
+
+  // Reset rotation when promos change
+  useEffect(() => {
+    setActivePromoIndex(0);
+    setPromoVisible(true);
+  }, [siteSettings.active_promos]);
+
+  // Rotation interval
+  useEffect(() => {
+    const promoCount = siteSettings.active_promos.length;
+    if (promoCount <= 1 || isPaused) {
+      clearRotationTimer();
+      return;
+    }
+
+    rotationTimerRef.current = setInterval(() => {
+      // Fade out
+      setPromoVisible(false);
+      // After fade-out completes, advance and fade in
+      setTimeout(() => {
+        setActivePromoIndex((prev) => (prev + 1) % promoCount);
+        setPromoVisible(true);
+      }, 400);
+    }, PROMO_ROTATION_INTERVAL_MS);
+
+    return clearRotationTimer;
+  }, [siteSettings.active_promos.length, isPaused, clearRotationTimer]);
 
   useEffect(() => {
     let isMounted = true;
@@ -234,6 +323,7 @@ const DrinkMenuPage = () => {
           open_bottles: null,
           promo_open_bottle_product_id: null,
           promo_drink_menu_item_ids: [],
+          active_promos: [],
         });
         setIsLoading(false);
         return;
@@ -244,7 +334,7 @@ const DrinkMenuPage = () => {
 
       const { data, error } = await supabase
         .from('site_settings')
-        .select('drink_menu_sections, open_bottles, promo_open_bottle_product_id, promo_drink_menu_item_ids')
+        .select('drink_menu_sections, open_bottles, promo_open_bottle_product_id, promo_drink_menu_item_ids, promo_message, active_promos')
         .eq('id', 'default')
         .maybeSingle();
 
@@ -259,6 +349,7 @@ const DrinkMenuPage = () => {
           open_bottles: null,
           promo_open_bottle_product_id: null,
           promo_drink_menu_item_ids: [],
+          active_promos: [],
         });
         setIsLoading(false);
         return;
@@ -272,8 +363,28 @@ const DrinkMenuPage = () => {
 
     void loadMenu();
 
+    // Realtime subscription
+    const channel =
+      isSupabaseConfigured && supabase
+        ? supabase
+            .channel('site_settings_changes')
+            .on(
+              'postgres_changes',
+              { event: '*', schema: 'public', table: 'site_settings', filter: 'id=eq.default' },
+              (payload) => {
+                if (!isMounted) return;
+                const normalizedSettings = normalizeSiteSettings(payload.new);
+                setSiteSettings(normalizedSettings);
+              }
+            )
+            .subscribe()
+        : null;
+
     return () => {
       isMounted = false;
+      if (channel) {
+        supabase?.removeChannel(channel);
+      }
     };
   }, []);
 
@@ -345,11 +456,16 @@ const DrinkMenuPage = () => {
   }, [activeId]);
 
   const promoItemIds = resolvePromoItemIds(siteSettings);
-  const promoItemIdSet = new Set(promoItemIds);
-  const promoItems = siteSettings.drink_menu_sections.flatMap((section) =>
-    section.items.filter((item) => promoItemIdSet.has(item.id))
-  );
-  const primaryPromoItem = promoItems[0] ?? null;
+  // Merge in drinkMenuItemIds from all active_promos
+  const allPromoItemIds = new Set(promoItemIds);
+  for (const promo of siteSettings.active_promos) {
+    for (const id of promo.drinkMenuItemIds) {
+      allPromoItemIds.add(id);
+    }
+  }
+  const promoItemIdSet = allPromoItemIds;
+
+  const currentPromo = siteSettings.active_promos[activePromoIndex] ?? null;
 
   return (
     <div className="bg-latte-100 min-h-screen">
@@ -365,15 +481,27 @@ const DrinkMenuPage = () => {
         imageSrc="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
       />
 
-      {!isLoading && !errorMessage && primaryPromoItem && (
-        <div className="border-b border-gold-500/20 bg-gold-500/10">
+      {!isLoading && !errorMessage && siteSettings.active_promos.length > 0 && currentPromo && (
+        <div
+          className="border-b border-gold-500/20 bg-gold-500/10"
+          role="region"
+          aria-label="Promoties"
+          aria-live="polite"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
+        >
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-            <div>
+            <div
+              className="promo-banner-content"
+              style={{ opacity: promoVisible ? 1 : 0 }}
+            >
               <p className="text-xs font-sans font-semibold uppercase tracking-[0.22em] text-gold-700">
                 Promo in de kijker
               </p>
               <p className="mt-1 text-lg font-serif text-coffee-900">
-                {primaryPromoItem.name}
+                {currentPromo.promoMessage}
               </p>
             </div>
             <span className="inline-flex rounded-full border border-gold-600/35 bg-gold-500/15 px-4 py-2 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
