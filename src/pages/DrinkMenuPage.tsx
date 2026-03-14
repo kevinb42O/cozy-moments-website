@@ -500,7 +500,7 @@ const DrinkMenuPage = () => {
               <p className="text-xs font-sans font-semibold uppercase tracking-[0.22em] text-gold-700">
                 Promo in de kijker
               </p>
-              <p className="mt-1 text-lg font-serif text-coffee-900">
+              <p className="mt-1 text-lg font-serif text-coffee-900 underline decoration-gold-500/40 underline-offset-4">
                 {currentPromo.promoMessage}
               </p>
             </div>
