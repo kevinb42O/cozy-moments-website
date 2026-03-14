@@ -96,21 +96,6 @@ const AboutSection = () => {
         </div>
       </div>
 
-      {/* Wave transition into dark MenuSection — mirrors Hero wave */}
-      <div className="absolute inset-x-0 bottom-0 z-20 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 120"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-[58px] sm:h-[72px] md:h-[110px] block"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z"
-            className="fill-coffee-900"
-          />
-        </svg>
-      </div>
     </section>
   );
 };
