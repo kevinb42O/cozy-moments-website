@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PageHero from '../components/PageHero';
 import Seo from '../components/SEO';
@@ -467,6 +467,43 @@ const DrinkMenuPage = () => {
 
   const currentPromo = siteSettings.active_promos[activePromoIndex] ?? null;
 
+  // Build a set of product names from all promo drink menu item IDs for underlining
+  const allPromoItemNames = useMemo(() => {
+    const names: string[] = [];
+    const allItems = siteSettings.drink_menu_sections.flatMap((s) => s.items);
+    for (const promo of siteSettings.active_promos) {
+      for (const id of promo.drinkMenuItemIds) {
+        const item = allItems.find((i) => i.id === id);
+        if (item) names.push(item.name);
+      }
+    }
+    return names;
+  }, [siteSettings.active_promos, siteSettings.drink_menu_sections]);
+
+  // Render promo message with product names underlined
+  const renderPromoMessage = (message: string): ReactNode => {
+    if (allPromoItemNames.length === 0) return message;
+
+    // Escape special regex chars in item names, sort longest-first for greedy matching
+    const escaped = [...allPromoItemNames]
+      .sort((a, b) => b.length - a.length)
+      .map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const pattern = new RegExp(`(${escaped.join('|')})`, 'gi');
+    const parts = message.split(pattern);
+
+    return parts.map((part, i) => {
+      const isMatch = allPromoItemNames.some((n) => n.toLowerCase() === part.toLowerCase());
+      if (isMatch) {
+        return (
+          <span key={i} className="underline decoration-gold-500/50 underline-offset-4 decoration-2">
+            {part}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <div className="bg-latte-100 min-h-screen">
       <Seo
@@ -500,8 +537,8 @@ const DrinkMenuPage = () => {
               <p className="text-xs font-sans font-semibold uppercase tracking-[0.22em] text-gold-700">
                 Promo in de kijker
               </p>
-              <p className="mt-1 text-lg font-serif text-coffee-900 underline decoration-gold-500/40 underline-offset-4">
-                {currentPromo.promoMessage}
+              <p className="mt-1 text-lg font-serif text-coffee-900">
+                {renderPromoMessage(currentPromo.promoMessage)}
               </p>
             </div>
             <span className="inline-flex rounded-full border border-gold-600/35 bg-gold-500/15 px-4 py-2 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
