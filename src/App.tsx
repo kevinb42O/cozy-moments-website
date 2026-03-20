@@ -22,6 +22,7 @@ const About = lazy(() => import('./pages/About'));
 const Info = lazy(() => import('./pages/Info'));
 const Loyalty = lazy(() => import('./pages/Loyalty'));
 const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const LoadingFallback = () => (
@@ -44,6 +45,7 @@ const AnimatedRoutes = () => {
             <Route path="/info" element={<Info />} />
             <Route path="/klantenkaart" element={<Loyalty />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/voorwaarden" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

@@ -117,6 +117,8 @@ const Footer = () => {
           <div className="flex items-center gap-4">
             <Link to="/privacy" className="hover:text-gold-500 transition-colors">Privacybeleid</Link>
             <span aria-hidden="true" className="text-latte-200/45">|</span>
+            <Link to="/voorwaarden" className="hover:text-gold-500 transition-colors">Algemene voorwaarden</Link>
+            <span aria-hidden="true" className="text-latte-200/45">|</span>
             <a
               href="https://www.webaanzee.be"
               target="_blank"
