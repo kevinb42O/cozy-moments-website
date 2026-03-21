@@ -682,9 +682,6 @@ const DrinkMenuPage = () => {
             Kleine extra&apos;s maken{' '}
             <span className="italic text-gold-500">het moment</span>
           </p>
-          <p className="mt-4 mx-auto max-w-md text-sm font-sans text-latte-200/60">
-            Open-fles promoties zijn hier enkel visuele communicatie. De website kent geen automatische extra stempels toe.
-          </p>
         </div>
       </div>
     </div>
