@@ -1,4 +1,4 @@
-export const LOYALTY_APP_URL = "https://klantenkaart.cozy-moments.be";
+export const LOYALTY_APP_URL = "https://spaarkaart.cozy-moments.be/";
 export const CONTACT_EMAIL = "info@cozy-moments.be";
 export const CONTACT_PHONE = "050 73 16 16";
 export const CONTACT_PHONE_CLEAN = "050731616";
