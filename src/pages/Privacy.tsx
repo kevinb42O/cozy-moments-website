@@ -14,7 +14,7 @@ const Privacy = () => {
       <SEO
         title="Privacybeleid | COZY Moments Blankenberge"
         description="Lees het privacybeleid van COZY Moments. Hoe wij omgaan met jouw persoonsgegevens."
-        canonical="https://cozy-moments.be/privacy"
+        canonical="https://www.cozy-moments.be/privacy"
       />
       <PageHero
         title="Privacybeleid"

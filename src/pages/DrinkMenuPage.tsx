@@ -507,9 +507,9 @@ const DrinkMenuPage = () => {
   return (
     <div className="bg-latte-100 min-h-screen">
       <Seo
-        title="Drankkaart | COZY Moments Blankenberge"
-        description="Bekijk onze actuele drankkaart met zichtbare secties, prijzen en open-fles promo's uit COZY Moments Supabase."
-        canonical="https://cozy-moments.be/menu"
+        title="Drankkaart Blankenberge | Koffie, Cocktails & Mocktails | COZY Moments"
+        description="Bekijk de drankkaart van COZY Moments in Blankenberge met koffie, cocktails, mocktails, wijn en bieren. Altijd actueel en duidelijk per categorie."
+        canonical="https://www.cozy-moments.be/menu"
       />
       <PageHero
         title="Drankkaart"

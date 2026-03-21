@@ -12,7 +12,7 @@ const Loyalty = () => {
       <SEO 
         title="Digitale Klantenkaart | Spaar voor Gratis Drankjes"
         description="Spaar punten bij elk bezoek aan COZY Moments met onze digitale klantenkaart. Ontvang gratis drankjes en exclusieve voordelen."
-        canonical="https://cozy-moments.be/klantenkaart"
+        canonical="https://www.cozy-moments.be/klantenkaart"
       />
       {/* Hero Header */}
       <PageHero
@@ -45,7 +45,7 @@ const Loyalty = () => {
                 <div className="text-2xl">🎁</div>
                 <div>
                   <p className="font-rounded font-bold text-coffee-900 text-sm leading-tight">Gratis drankje</p>
-                  <p className="text-[11px] text-coffee-700 leading-tight">bij een volle kaart!</p>
+                  <p className="text-[11px] text-coffee-700 leading-tight">bij 12 stempels!</p>
                 </div>
               </motion.div>
 
@@ -89,30 +89,34 @@ const Loyalty = () => {
                   <Coffee size={24} />
                 </div>
                 <p className="font-rounded font-bold text-coffee-900">Koffie</p>
-                <p className="text-xs text-coffee-600">10 stempels</p>
+                <p className="text-xs text-coffee-600">12 stempels</p>
               </div>
               <div className="bg-white p-4 rounded-2xl shadow-sm border border-white/50 text-center">
-                <div className="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 text-blue-500">
+                <div className="bg-coffee-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 text-coffee-700">
                   <Droplets size={24} />
                 </div>
                 <p className="font-rounded font-bold text-coffee-900">Frisdrank</p>
-                <p className="text-xs text-coffee-600">10 stempels</p>
+                <p className="text-xs text-coffee-600">12 stempels</p>
               </div>
               <div className="bg-white p-4 rounded-2xl shadow-sm border border-white/50 text-center">
                 <div className="bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 text-red-800">
                   <Wine size={24} />
                 </div>
                 <p className="font-rounded font-bold text-coffee-900">Wijn</p>
-                <p className="text-xs text-coffee-600">10 stempels</p>
+                <p className="text-xs text-coffee-600">12 stempels</p>
               </div>
               <div className="bg-white p-4 rounded-2xl shadow-sm border border-white/50 text-center">
                 <div className="bg-yellow-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 text-yellow-700">
                   <Beer size={24} />
                 </div>
                 <p className="font-rounded font-bold text-coffee-900">Bier</p>
-                <p className="text-xs text-coffee-600">10 stempels</p>
+                <p className="text-xs text-coffee-600">12 stempels</p>
               </div>
             </div>
+
+            <p className="text-sm text-coffee-700 font-sans">
+              12 stempels = <span className="font-semibold text-coffee-900">1 gratis drankje naar keuze*</span>
+            </p>
 
             {/* Welkomstbonus */}
             <div className="flex items-start gap-3 bg-gold-500/10 border border-gold-500/30 rounded-2xl px-5 py-4">

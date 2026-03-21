@@ -11,6 +11,9 @@ const getTextColor = (isOpen: boolean, useWhiteText: boolean, lightColor: string
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isInHomeHeroSection, setIsInHomeHeroSection] = useState(false);
+  const [isInHomeMenuSection, setIsInHomeMenuSection] = useState(false);
+  const [isInHomePremiumSections, setIsInHomePremiumSections] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -27,6 +30,62 @@ const Navbar = () => {
     globalThis.addEventListener('scroll', handleScroll);
     return () => globalThis.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setIsInHomeHeroSection(false);
+      setIsInHomeMenuSection(false);
+      setIsInHomePremiumSections(false);
+      return;
+    }
+
+    const heroSectionId = 'home-hero-section';
+    const menuSectionId = 'home-menu-section';
+    const premiumSectionIds = ['home-loyalty-section'];
+    let ticking = false;
+
+    const detectHeaderSections = () => {
+      const probeY = globalThis.innerHeight * 0.4;
+      const heroSection = globalThis.document.getElementById(heroSectionId);
+      const menuSection = globalThis.document.getElementById(menuSectionId);
+      const inHeroSection = heroSection
+        ? heroSection.getBoundingClientRect().top <= probeY && heroSection.getBoundingClientRect().bottom >= probeY
+        : false;
+      const inMenuSection = menuSection
+        ? menuSection.getBoundingClientRect().top <= probeY && menuSection.getBoundingClientRect().bottom >= probeY
+        : false;
+
+      const inPremiumSection = premiumSectionIds.some((sectionId) => {
+        const section = globalThis.document.getElementById(sectionId);
+        if (!section) return false;
+        const rect = section.getBoundingClientRect();
+        return rect.top <= probeY && rect.bottom >= probeY;
+      });
+
+      setIsInHomeHeroSection(inHeroSection);
+      setIsInHomeMenuSection(inMenuSection);
+      setIsInHomePremiumSections(inPremiumSection);
+    };
+
+    const handlePositionChange = () => {
+      if (!ticking) {
+        globalThis.requestAnimationFrame(() => {
+          detectHeaderSections();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    detectHeaderSections();
+    globalThis.addEventListener('scroll', handlePositionChange);
+    globalThis.addEventListener('resize', handlePositionChange);
+
+    return () => {
+      globalThis.removeEventListener('scroll', handlePositionChange);
+      globalThis.removeEventListener('resize', handlePositionChange);
+    };
+  }, [location.pathname]);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -45,7 +104,9 @@ const Navbar = () => {
   // Pages that have a dark hero section and require white text when not scrolled
   // Now all main pages have a dark hero section for consistency
   const isDarkHeroPage = ['/', '/about', '/info', '/menu', '/inspiration', '/klantenkaart'].includes(location.pathname);
-  const useWhiteText = isDarkHeroPage && !scrolled;
+  const onHomepagePremiumOrHero = !isInHomeMenuSection && (isInHomeHeroSection || isInHomePremiumSections);
+  const useWhiteText = location.pathname === '/' ? onHomepagePremiumOrHero : (isDarkHeroPage && !scrolled);
+  const keepHomeActiveReadableInHero = location.pathname === '/' && isInHomeHeroSection;
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 sm:pt-6">
@@ -54,15 +115,20 @@ const Navbar = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className={`
-          relative w-full max-w-5xl 
-          backdrop-blur-xl
-          border shadow-xl transition-all duration-500 ease-in-out
-          ${isOpen ? 'rounded-3xl bg-white/90 border-white/40' : 'rounded-full'}
-          ${!isOpen && scrolled ? 'bg-white/70 border-white/30 shadow-black/5' : ''}
-          ${!isOpen && !scrolled && useWhiteText ? 'bg-white/5 border-white/10 shadow-black/0' : ''}
-          ${!isOpen && !scrolled && !useWhiteText ? 'bg-white/40 border-white/40 shadow-black/5' : ''}
+          relative w-full max-w-5xl overflow-hidden
+          backdrop-blur-2xl backdrop-saturate-150
+          border transition-all duration-500 ease-in-out
+          ${isOpen ? 'rounded-3xl border-champagne-500/60 shadow-[0_18px_60px_rgba(0,0,0,0.35)]' : 'rounded-2xl border-champagne-500/55 shadow-[0_12px_36px_rgba(0,0,0,0.28)]'}
+          ${!isOpen && scrolled ? 'bg-latte-100/20' : ''}
+          ${!isOpen && !scrolled && useWhiteText ? 'bg-latte-100/10' : ''}
+          ${!isOpen && !scrolled && !useWhiteText ? 'bg-latte-100/24' : ''}
         `}
       >
+        {/* Liquid glass surface layers */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(130deg,rgba(243,232,213,0.46)_0%,rgba(243,232,213,0.14)_34%,rgba(255,255,255,0.04)_70%)]" />
+        <div className="pointer-events-none absolute inset-[1px] rounded-[inherit] bg-[radial-gradient(circle_at_12%_15%,rgba(243,232,213,0.34),transparent_44%),radial-gradient(circle_at_88%_100%,rgba(181,152,95,0.24),transparent_42%)]" />
+        <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-linear-to-r from-transparent via-white/70 to-transparent" />
+
         <div className="px-6 py-3 sm:px-8 sm:py-4">
           <div className="flex justify-between items-center">
             {/* Logo */}
@@ -83,6 +149,8 @@ const Navbar = () => {
             <div className="hidden md:flex items-center space-x-1">
               {links.map((link) => {
                 const isActive = location.pathname === link.path;
+                const keepDarkHomeStyle = keepHomeActiveReadableInHero && isActive && link.path === '/';
+                const linkUsesWhiteText = keepDarkHomeStyle ? false : useWhiteText;
                 return (
                   <Link
                     key={link.name}
@@ -92,14 +160,14 @@ const Navbar = () => {
                     {isActive && (
                       <motion.div
                         layoutId="activeTab"
-                        className={`absolute inset-0 rounded-full shadow-sm border transition-colors duration-300 ${useWhiteText ? 'bg-white/20 border-white/10' : 'bg-white/50 border-white/40'}`}
+                        className={`absolute inset-0 rounded-full shadow-sm border transition-colors duration-300 ${linkUsesWhiteText ? 'bg-white/20 border-white/10' : 'bg-white/50 border-white/40'}`}
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                       />
                     )}
                     <span className={`relative z-10 uppercase tracking-wider text-xs transition-colors duration-300 ${
                       isActive 
-                        ? getTextColor(false, useWhiteText, 'text-white font-bold', 'text-coffee-900 font-bold') 
-                        : getTextColor(false, useWhiteText, 'text-latte-100/80 hover:text-white', 'text-coffee-700 hover:text-coffee-900')
+                        ? getTextColor(false, linkUsesWhiteText, 'text-white font-bold', 'text-coffee-900 font-bold') 
+                        : getTextColor(false, linkUsesWhiteText, 'text-latte-100/80 hover:text-white', 'text-coffee-700 hover:text-coffee-900')
                     }`}>
                       {link.name}
                     </span>

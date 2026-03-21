@@ -20,7 +20,7 @@ const Inspiration = () => {
       <SEO 
         title="Inspiratie & Sfeer | COZY Moments"
         description="Bekijk sfeerbeelden van COZY Moments. Een impressie van onze gezellige koffiebar en lounge in Blankenberge."
-        canonical="https://cozy-moments.be/inspiration"
+        canonical="https://www.cozy-moments.be/inspiration"
       />
       {/* Hero Header */}
       <PageHero

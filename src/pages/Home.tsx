@@ -15,9 +15,9 @@ const Home = () => {
       transition={{ duration: 0.5 }}
     >
       <SEO 
-        title="COZY Moments | Koffiebar & Lounge in Blankenberge"
-        description="Ontdek COZY Moments in Blankenberge. De perfecte plek voor koffie, cocktails en gezelligheid. Bekijk onze menukaart en spaar mee met onze klantenkaart."
-        canonical="https://cozy-moments.be/"
+        title="COZY Moments | Koffiebar, Cocktails & Gezellig Cafe in Blankenberge"
+        description="COZY Moments is jouw koffiebar en gezellige cocktailbar in Blankenberge. Ontdek koffie, cocktails, mocktails en onze volledige drankkaart."
+        canonical="https://www.cozy-moments.be/"
       />
       <Hero />
       <div className="-mt-px">

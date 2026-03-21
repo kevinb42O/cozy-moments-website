@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { MapPin, Phone, Clock, Star, PawPrint } from 'lucide-react';
 import SEO from '../components/SEO';
 import PageHero from '../components/PageHero';
+import CustomStyledMap from '../components/CustomStyledMap';
 
 const Info = () => {
   return (
@@ -13,9 +14,9 @@ const Info = () => {
       className="bg-latte-100 min-h-screen"
     >
       <SEO 
-        title="Contact & Openingsuren | COZY Moments Blankenberge"
-        description="Adres, openingsuren en contactgegevens van COZY Moments in Blankenberge. Kom langs op de Grote Markt!"
-        canonical="https://cozy-moments.be/info"
+        title="Contact, Adres & Openingsuren | COZY Moments Blankenberge"
+        description="Zoek je een gezellige koffiebar of cocktails in Blankenberge? Vind hier het adres, telefoonnummer en openingsuren van COZY Moments."
+        canonical="https://www.cozy-moments.be/info"
       />
       {/* Hero Header */}
       <PageHero
@@ -48,7 +49,7 @@ const Info = () => {
                 België
               </p>
               <a 
-                href="https://maps.google.com/?q=Grote+Markt+2,8370+Blankenberge" 
+                href="https://maps.google.com/?q=COZY+Moments%2C+Grote+Markt+2%2F0002%2C+8370+Blankenberge" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-gold-600 font-bold hover:text-gold-700 transition-colors text-sm uppercase tracking-wider font-sans"
@@ -94,25 +95,15 @@ const Info = () => {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-white p-3 rounded-3xl shadow-xl shadow-coffee-900/5 h-100 relative overflow-hidden group"
+              className="bg-white p-3 rounded-3xl shadow-xl shadow-coffee-900/5 h-[28rem] md:h-[32rem] relative overflow-hidden group"
             >
-              <div className="absolute inset-0 rounded-2xl overflow-hidden m-3">
-                <iframe
-                  title="COZY Moments locatie op Google Maps"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.5!2d3.1322!3d51.3133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c4aa0b5a5a5a5b%3A0x4b4b4b4b4b4b4b4b!2sGrote%20Markt%2C%208370%20Blankenberge!5e0!3m2!1snl!2sbe!4v1709900000000!5m2!1snl!2sbe"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="transition-all duration-700 scale-100 group-hover:scale-105"
-                />
+              <div className="h-full rounded-2xl overflow-hidden border border-champagne-500/35">
+                <CustomStyledMap className="transition-all duration-700 scale-100 group-hover:scale-105 [&>img]:object-[center_88%]" />
               </div>
               
               {/* Floating Location Badge */}
               <div className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-md px-4 py-3 rounded-xl shadow-lg border border-white/50 hidden sm:flex items-center gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <div className="w-2 h-2 bg-champagne-500 rounded-full" />
                 <span className="text-coffee-900 font-medium text-sm font-sans">Hartje Blankenberge</span>
               </div>
             </motion.div>
@@ -183,26 +174,28 @@ const Info = () => {
                     Bij COZY moments is jouw viervoeter meer dan welkom! We zijn trots aangesloten bij:
                   </p>
 
-                  <a href="https://www.hondaanzee.be" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group mb-6 hover:opacity-90 transition-opacity">
-                    <div className="w-10 h-10 bg-[#009FE3] rounded-lg flex items-center justify-center shrink-0">
-                      <PawPrint size={20} className="text-white -rotate-12" fill="currentColor" />
+                  <a href="https://www.hondaanzee.be" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 group mb-6 rounded-xl bg-[#2f3a4f] px-2.5 py-2 shadow-[0_8px_18px_rgba(37,48,70,0.24)] transition-all duration-200 hover:shadow-[0_12px_24px_rgba(37,48,70,0.3)] hover:-translate-y-0.5">
+                    <div className="w-10 h-10 rounded-xl bg-[#1ba0eb] flex items-center justify-center shrink-0 shadow-[inset_0_1px_2px_rgba(255,255,255,0.28)]">
+                      <PawPrint size={20} className="text-white" strokeWidth={2.2} />
                     </div>
                     <div className="flex flex-col leading-none">
-                      <div className="font-sans font-black text-xl tracking-tight text-[#0F172A]">
-                        Hond<span className="text-[#009FE3]">Aan</span>Zee
+                      <div className="font-sans font-extrabold text-[1.65rem] tracking-[-0.02em] text-white">
+                        Hond<span className="text-[#18a3eb]">Aan</span><span className="text-white">Zee</span>
                       </div>
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">De Kustgids</span>
+                      <span className="text-[9px] font-bold text-white/65 uppercase tracking-[0.16em] mt-0.5">De Kustgids</span>
                     </div>
                   </a>
                   
                   <div className="border-t border-coffee-100 pt-4">
                     <p className="text-xs text-coffee-500 mb-2 uppercase tracking-wider font-sans font-bold">Bezoek ook onze dierenwinkel</p>
                     <a href="https://www.dogsandcats.be/" target="_blank" rel="noopener noreferrer" className="block group hover:opacity-80 transition-opacity">
-                        <div className="font-sans font-black text-xl tracking-tight">
-                            <span className="text-[#009FE3]">DOGS</span>
-                            <span className="text-[#E6007E] mx-1">&</span>
-                            <span className="text-[#FFD100]">CATS</span>
-                        </div>
+                        <img
+                          src="/dogscats.png"
+                          alt="Dogs & Cats"
+                          className="h-9 w-auto object-contain"
+                          loading="lazy"
+                          decoding="async"
+                        />
                         <span className="text-xs text-coffee-400 group-hover:text-gold-600 transition-colors font-sans">Blankenberge &rarr;</span>
                     </a>
                   </div>

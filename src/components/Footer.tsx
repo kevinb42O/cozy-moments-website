@@ -4,27 +4,30 @@ import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CLEAN, ADDRESS_LINE_1, ADDR
 
 const Footer = () => {
   return (
-    <footer className="bg-coffee-900 text-latte-200">
-      <div className="h-px bg-linear-to-r from-transparent via-gold-500/40 to-transparent" />
+    <footer className="relative overflow-hidden bg-hotel-950 text-cream-200">
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_14%_14%,rgba(181,152,95,0.12),transparent_42%),radial-gradient(circle_at_82%_64%,rgba(143,111,71,0.10),transparent_40%),linear-gradient(145deg,#0f2a27_0%,#163732_42%,#224b45_100%)]" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.06] bg-[repeating-linear-gradient(125deg,transparent_0,transparent_7px,rgba(255,255,255,0.04)_8px,transparent_14px)]" />
+      <div className="absolute top-[12%] right-[8%] w-[28rem] h-[28rem] rounded-full bg-champagne-500/12 blur-[120px] pointer-events-none" />
+      <div className="h-px bg-linear-to-r from-transparent via-champagne-500/70 to-transparent relative z-10" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-14 pb-6">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-14 pb-6 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-10">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="inline-flex flex-col items-end leading-none">
-              <span className="font-rounded font-extrabold text-4xl text-latte-100 tracking-tight">COZY</span>
-              <span className="font-script text-2xl text-latte-200 -mt-2 mr-1">Moments</span>
+              <span className="font-rounded font-extrabold text-4xl text-cream-100 tracking-tight">COZY</span>
+              <span className="font-script text-2xl text-champagne-500 -mt-2 mr-1">Moments</span>
             </div>
-            <p className="text-sm leading-relaxed opacity-70 max-w-[260px] text-center md:text-left">
+            <p className="text-sm leading-[1.9] text-cream-200/80 max-w-[260px] text-center md:text-left">
               Een plek waar gezelligheid, warmte en oprechte verbinding altijd op de eerste plaats komen.
             </p>
-            <p className="text-xs uppercase tracking-[0.18em] text-latte-100/90 font-semibold">Blankenberge, Belgie</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-cream-100/90 font-semibold">Blankenberge, Belgie</p>
             <div className="flex items-center gap-3 pt-1">
               <a
                 href="https://www.instagram.com/cozymoments_blankenberge/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-latte-200 hover:border-gold-500 hover:text-gold-500 transition-all duration-200"
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-champagne-500/45 bg-hotel-900/45 text-cream-200 hover:border-champagne-500 hover:text-champagne-500 hover:bg-champagne-500/10 transition-all duration-200"
               >
                 <Instagram size={16} />
               </a>
@@ -33,7 +36,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-latte-200 hover:border-gold-500 hover:text-gold-500 transition-all duration-200"
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-champagne-500/45 bg-hotel-900/45 text-cream-200 hover:border-champagne-500 hover:text-champagne-500 hover:bg-champagne-500/10 transition-all duration-200"
               >
                 <Facebook size={16} />
               </a>
@@ -41,7 +44,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Navigatie</h4>
+            <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Navigatie</h4>
             <ul className="space-y-2.5 text-sm">
               {[
                 { to: '/', label: 'Home' },
@@ -53,7 +56,7 @@ const Footer = () => {
                 <li key={to}>
                   <Link
                     to={to}
-                    className="opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                    className="text-cream-200/80 hover:text-champagne-500 transition-all duration-200"
                   >
                     {label}
                   </Link>
@@ -63,14 +66,14 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Contact</h4>
+            <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Contact</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <a
                   href={`https://maps.google.com/?q=${encodeURIComponent(ADDRESS_LINE_1 + ', ' + ADDRESS_LINE_2)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2.5 opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                  className="flex items-start gap-2.5 text-cream-200/80 hover:text-champagne-500 transition-all duration-200"
                 >
                   <MapPin size={15} className="mt-0.5 shrink-0" />
                   <span>{ADDRESS_LINE_1}<br />{ADDRESS_LINE_2}</span>
@@ -79,7 +82,7 @@ const Footer = () => {
               <li>
                 <a
                   href={`tel:${CONTACT_PHONE_CLEAN}`}
-                  className="flex items-center gap-2.5 opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                  className="flex items-center gap-2.5 text-cream-200/80 hover:text-champagne-500 transition-all duration-200"
                 >
                   <Phone size={15} className="shrink-0" />
                   <span>{CONTACT_PHONE}</span>
@@ -88,7 +91,7 @@ const Footer = () => {
               <li>
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="flex items-center gap-2.5 opacity-70 hover:opacity-100 hover:text-gold-500 transition-all duration-200"
+                  className="flex items-center gap-2.5 text-cream-200/80 hover:text-champagne-500 transition-all duration-200"
                 >
                   <Mail size={15} className="shrink-0" />
                   <span>{CONTACT_EMAIL}</span>
@@ -98,32 +101,32 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-serif text-base text-latte-100 mb-5 tracking-wide">Juridisch</h4>
+            <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Juridisch</h4>
             <dl className="space-y-4 text-sm w-full max-w-xs text-left">
               <div className="flex flex-col">
-                <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-latte-200/55">Uitbater</dt>
-                <dd className="text-latte-100/90 leading-relaxed">Janssens, Sixtine (eenmanszaak)</dd>
+                <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream-200/55">Uitbater</dt>
+                <dd className="text-cream-100/90 leading-relaxed">Janssens, Sixtine (eenmanszaak)</dd>
               </div>
               <div className="flex flex-col">
-                <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-latte-200/55">Ondernemingsnummer (BTW)</dt>
-                <dd className="font-mono text-latte-100/90 leading-relaxed">BE1021.623.893</dd>
+                <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream-200/55">Ondernemingsnummer (BTW)</dt>
+                <dd className="font-mono text-cream-100/90 leading-relaxed">BE1021.623.893</dd>
               </div>
             </dl>
           </div>
         </div>
 
-        <div className="border-t border-white/8 pt-5 flex flex-col md:flex-row justify-between items-center gap-3 text-[11px] text-latte-200/55">
+        <div className="border-t border-champagne-500/25 pt-5 flex flex-col md:flex-row justify-between items-center gap-3 text-[11px] text-cream-200/60">
           <p>&copy; {new Date().getFullYear()} COZY Moments - Janssens, Sixtine. Alle rechten voorbehouden.</p>
           <div className="flex items-center gap-4">
-            <Link to="/privacy" className="hover:text-gold-500 transition-colors">Privacybeleid</Link>
-            <span aria-hidden="true" className="text-latte-200/45">|</span>
-            <Link to="/voorwaarden" className="hover:text-gold-500 transition-colors">Algemene voorwaarden</Link>
-            <span aria-hidden="true" className="text-latte-200/45">|</span>
+            <Link to="/privacy" className="hover:text-champagne-500 transition-colors">Privacybeleid</Link>
+            <span aria-hidden="true" className="text-cream-200/40">|</span>
+            <Link to="/voorwaarden" className="hover:text-champagne-500 transition-colors">Algemene voorwaarden</Link>
+            <span aria-hidden="true" className="text-cream-200/40">|</span>
             <a
               href="https://www.webaanzee.be"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-gold-500 transition-colors"
+              className="hover:text-champagne-500 transition-colors"
             >
               Website door WebaanZee.be
             </a>

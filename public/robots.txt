@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cozy-moments.be/sitemap.xml
+Sitemap: https://www.cozy-moments.be/sitemap.xml

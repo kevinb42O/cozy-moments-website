@@ -15,6 +15,7 @@ const Hero = () => {
 
   return (
     <section
+      id="home-hero-section"
       ref={ref}
       className="relative h-[100svh] min-h-[620px] md:h-[90vh] flex items-center justify-center overflow-hidden bg-coffee-900"
     >
@@ -43,14 +44,19 @@ const Hero = () => {
           <span className="block font-sans text-sm md:text-base uppercase tracking-[0.3em] mb-4 text-gold-500">
             Est. 2023 • Blankenberge
           </span>
-          <div className="flex flex-col items-center leading-none mb-8">
-            <div className="font-rounded font-extrabold text-7xl md:text-9xl text-latte-100 drop-shadow-lg tracking-tight">
-              COZY
-            </div>
-            <span className="font-script text-4xl md:text-6xl text-latte-200 -mt-4 md:-mt-8 ml-24 md:ml-48 drop-shadow-md">
-              Moments
+          <h1 className="mb-8">
+            <span className="flex flex-col items-center leading-none" aria-hidden="true">
+              <span className="font-rounded font-extrabold text-7xl md:text-9xl text-latte-100 drop-shadow-lg tracking-tight">
+                COZY
+              </span>
+              <span className="font-script text-4xl md:text-6xl text-latte-200 -mt-4 md:-mt-8 ml-24 md:ml-48 drop-shadow-md">
+                Moments
+              </span>
             </span>
-          </div>
+            <span className="mt-4 block font-script text-2xl md:text-3xl text-latte-200 drop-shadow-md">
+              De gezelligste koffiebar in Blankenberge
+            </span>
+          </h1>
           <p className="font-sans text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto leading-relaxed">
             Een plek waar gezelligheid, warmte en oprechte verbinding altijd op de eerste plaats komen.
           </p>
@@ -64,8 +70,9 @@ const Hero = () => {
         >
           <Link
             to="/menu"
-            className="group relative px-8 py-4 bg-gold-500 text-coffee-900 font-medium uppercase tracking-widest hover:bg-latte-100 transition-colors duration-300 overflow-hidden rounded-full"
+            className="group relative px-8 py-4 bg-linear-to-b from-[#d6ba80] via-gold-500 to-[#8f7750] text-coffee-900 font-medium uppercase tracking-widest transition-all duration-300 overflow-hidden rounded-full border border-[#d8c192] shadow-[0_10px_24px_rgba(170,141,87,0.34)] hover:brightness-110 hover:shadow-[0_14px_28px_rgba(170,141,87,0.42)]"
           >
+            <span className="pointer-events-none absolute inset-x-6 top-1.5 h-px bg-linear-to-r from-transparent via-white/70 to-transparent" />
             <span className="relative z-10 flex items-center justify-center gap-2">
               Bekijk Drankkaart <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </span>

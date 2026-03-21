@@ -1,5 +1,7 @@
+import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CLEAN, ADDRESS_LINE_1, ADDRESS_LINE_2 } from '../constants';
+import CustomStyledMap from './CustomStyledMap';
 
 const InfoSection = () => {
   return (
@@ -85,18 +87,8 @@ const InfoSection = () => {
           </div>
 
           {/* Map */}
-          <div className="h-100 lg:h-auto bg-latte-200 rounded-3xl overflow-hidden shadow-lg relative border-4 border-white">
-            <iframe
-              title="COZY Moments locatie op Google Maps"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.5!2d3.1322!3d51.3133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c4aa0b5a5a5a5b%3A0x4b4b4b4b4b4b4b4b!2sGrote%20Markt%2C%208370%20Blankenberge!5e0!3m2!1snl!2sbe!4v1709900000000!5m2!1snl!2sbe"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0 transition-all duration-500"
-            />
+          <div className="h-100 lg:h-auto rounded-3xl overflow-hidden relative">
+            <CustomStyledMap className="absolute inset-0 transition-all duration-500" />
           </div>
         </div>
       </div>

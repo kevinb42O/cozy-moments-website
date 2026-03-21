@@ -14,7 +14,7 @@ const Terms = () => {
       <SEO
         title="Algemene Voorwaarden | COZY Moments Blankenberge"
         description="Lees de algemene voorwaarden voor het gebruik van de website en diensten van COZY Moments in Blankenberge."
-        canonical="https://cozy-moments.be/voorwaarden"
+        canonical="https://www.cozy-moments.be/voorwaarden"
       />
       <PageHero
         title="Algemene Voorwaarden"
@@ -81,7 +81,7 @@ const Terms = () => {
                 meegedeeld. Op dit moment betekent dit onder meer:
               </p>
               <ul className="list-disc pl-6 mt-3 space-y-2">
-                <li>Een volle kaart geeft recht op een gratis drankje volgens de op dat moment geldende actievoorwaarden.</li>
+                <li>Een volle kaart (12 stempels) geeft recht op een gratis drankje volgens de op dat moment geldende actievoorwaarden.</li>
                 <li>Bij een nieuwe registratie kan een welkomstbonus worden toegekend (momenteel 2 stempels).</li>
                 <li>COZY Moments kan spaarsystemen of actievoorwaarden aanpassen, pauzeren of stopzetten.</li>
               </ul>

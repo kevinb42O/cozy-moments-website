@@ -11,9 +11,9 @@ const About = () => {
       transition={{ duration: 0.5 }}
     >
       <SEO 
-        title="Over Ons | Het Verhaal van Sixtine & COZY Moments"
-        description="Leer Sixtine en het verhaal achter COZY Moments kennen. Een plek in Blankenberge waar warmte en gezelligheid centraal staan."
-        canonical="https://cozy-moments.be/about"
+        title="Over COZY Moments | Gezellig Cafe in Blankenberge"
+        description="Ontdek het verhaal achter COZY Moments, een gezellig cafe in Blankenberge waar warmte, koffie en fijne momenten centraal staan."
+        canonical="https://www.cozy-moments.be/about"
       />
       {/* Hero Header */}
       <PageHero
