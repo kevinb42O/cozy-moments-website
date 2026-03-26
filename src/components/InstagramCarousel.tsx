@@ -306,7 +306,7 @@ const InstagramCarousel = ({
           <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 backdrop-blur-sm transition group-hover:bg-white/30">
             <Instagram size={15} aria-hidden="true" />
           </span>
-          Volg op Instagram
+          Volg COZY-Moments
         </a>
 
         <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 items-center justify-center lg:flex" style={{ perspective: '1200px' }}>
@@ -347,7 +347,19 @@ const InstagramCarousel = ({
           })}
         </div>
 
-        <div className="relative mx-auto w-[316px] sm:w-[340px]" style={{ aspectRatio: '9 / 17.9' }}>
+        <div className="mx-auto flex items-center justify-center gap-2 sm:block sm:w-[340px]">
+          {totalSlides > 1 ? (
+            <button
+              type="button"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-latte-100 text-coffee-900 shadow-md ring-1 ring-coffee-200 transition hover:bg-coffee-100 sm:hidden"
+              onClick={goToPreviousSlide}
+              aria-label="Vorige slide"
+            >
+              <ChevronLeft size={20} aria-hidden="true" />
+            </button>
+          ) : null}
+
+          <div className="relative w-[316px] sm:w-[340px]" style={{ aspectRatio: '9 / 17.9' }}>
           <div className="absolute inset-x-7 bottom-[-12px] h-10 rounded-[999px] bg-coffee-900/35 blur-xl" aria-hidden="true" />
 
           <div className="pointer-events-none absolute -left-[4px] top-[21.5%] h-[52px] w-[4px] rounded-l-full bg-[linear-gradient(180deg,#b9bec8_0%,#7f8591_100%)] shadow-[inset_0_0_2px_rgba(255,255,255,0.5),0_0_0_1px_rgba(56,60,66,0.45)]" aria-hidden="true" />
@@ -355,7 +367,7 @@ const InstagramCarousel = ({
           <div className="pointer-events-none absolute -left-[4px] top-[47.2%] h-[82px] w-[4px] rounded-l-full bg-[linear-gradient(180deg,#b9bec8_0%,#7f8591_100%)] shadow-[inset_0_0_2px_rgba(255,255,255,0.5),0_0_0_1px_rgba(56,60,66,0.45)]" aria-hidden="true" />
           <div className="pointer-events-none absolute -right-[4px] top-[37.4%] h-[116px] w-[4px] rounded-r-full bg-[linear-gradient(180deg,#b9bec8_0%,#7f8591_100%)] shadow-[inset_0_0_2px_rgba(255,255,255,0.5),0_0_0_1px_rgba(56,60,66,0.45)]" aria-hidden="true" />
 
-          <article className="relative h-full rounded-[3.15rem] bg-[linear-gradient(145deg,#f4f6fa_0%,#d4d8e2_14%,#a9afba_30%,#f8f9fb_50%,#9ca3af_70%,#dbe0e8_84%,#f4f6fa_100%)] p-[2.6px] shadow-[0_30px_65px_rgba(15,42,39,0.4)]">
+            <article className="relative h-full rounded-[3.15rem] bg-[linear-gradient(145deg,#f4f6fa_0%,#d4d8e2_14%,#a9afba_30%,#f8f9fb_50%,#9ca3af_70%,#dbe0e8_84%,#f4f6fa_100%)] p-[2.6px] shadow-[0_30px_65px_rgba(15,42,39,0.4)]">
             <div className="relative h-full rounded-[2.98rem] bg-[#0c0d10] p-[5px]">
               <div className="pointer-events-none absolute left-1/2 top-[6px] z-20 h-[26px] w-[118px] -translate-x-1/2 rounded-[999px] bg-black shadow-[inset_0_-1px_0_rgba(255,255,255,0.1)]" aria-hidden="true">
                 <span className="absolute left-[16px] top-1/2 h-[8px] w-[8px] -translate-y-1/2 rounded-full bg-zinc-900 ring-1 ring-zinc-700" />
@@ -451,13 +463,25 @@ const InstagramCarousel = ({
 
               <div className="pointer-events-none absolute inset-0 rounded-[2.98rem] bg-[linear-gradient(138deg,rgba(255,255,255,0.15)_0,rgba(255,255,255,0)_36%,rgba(255,255,255,0.03)_68%,rgba(255,255,255,0)_100%)]" aria-hidden="true" />
             </div>
-          </article>
+            </article>
+          </div>
+
+          {totalSlides > 1 ? (
+            <button
+              type="button"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#111114] text-latte-100 shadow-md transition hover:bg-black sm:hidden"
+              onClick={goToNextSlide}
+              aria-label="Volgende slide"
+            >
+              <ChevronRight size={20} aria-hidden="true" />
+            </button>
+          ) : null}
         </div>
 
       </div>
 
       {totalSlides > 1 ? (
-        <div className="flex items-center justify-center gap-3" aria-label="Carousel paginatie en controls">
+        <div className="hidden items-center justify-center gap-3 sm:flex" aria-label="Carousel controls">
           <button
             type="button"
             className="grid h-12 w-12 place-items-center bg-latte-100 text-coffee-900 shadow-md ring-1 ring-coffee-200 transition hover:bg-coffee-100"
@@ -466,22 +490,6 @@ const InstagramCarousel = ({
           >
             <ChevronLeft size={22} aria-hidden="true" />
           </button>
-
-          <div className="flex items-center gap-2 px-2" aria-label="Carousel dots">
-            {posts.map((post, index) => {
-              const isActive = index === activeIndex;
-              return (
-                <button
-                  key={`dot-${post.id}`}
-                  type="button"
-                  className={`h-1.5 transition ${isActive ? 'w-7 bg-red-600' : 'w-3 bg-coffee-300 hover:bg-coffee-500'}`}
-                  onClick={() => goToSlide(index)}
-                  aria-label={`Ga naar slide ${index + 1}`}
-                  aria-current={isActive ? 'true' : undefined}
-                />
-              );
-            })}
-          </div>
 
           <button
             type="button"

@@ -1,29 +1,15 @@
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
 
 const Hero = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
   return (
     <section
       id="home-hero-section"
-      ref={ref}
       className="relative h-[100svh] min-h-[620px] md:h-[90vh] flex items-center justify-center overflow-hidden bg-coffee-900"
     >
       {/* Background Image with Overlay */}
-      <motion.div 
-        style={{ y, opacity }}
-        className="absolute inset-0 z-0"
-      >
+      <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
           alt="Sfeervolle koffiebar bij COZY Moments in Blankenberge"
@@ -32,7 +18,7 @@ const Hero = () => {
           decoding="sync"
         />
         <div className="absolute inset-0 bg-linear-to-b from-coffee-900/60 via-coffee-900/40 to-coffee-900/80" />
-      </motion.div>
+      </div>
 
       {/* Content */}
       <div className="relative z-10 text-center text-latte-100 px-4 pb-14 sm:pb-16 md:pb-10 max-w-4xl mx-auto space-y-8">
