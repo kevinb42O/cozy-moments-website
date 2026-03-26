@@ -68,16 +68,28 @@ const InfoSection = () => {
                       <span>10:00 - 22:00</span>
                     </div>
                     <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Di - Wo:</span>
+                      <span className="font-medium">Dinsdag:</span>
+                      <span>10:00 - 22:00</span>
+                    </div>
+                    <div className="flex justify-between w-full max-w-50">
+                      <span className="font-medium">Woensdag:</span>
                       <span>Gesloten</span>
                     </div>
                     <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Do - Za:</span>
+                      <span className="font-medium">Donderdag:</span>
+                      <span>10:00 - 22:00</span>
+                    </div>
+                    <div className="flex justify-between w-full max-w-50">
+                      <span className="font-medium">Vrijdag:</span>
+                      <span>10:00 - 22:00</span>
+                    </div>
+                    <div className="flex justify-between w-full max-w-50">
+                      <span className="font-medium">Zaterdag:</span>
                       <span>10:00 - 22:00</span>
                     </div>
                     <div className="flex justify-between w-full max-w-50">
                       <span className="font-medium">Zondag:</span>
-                      <span>12:00 - 22:00</span>
+                      <span>Gesloten</span>
                     </div>
                     <p className="text-sm opacity-60 italic pt-2">Openingsuren kunnen variëren op feestdagen.</p>
                   </div>

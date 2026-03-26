@@ -114,7 +114,7 @@ const Navbar = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className={`
-          relative w-full max-w-5xl overflow-hidden
+          relative w-full max-w-5xl overflow-hidden font-serif
           backdrop-blur-2xl backdrop-saturate-150
           border transition-all duration-500 ease-in-out
           ${isOpen ? 'rounded-3xl border-champagne-500/60 shadow-[0_18px_60px_rgba(0,0,0,0.35)]' : 'rounded-2xl border-champagne-500/55 shadow-[0_12px_36px_rgba(0,0,0,0.28)]'}

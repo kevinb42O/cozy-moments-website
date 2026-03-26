@@ -508,7 +508,7 @@ const DrinkMenuPage = () => {
   };
 
   return (
-    <div className="bg-latte-100 min-h-screen">
+    <div className="drink-menu-page bg-latte-100 min-h-screen">
       <Seo
         title="Drankkaart Blankenberge | Koffie, Cocktails & Mocktails | COZY Moments"
         description="Bekijk de drankkaart van COZY Moments in Blankenberge met koffie, cocktails, mocktails, wijn en bieren. Altijd actueel en duidelijk per categorie."

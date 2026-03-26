@@ -1,11 +1,13 @@
 @import url('https://fonts.cdnfonts.com/css/majesty-square');
 @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;500;600;700;800&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "MuseoModerno", sans-serif;
+  --font-sans: "Montserrat", sans-serif;
   --font-serif: "MuseoModerno", sans-serif;
   --font-rounded: "MuseoModerno", sans-serif;
+  --font-body: "Montserrat", sans-serif;
   --font-moderno: "MuseoModerno", sans-serif;
   --font-script: "Majesty Square", cursive;
   --font-majesty: "Majesty Square", cursive;
@@ -38,11 +40,17 @@
 }
 
 body {
-  @apply bg-latte-100 text-coffee-900 font-sans antialiased;
+  @apply bg-latte-100 text-coffee-900 antialiased;
+  font-family: var(--font-body);
 }
 
 h1, h2, h3, h4, h5, h6 {
   @apply font-serif;
+}
+
+.drink-menu-page {
+  --font-sans: "MuseoModerno", sans-serif;
+  --font-body: "MuseoModerno", sans-serif;
 }
 
 .scrollbar-hide {

@@ -4,7 +4,7 @@ import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CLEAN, ADDRESS_LINE_1, ADDR
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-hotel-950 text-cream-200">
+    <footer className="relative overflow-hidden bg-hotel-950 text-cream-200 font-sans">
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_14%_14%,rgba(181,152,95,0.12),transparent_42%),radial-gradient(circle_at_82%_64%,rgba(143,111,71,0.10),transparent_40%),linear-gradient(145deg,#0f2a27_0%,#163732_42%,#224b45_100%)]" />
       <div className="absolute inset-0 pointer-events-none opacity-[0.06] bg-[repeating-linear-gradient(125deg,transparent_0,transparent_7px,rgba(255,255,255,0.04)_8px,transparent_14px)]" />
       <div className="absolute top-[12%] right-[8%] w-[28rem] h-[28rem] rounded-full bg-champagne-500/12 blur-[120px] pointer-events-none" />
@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
 
           <div className="flex h-full flex-col items-center md:items-start xl:justify-center">
-            <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Navigatie</h4>
+            <h4 className="font-semibold text-base text-cream-100 mb-5 tracking-[0.08em]">Navigatie</h4>
             <ul className="space-y-2.5 text-sm">
               {[
                 { to: '/', label: 'Home' },
@@ -69,7 +69,7 @@ const Footer = () => {
           </div>
 
           <div className="flex h-full flex-col items-center md:items-start xl:justify-center">
-            <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Contact</h4>
+            <h4 className="font-semibold text-base text-cream-100 mb-5 tracking-[0.08em]">Contact</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <a
@@ -104,7 +104,7 @@ const Footer = () => {
           </div>
 
           <div className="flex h-full flex-col items-center md:items-start xl:justify-center">
-            <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Juridisch</h4>
+            <h4 className="font-semibold text-base text-cream-100 mb-5 tracking-[0.08em]">Juridisch</h4>
             <dl className="space-y-4 text-sm w-full max-w-xs text-left">
               <div className="flex flex-col">
                 <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream-200/55">Uitbater</dt>
@@ -112,7 +112,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <dt className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream-200/55">Ondernemingsnummer (BTW)</dt>
-                <dd className="font-mono text-cream-100/90 leading-relaxed">BE1021.623.893</dd>
+                <dd className="text-cream-100/90 leading-relaxed">BE1021.623.893</dd>
               </div>
             </dl>
           </div>
