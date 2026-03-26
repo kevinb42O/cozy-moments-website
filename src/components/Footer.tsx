@@ -11,11 +11,15 @@ const Footer = () => {
       <div className="h-px bg-linear-to-r from-transparent via-champagne-500/70 to-transparent relative z-10" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-14 pb-6 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-10 xl:items-stretch">
           <div className="flex flex-col items-center md:items-start gap-4">
-            <div className="inline-flex flex-col items-end leading-none">
-              <span className="font-rounded font-extrabold text-4xl text-cream-100 tracking-tight">COZY</span>
-              <span className="font-script text-2xl text-champagne-500 -mt-2 mr-1">Moments</span>
+            <div className="inline-flex">
+              <img
+                src="/cozy_logo_wit.png"
+                alt="COZY Moments"
+                className="h-20 w-auto"
+                loading="lazy"
+              />
             </div>
             <p className="text-sm leading-[1.9] text-cream-200/80 max-w-[260px] text-center md:text-left">
               Een plek waar gezelligheid, warmte en oprechte verbinding altijd op de eerste plaats komen.
@@ -43,15 +47,14 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex h-full flex-col items-center md:items-start xl:justify-center">
             <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Navigatie</h4>
             <ul className="space-y-2.5 text-sm">
               {[
                 { to: '/', label: 'Home' },
                 { to: '/menu', label: 'Drankkaart' },
-                { to: '/inspiration', label: 'Inspiratie' },
-                { to: '/about', label: 'Over Ons' },
-                { to: '/info', label: 'Contact' },
+                { to: '/social', label: 'Social' },
+                { to: '/info', label: 'Info' },
               ].map(({ to, label }) => (
                 <li key={to}>
                   <Link
@@ -65,7 +68,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex h-full flex-col items-center md:items-start xl:justify-center">
             <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Contact</h4>
             <ul className="space-y-3 text-sm">
               <li>
@@ -100,7 +103,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex h-full flex-col items-center md:items-start xl:justify-center">
             <h4 className="font-display text-base text-cream-100 mb-5 tracking-[0.08em]">Juridisch</h4>
             <dl className="space-y-4 text-sm w-full max-w-xs text-left">
               <div className="flex flex-col">

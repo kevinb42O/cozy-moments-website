@@ -1,0 +1,25 @@
+<svg width="1316" height="544" viewBox="0 0 1316 544" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="cozyLogoTitle cozyLogoDesc">
+  <title id="cozyLogoTitle">COZY Moments</title>
+  <desc id="cozyLogoDesc">White and gold COZY Moments logo</desc>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@800&display=swap');
+    @import url('https://fonts.cdnfonts.com/css/majesty-square');
+
+    .cozy {
+      font-family: 'MuseoModerno', sans-serif;
+      font-size: 330px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      fill: #F6F4F0;
+    }
+
+    .moments {
+      font-family: 'Majesty Square', cursive;
+      font-size: 150px;
+      fill: #D6BA80;
+    }
+  </style>
+
+  <text class="cozy" x="50%" y="315" text-anchor="middle">COZY</text>
+  <text class="moments" x="50%" y="470" text-anchor="middle">Moments</text>
+</svg>

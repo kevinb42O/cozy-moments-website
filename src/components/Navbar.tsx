@@ -95,15 +95,14 @@ const Navbar = () => {
   const links = [
     { name: 'Home', path: '/' },
     { name: 'Drankkaart', path: '/menu' },
-    { name: 'Inspiratie', path: '/inspiration' },
+    { name: 'Social', path: '/social' },
     { name: 'Klantenkaart', path: '/klantenkaart' },
-    { name: 'Over', path: '/about' },
     { name: 'Info', path: '/info' },
   ];
 
   // Pages that have a dark hero section and require white text when not scrolled
   // Now all main pages have a dark hero section for consistency
-  const isDarkHeroPage = ['/', '/about', '/info', '/menu', '/inspiration', '/klantenkaart'].includes(location.pathname);
+  const isDarkHeroPage = ['/', '/info', '/menu', '/social', '/klantenkaart'].includes(location.pathname);
   const onHomepagePremiumOrHero = !isInHomeMenuSection && (isInHomeHeroSection || isInHomePremiumSections);
   const useWhiteText = location.pathname === '/' ? onHomepagePremiumOrHero : (isDarkHeroPage && !scrolled);
   const keepHomeActiveReadableInHero = location.pathname === '/' && isInHomeHeroSection;

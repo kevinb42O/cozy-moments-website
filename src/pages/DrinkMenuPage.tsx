@@ -38,6 +38,9 @@ const categoryAliases: Record<string, string[]> = {
   wine: ['wine', 'wijn', 'wijnen', 'bubbels', 'bubbles', 'prosecco', 'cava', 'champagne'],
   beer: ['beer', 'bier', 'bieren', 'speciaalbier', 'speciaalbieren'],
   cocktail: ['cocktail', 'cocktails', 'alcoholvrij', 'mocktail', 'mocktails', 'zero-zero', 'virgin'],
+  '0-0-dranken': ['0-0-dranken', '0.0-dranken', 'alcoholvrij', 'zero-zero', 'mocktail', 'mocktails', 'virgin'],
+  'alcoholische-sterke-dranken': ['alcoholische-sterke-dranken', 'sterke-dranken', 'sterkedrank', 'sterke', 'spirit', 'spirits', 'gin', 'rum', 'vodka', 'whisky'],
+  'verfrissende-dranken': ['verfrissende-dranken', 'verfrissend', 'fris', 'frisdrank', 'frisdranken', 'limonade', 'ice-tea', 'ijsthee'],
 };
 
 const resolveSectionIdFromCategory = (sections: DrinkMenuSection[], category: string): string | null => {
@@ -514,7 +517,7 @@ const DrinkMenuPage = () => {
       <PageHero
         title="Drankkaart"
         subtitle="Onze Kaart"
-        description="Ontdek onze actuele selectie dranken en zie meteen welke fles vandaag extra in de kijker staat."
+        description="Elke drankje , een verhaal."
         imageSrc="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
       />
 

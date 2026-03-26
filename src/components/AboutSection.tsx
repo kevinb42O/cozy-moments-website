@@ -1,26 +1,37 @@
 import { motion } from 'motion/react';
-import { Coffee, Wifi, Heart, Clock } from 'lucide-react';
 
-const features = [
+type Feature = {
+  title: string;
+  desc: string;
+  icon?: React.ReactNode;
+  iconSrc?: string;
+  iconAlt?: string;
+};
+
+const features: Feature[] = [
   {
-    icon: <Coffee className="w-6 h-6" />,
+    iconSrc: "/coffeeicon.png",
+    iconAlt: "Coffee icon",
     title: "Coffee To Go",
     desc: "In a rush? Neem je favoriete koffie mee voor onderweg."
   },
   {
-    icon: <Wifi className="w-6 h-6" />,
-    title: "Work Friendly",
-    desc: "Laptops welkom. Overal zijn stopcontacten voorzien."
+    iconSrc: "/wifiicon.png",
+    iconAlt: "Wifi icon",
+    title: "Free WIFI",
+    desc: "Gratis wifi in heel de zaak, altijd verbonden."
   },
   {
-    icon: <Heart className="w-6 h-6" />,
-    title: "Gezelligheid",
-    desc: "De ideale omgeving om tot rust te komen."
+    iconSrc: "/chargeicon.png",
+    iconAlt: "Charge icon",
+    title: "Good vibe,full battery",
+    desc: "Charge & Chill. Laad gerust je toestel op terwijl je geniet van een drankje."
   },
   {
-    icon: <Clock className="w-6 h-6" />,
-    title: "Ontspanning",
-    desc: "Zet je zorgen aan de kant en geniet."
+    iconSrc: "/dogicon.png",
+    iconAlt: "Dog icon",
+    title: "Dog Friendly",
+    desc: "Jouw viervoeter is welkom met leiband, water staat klaar."
   }
 ];
 
@@ -65,9 +76,13 @@ const AboutSection = () => {
           >
             <div>
               <span className="text-gold-500 font-serif italic text-xl">Welkom bij</span>
-              <div className="flex flex-col items-start leading-none mt-2 mb-6">
-                <span className="font-rounded font-extrabold text-5xl md:text-6xl text-coffee-900 tracking-tight">COZY</span>
-                <span className="font-script text-3xl md:text-4xl text-coffee-800 -mt-3 ml-1">Moments</span>
+              <div className="mt-2 mb-6">
+                <img
+                  src="/cozy_logo.png"
+                  alt="COZY Moments"
+                  className="h-24 md:h-28 w-auto"
+                  loading="lazy"
+                />
               </div>
               <p className="text-coffee-700 leading-relaxed text-lg">
                 Afgekort 'COZY' - en dat zegt precies wat je kan verwachten. 
@@ -82,8 +97,18 @@ const AboutSection = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-start gap-4 group">
-                  <div className="p-3 bg-white rounded-xl shadow-sm text-gold-500 group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300">
-                    {feature.icon}
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-coffee-200/60 bg-white text-gold-600 shadow-sm transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md">
+                    {feature.iconSrc ? (
+                      <img
+                        src={feature.iconSrc}
+                        alt={feature.iconAlt ?? ''}
+                        className="h-11 w-11 object-contain"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      feature.icon
+                    )}
                   </div>
                   <div>
                     <h4 className="font-serif text-lg font-medium text-coffee-900">{feature.title}</h4>

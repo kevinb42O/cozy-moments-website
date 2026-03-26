@@ -11,14 +11,9 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.cozy-moments.be/inspiration</loc>
+    <loc>https://www.cozy-moments.be/social</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.cozy-moments.be/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.cozy-moments.be/info</loc>

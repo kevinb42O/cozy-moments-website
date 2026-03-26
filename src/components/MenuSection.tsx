@@ -62,11 +62,14 @@ const MenuSection = () => {
             {/* Category list — editorial style, no cards */}
             <div className="space-y-2 border-t border-coffee-200 bg-white/80 rounded-2xl px-5 py-3 border border-white shadow-sm">
               {[
-                { name: 'Koffie, Choco & Melk', count: '30+ soorten', link: '/menu?category=koffie-choco-melk' },
-                { name: 'Thee, Chai & Matcha', count: '18 variaties', link: '/menu?category=thee-chai-matcha' },
-                { name: 'Wijnen & Bubbels', count: 'Per glas of fles', link: '/menu?category=wine' },
-                { name: 'Speciaalbieren', count: '40+ Belgisch & meer', link: '/menu?category=beer' },
-                { name: 'Cocktails & 0.0%', count: 'Klassiek & virgin', link: '/menu?category=cocktail' },
+                { name: 'koffie, choco & melk', count: 'Warm & romig', link: '/menu?category=koffie-choco-melk' },
+                { name: 'thee, chai & matcha', count: 'Kruidig & zacht', link: '/menu?category=thee-chai-matcha' },
+                { name: 'verfrissende dranken', count: 'Fris & sprankelend', link: '/menu?category=verfrissende-dranken' },
+                { name: '0.0% dranken', count: 'Licht & vrij', link: '/menu?category=0.0% dranken' },
+                { name: 'bieren', count: 'Belgisch & blond', link: '/menu?category=beer' },
+                { name: 'wijnen & bubbels', count: 'Glas & fles', link: '/menu?category=wine' },
+                { name: 'cocktails', count: 'Klassiek & creatief', link: '/menu?category=cocktail' },
+                { name: 'alcoholische sterke dranken', count: 'Rijk & krachtig', link: '/menu?category=alcoholische sterke dranken' },
               ].map((cat, i) => (
                 <motion.div
                   key={cat.name}
@@ -83,8 +86,8 @@ const MenuSection = () => {
                       <span className="text-[10px] font-mono text-coffee-400 tabular-nums">0{i + 1}</span>
                       <span className="text-xl md:text-2xl font-serif text-coffee-900 group-hover:text-gold-600 transition-colors duration-300">{cat.name}</span>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-xs font-sans uppercase tracking-wider text-coffee-500 hidden sm:block">{cat.count}</span>
+                    <div className="flex w-[15rem] shrink-0 items-center justify-end gap-4 text-right">
+                      <span className="hidden sm:block text-xs font-sans uppercase tracking-wider text-coffee-500">{cat.count}</span>
                       <ArrowRight size={16} className="text-coffee-400 group-hover:text-gold-600 group-hover:translate-x-1 transition-all duration-300" />
                     </div>
                   </Link>

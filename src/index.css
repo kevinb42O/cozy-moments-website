@@ -1,13 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@700;800&family=Allura&display=swap');
+@import url('https://fonts.cdnfonts.com/css/majesty-square');
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;500;600;700;800&family=Bebas+Neue&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-rounded: "Nunito", ui-sans-serif, system-ui, sans-serif;
-  --font-script: "Allura", cursive;
-  --font-display: "Cinzel", "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-clean: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "MuseoModerno", sans-serif;
+  --font-serif: "MuseoModerno", sans-serif;
+  --font-rounded: "MuseoModerno", sans-serif;
+  --font-moderno: "MuseoModerno", sans-serif;
+  --font-script: "Majesty Square", cursive;
+  --font-majesty: "Majesty Square", cursive;
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
+  --font-clean: "Bebas Neue", sans-serif;
 
   --color-coffee-900: #1f2f2d;
   --color-coffee-800: #2a3d3a;
@@ -17,9 +21,9 @@
   --color-coffee-300: #b5bcaf;
   --color-coffee-200: #d5d4c5;
   --color-coffee-100: #e9e4d6;
-  --color-coffee-50:  #f3eee2;
-  --color-latte-100: #ede6d7;
-  --color-latte-200: #e2d9c7;
+  --color-coffee-50:  #F6F4F0;
+  --color-latte-100: #F6F4F0;
+  --color-latte-200: #F6F4F0;
   --color-gold-700: #75623f;
   --color-gold-600: #8f7750;
   --color-gold-500: #aa8d57;
@@ -27,8 +31,8 @@
   --color-hotel-900: #163732;
   --color-hotel-800: #224b45;
   --color-hotel-700: #35645d;
-  --color-cream-100: #f1e8d6;
-  --color-cream-200: #d9ccb3;
+  --color-cream-100: #F6F4F0;
+  --color-cream-200: #F6F4F0;
   --color-champagne-500: #b5985f;
   --color-copper-500: #8f6f47;
 }

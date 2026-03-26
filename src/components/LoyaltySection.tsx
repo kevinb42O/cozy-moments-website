@@ -34,6 +34,7 @@ const LoyaltySection = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-champagne-500/10 rounded-full text-champagne-500 text-sm font-medium uppercase tracking-[0.18em] border border-champagne-500/30 backdrop-blur-sm">
               <Star size={16} className="fill-champagne-500" />
               <span>Nieuw bij COZY</span>
+              <Star size={16} className="fill-champagne-500" />
             </div>
             
             <h2 className="text-4xl md:text-5xl font-display leading-tight text-cream-100 tracking-[0.02em]">
@@ -55,7 +56,7 @@ const LoyaltySection = () => {
                   <Star size={16} fill="currentColor" />
                 </div>
                 <div>
-                  <p className="font-bold text-sm leading-none">+2 Stempels</p>
+                  <p className="font-bold text-sm leading-none uppercase">+2 STEMPELS</p>
                   <p className="text-[10px] opacity-80">Startbonus</p>
                 </div>
               </motion.div>
@@ -74,15 +75,17 @@ const LoyaltySection = () => {
                   <div className="w-6 h-6 rounded-full border border-champagne-500/50 flex items-center justify-center text-champagne-500">
                     <Check size={13} strokeWidth={1.8} />
                   </div>
-                  <span>Krijg direct <strong className="text-champagne-500">2 gratis stempels</strong> bij registratie</span>
+                  <span>Krijg <strong className="text-champagne-500">2 gratis stempels</strong> bij registratie</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-cream-100/90">
                   <div className="w-6 h-6 rounded-full border border-champagne-500/50 flex items-center justify-center text-champagne-500">
                     <Check size={13} strokeWidth={1.8} />
                   </div>
-                  <span>12 stempels = <strong className="text-cream-100">1 gratis drankje</strong> naar keuze*</span>
+                  <span>
+                    volle kaart = <strong className="text-cream-100">gratis drankje</strong>*
+                  </span>
                 </div>
-                <p className="text-xs text-cream-200/45 pl-9 italic">*Bier, wijn, frisdrank of koffie</p>
+                <p className="text-xs text-cream-200/45 pl-9 italic">* koffie, frisdrank, wijn of bier</p>
               </div>
             </div>
 
@@ -129,59 +132,77 @@ const PhoneMockup = () => {
       transition={{ duration: 0.8, delay: 0.2 }}
       className="relative flex justify-center lg:justify-end"
     >
-      <div className="relative w-[18.5rem] h-[38rem] rounded-[3.2rem] border border-cream-100/10 shadow-[0_32px_90px_rgba(10,34,31,0.62)] overflow-hidden bg-hotel-950">
-        <div className="absolute inset-[2px] rounded-[3rem] border border-champagne-500/35 pointer-events-none" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-7 bg-hotel-950 rounded-b-2xl z-30 border-x border-b border-champagne-500/20" />
+      <div className="relative mx-auto w-[316px] sm:w-[340px]" style={{ aspectRatio: '9 / 17.9' }}>
+        <div className="absolute inset-x-7 bottom-[-12px] h-10 rounded-[999px] bg-hotel-950/55 blur-xl" aria-hidden="true" />
 
-        {/* Real loyalty app screenshots inside the premium frame */}
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={index}
-            src={images[index]}
-            alt={`Klantenkaart ${index + 1}`}
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-          />
-        </AnimatePresence>
+        <div className="pointer-events-none absolute -left-[4px] top-[21.5%] h-[52px] w-[4px] rounded-l-full bg-[linear-gradient(180deg,#b9bec8_0%,#7f8591_100%)] shadow-[inset_0_0_2px_rgba(255,255,255,0.5),0_0_0_1px_rgba(56,60,66,0.45)]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -left-[4px] top-[33.2%] h-[82px] w-[4px] rounded-l-full bg-[linear-gradient(180deg,#b9bec8_0%,#7f8591_100%)] shadow-[inset_0_0_2px_rgba(255,255,255,0.5),0_0_0_1px_rgba(56,60,66,0.45)]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -left-[4px] top-[47.2%] h-[82px] w-[4px] rounded-l-full bg-[linear-gradient(180deg,#b9bec8_0%,#7f8591_100%)] shadow-[inset_0_0_2px_rgba(255,255,255,0.5),0_0_0_1px_rgba(56,60,66,0.45)]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -right-[4px] top-[37.4%] h-[116px] w-[4px] rounded-r-full bg-[linear-gradient(180deg,#b9bec8_0%,#7f8591_100%)] shadow-[inset_0_0_2px_rgba(255,255,255,0.5),0_0_0_1px_rgba(56,60,66,0.45)]" aria-hidden="true" />
 
-        {/* Premium tint layer to keep the new upscale look */}
-        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(15,42,39,0.22)_0%,rgba(22,55,50,0.2)_100%)]" />
+        <article className="relative h-full rounded-[3.15rem] bg-[linear-gradient(145deg,#f4f6fa_0%,#d4d8e2_14%,#a9afba_30%,#f8f9fb_50%,#9ca3af_70%,#dbe0e8_84%,#f4f6fa_100%)] p-[2.6px] shadow-[0_30px_65px_rgba(10,34,31,0.62)]">
+          <div className="relative h-full rounded-[2.98rem] bg-[#0c0d10] p-[5px]">
+            <div className="pointer-events-none absolute left-1/2 top-[6px] z-20 h-[26px] w-[118px] -translate-x-1/2 rounded-[999px] bg-black shadow-[inset_0_-1px_0_rgba(255,255,255,0.1)]" aria-hidden="true">
+              <span className="absolute left-[16px] top-1/2 h-[8px] w-[8px] -translate-y-1/2 rounded-full bg-zinc-900 ring-1 ring-zinc-700" />
+              <span className="absolute right-[12px] top-1/2 h-[6px] w-[6px] -translate-y-1/2 rounded-full bg-zinc-900 ring-1 ring-zinc-700" />
+            </div>
 
-        {/* Slow parallax sheen for premium feel */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            className="absolute inset-0 bg-[linear-gradient(115deg,transparent_18%,rgba(255,255,255,0.07)_42%,transparent_66%)]"
-            initial={{ x: '-85%', opacity: 0 }}
-            animate={{ x: '95%', opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 2.8, ease: 'easeInOut' }}
-          />
-        </AnimatePresence>
+            <div className="relative h-full overflow-hidden rounded-[2.62rem] bg-[#11151c] ring-1 ring-white/10">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={index}
+                  src={images[index]}
+                  alt={`Klantenkaart ${index + 1}`}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: 'easeInOut' }}
+                />
+              </AnimatePresence>
 
-        {/* Dot indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIndex(i)}
-              aria-label={`Toon klantenkaart afbeelding ${i + 1}`}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                i === index ? 'bg-champagne-500 w-4' : 'bg-cream-100/35'
-              }`}
-            />
-          ))}
-        </div>
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(15,42,39,0.18)_0%,rgba(22,55,50,0.12)_100%)]" />
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`sheen-${index}`}
+                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_18%,rgba(255,255,255,0.07)_42%,transparent_66%)]"
+                  initial={{ x: '-85%', opacity: 0 }}
+                  animate={{ x: '95%', opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 2.8, ease: 'easeInOut' }}
+                />
+              </AnimatePresence>
+
+              <div className="pointer-events-none absolute top-0 left-0 right-0 flex items-center justify-between px-6 pb-1 pt-3 text-[11px] font-semibold text-white/85 z-10" aria-hidden="true">
+                <span>10:28</span>
+                <span>5G</span>
+              </div>
+
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setIndex(i)}
+                    aria-label={`Toon klantenkaart afbeelding ${i + 1}`}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      i === index ? 'w-5 bg-champagne-500' : 'w-2 bg-white/40'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="pointer-events-none absolute inset-0 rounded-[2.98rem] bg-[linear-gradient(138deg,rgba(255,255,255,0.15)_0,rgba(255,255,255,0)_36%,rgba(255,255,255,0.03)_68%,rgba(255,255,255,0)_100%)]" aria-hidden="true" />
+          </div>
+        </article>
       </div>
 
       {/* Gratis drankje badge */}
       <motion.div
         animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
         transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-        className="absolute -bottom-4 -right-6 z-30 bg-hotel-900/90 backdrop-blur-md rounded-xl shadow-2xl px-4 py-3 border border-champagne-500/45 flex items-center gap-3 max-w-[200px]"
+        className="absolute -bottom-4 -right-2 z-30 bg-hotel-900/90 backdrop-blur-md rounded-xl shadow-2xl px-4 py-3 border border-champagne-500/45 flex items-center gap-3 max-w-[200px]"
       >
         <div className="p-2 rounded-lg border border-champagne-500/45 text-champagne-500 bg-champagne-500/10">
           <Trophy size={16} strokeWidth={1.8} />

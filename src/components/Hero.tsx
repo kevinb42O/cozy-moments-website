@@ -44,20 +44,19 @@ const Hero = () => {
           <span className="block font-sans text-sm md:text-base uppercase tracking-[0.3em] mb-4 text-gold-500">
             Est. 2023 • Blankenberge
           </span>
-          <h1 className="mb-8">
-            <span className="flex flex-col items-center leading-none" aria-hidden="true">
-              <span className="font-rounded font-extrabold text-7xl md:text-9xl text-latte-100 drop-shadow-lg tracking-tight">
-                COZY
-              </span>
-              <span className="font-script text-4xl md:text-6xl text-latte-200 -mt-4 md:-mt-8 ml-24 md:ml-48 drop-shadow-md">
-                Moments
-              </span>
-            </span>
-            <span className="mt-4 block font-script text-2xl md:text-3xl text-latte-200 drop-shadow-md">
-              De gezelligste koffiebar in Blankenberge
-            </span>
+          <h1 className="mb-8 flex justify-center">
+            <img
+              src="/cozyHDlogo.png"
+              alt="COZY Moments"
+              className="h-24 md:h-32 w-auto drop-shadow-lg"
+              loading="eager"
+              decoding="async"
+            />
           </h1>
-          <p className="font-sans text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-bebas text-2xl md:text-4xl font-light opacity-90 max-w-2xl mx-auto leading-relaxed">
+            COME IN, FEEL AT HOME
+          </p>
+          <p className="mt-2 text-sm md:text-base opacity-90 max-w-2xl mx-auto leading-relaxed">
             Een plek waar gezelligheid, warmte en oprechte verbinding altijd op de eerste plaats komen.
           </p>
         </motion.div>
@@ -74,14 +73,14 @@ const Hero = () => {
           >
             <span className="pointer-events-none absolute inset-x-6 top-1.5 h-px bg-linear-to-r from-transparent via-white/70 to-transparent" />
             <span className="relative z-10 flex items-center justify-center gap-2">
-              Bekijk Drankkaart <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              Drankkaart <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </span>
           </Link>
           <Link
             to="/info"
             className="px-8 py-4 border border-latte-100/30 text-latte-100 font-medium uppercase tracking-widest hover:bg-latte-100/10 transition-colors duration-300 backdrop-blur-sm rounded-full"
           >
-            Vind Ons
+            Kom Langs
           </Link>
         </motion.div>
       </div>

@@ -45,9 +45,6 @@ const PageHero = ({ title, subtitle, description, imageSrc, imagePosition = 'obj
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <span className="inline-block px-4 py-1.5 mb-4 border border-gold-500/30 rounded-full text-gold-500 text-sm font-bold uppercase tracking-widest bg-gold-500/10 backdrop-blur-sm font-sans shadow-sm">
-              {subtitle}
-            </span>
             <h1 className="text-5xl md:text-7xl font-rounded font-extrabold text-latte-100 mb-6 tracking-tight drop-shadow-lg">
               {title}
             </h1>

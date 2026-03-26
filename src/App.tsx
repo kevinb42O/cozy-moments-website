@@ -4,7 +4,7 @@
  */
 
 import { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import { AnimatePresence, MotionConfig } from 'motion/react';
 
@@ -17,8 +17,7 @@ const ScrollToTop = () => {
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
 const Menu = lazy(() => import('./pages/Menu'));
-const Inspiration = lazy(() => import('./pages/Inspiration'));
-const About = lazy(() => import('./pages/About'));
+const Social = lazy(() => import('./pages/Social'));
 const Info = lazy(() => import('./pages/Info'));
 const Loyalty = lazy(() => import('./pages/Loyalty'));
 const Privacy = lazy(() => import('./pages/Privacy'));
@@ -40,8 +39,9 @@ const AnimatedRoutes = () => {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
-            <Route path="/inspiration" element={<Inspiration />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/social" element={<Social />} />
+            <Route path="/inspiration" element={<Navigate to="/social" replace />} />
+            <Route path="/about" element={<Navigate to="/info" replace />} />
             <Route path="/info" element={<Info />} />
             <Route path="/klantenkaart" element={<Loyalty />} />
             <Route path="/privacy" element={<Privacy />} />
