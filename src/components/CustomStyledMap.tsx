@@ -14,7 +14,7 @@ const CustomStyledMap = ({ className = '' }: CustomStyledMapProps) => {
       className={`${className} group block relative overflow-hidden w-full h-full`}
     >
       <img
-        src="/cozymap.webp"
+        src="/mapmapfinal.png"
         alt="COZY Moments kaart"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         loading="lazy"

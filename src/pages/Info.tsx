@@ -38,7 +38,7 @@ const Info = () => {
             >
               <div className="aspect-3/4 rounded-2xl overflow-hidden shadow-xl">
                 <img 
-                  src="/sixtinefoto.jpg" 
+                  src="/sixtinefotozaak.jpeg" 
                   alt="Sixtine in COZY moments" 
                   className="w-full h-full object-cover"
                 />
