@@ -15,7 +15,7 @@ const NotFound = () => {
       <SEO
         title="Pagina Niet Gevonden | COZY Moments"
         description="Deze pagina bestaat niet. Ga terug naar de homepage van COZY Moments in Blankenberge."
-        canonical="https://www.cozy-moments.be/"
+        robots="noindex, nofollow"
       />
       <div className="text-center max-w-lg mx-auto">
         <motion.div

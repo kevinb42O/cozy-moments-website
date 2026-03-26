@@ -1,9 +1,10 @@
 import { motion } from 'motion/react';
+import type { ReactNode } from 'react';
 
 type Feature = {
   title: string;
   desc: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   iconSrc?: string;
   iconAlt?: string;
 };

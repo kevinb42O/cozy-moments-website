@@ -4,13 +4,15 @@ interface SEOProps {
   title: string;
   description: string;
   canonical?: string;
+  robots?: string;
 }
 
-const SEO = ({ title, description, canonical }: SEOProps) => {
+const SEO = ({ title, description, canonical, robots = 'index, follow' }: SEOProps) => {
   return (
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta name="robots" content={robots} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="COZY Moments" />
       <meta property="og:locale" content="nl_BE" />

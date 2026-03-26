@@ -1,7 +1,77 @@
 {
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/info",
+      "permanent": true
+    },
+    {
+      "source": "/inspiration",
+      "destination": "/social",
+      "permanent": true
+    },
+    {
+      "source": "/menu/",
+      "destination": "/menu",
+      "permanent": true
+    },
+    {
+      "source": "/social/",
+      "destination": "/social",
+      "permanent": true
+    },
+    {
+      "source": "/info/",
+      "destination": "/info",
+      "permanent": true
+    },
+    {
+      "source": "/klantenkaart/",
+      "destination": "/klantenkaart",
+      "permanent": true
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/voorwaarden/",
+      "destination": "/voorwaarden",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
-      "source": "/((?!.*\\.).*)",
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/menu",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/social",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/info",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/klantenkaart",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/voorwaarden",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/404",
       "destination": "/index.html"
     }
   ]
