@@ -159,6 +159,61 @@ type ResolvedSectionGroup = {
 };
 
 const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
+  'koffie-choco-melk': [
+    {
+      title: 'Koffie klassiekers',
+      itemNames: [
+        'Koffie*',
+        'Deca*',
+        'Espresso',
+        'Dubbele Espresso',
+        'Americano',
+        'Cappuccino Melkschuim*',
+        'Cappuccino Slagroom',
+        'Latte Macchiato*',
+        'Koffie Verkeerd*',
+      ],
+    },
+    {
+      title: 'Iced coffee & smaken',
+      itemNames: [
+        'Iced Coffee',
+        '+ Slagroom',
+        '+ Hazelnootsiroop',
+        '+ Caramelsiroop',
+        '+ Speculoossiroop',
+        '+ Vanillesiroop',
+        '+ Witte Chocoladesiroop',
+        '+ Creme Brulee siroop',
+        '+ Chocolate Cookie siroop',
+      ],
+    },
+    {
+      title: 'Coffee specials',
+      itemNames: [
+        '+ Amaretto Siroop (0% alcohol)',
+        'Italian Coffee (Amaretto)',
+        'French Coffee (Cointreau)',
+        'Spanish Coffee (Licor 43)',
+        'Irish Coffee (Irish Whiskey)',
+        'Espresso Martini',
+      ],
+    },
+    {
+      title: 'Warme chocolade',
+      itemNames: [
+        'Warme Hotcemel',
+        'Warme Cecemel',
+        'Warme Chocolademelk Baru',
+        'Warme Melk + Callebaut Chocolade*',
+        '+ Mini Marshmallows',
+      ],
+    },
+    {
+      title: 'Melkdranken',
+      itemNames: ['Cecemel (koud)', 'Fristi', 'Melk*'],
+    },
+  ],
   'alcoholische-sterke-dranken': [
     {
       title: 'Aperitief & bitter',
@@ -265,6 +320,7 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
 };
 
 const sectionGroupAliases: Record<string, string[]> = {
+  'koffie-choco-melk': ['koffie-choco-melk', 'koffie-choco-en-melk', 'koffie-melk', 'koffie-choco'],
   'alcoholische-sterke-dranken': [
     'alcoholische-sterke-dranken',
     'sterke-dranken',
