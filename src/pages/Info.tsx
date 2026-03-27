@@ -232,10 +232,10 @@ const Info = () => {
                         <PawPrint size={18} className="text-gold-600" strokeWidth={2.2} />
                       </div>
                       <div className="flex min-w-0 flex-col leading-none">
-                        <div className="font-sans font-extrabold text-[1.3rem] tracking-[-0.02em] text-coffee-900 truncate">
+                        <div className="font-sans font-extrabold text-[1.12rem] tracking-[-0.02em] text-coffee-900 truncate">
                           Hond<span className="text-[#18a3eb]">Aan</span><span className="text-coffee-900">Zee</span>
                         </div>
-                        <span className="text-[8px] font-bold text-coffee-500 uppercase tracking-[0.16em] mt-0.5">De Kustgids</span>
+                        <span className="text-[7px] font-bold text-coffee-500 uppercase tracking-[0.16em] mt-0.5">De Kustgids</span>
                       </div>
                     </a>
 
@@ -252,7 +252,7 @@ const Info = () => {
                         <img
                           src="/dogscats.png"
                           alt="Dogs & Cats"
-                          className="h-8 w-auto max-w-[124px] object-contain"
+                          className="h-10 w-auto max-w-[152px] object-contain"
                           loading="lazy"
                           decoding="async"
                         />
