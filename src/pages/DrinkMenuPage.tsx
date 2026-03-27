@@ -214,6 +214,45 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
       itemNames: ['Cecemel (koud)', 'Fristi', 'Melk*'],
     },
   ],
+  'thee-chai-matcha': [
+    {
+      title: 'Losse thee',
+      itemNames: [
+        'Earl Grey',
+        'Sencha Lemon',
+        'Fruity Forest',
+        'Ruby Rooibos',
+        'Champaign All Day',
+        'Sea of Blossoms',
+        'Subtiele Munt Thee',
+        'Kamille Linde Thee',
+        'Rozenbottel Thee',
+      ],
+    },
+    {
+      title: 'Chai specials',
+      itemNames: [
+        'Vanille Chai Latte Baru',
+        'Spiced Chai Latte Baru',
+        'Pumpkin Spiced Latte Baru',
+        'Pink Chai Latte Baru',
+      ],
+    },
+    {
+      title: 'Matcha bar',
+      itemNames: [
+        'Matcha Latte Baru',
+        'Premium Matcha Latte*',
+        'Ceremonial Matcha Latte*',
+        'Iced Premium Matcha Latte*',
+        'Iced Ceremonial Matcha Latte*',
+      ],
+    },
+    {
+      title: 'Fruit add-ons',
+      itemNames: ['+ Raspberry', '+ Strawberry', '+ Mango'],
+    },
+  ],
   'alcoholische-sterke-dranken': [
     {
       title: 'Aperitief & bitter',
@@ -321,6 +360,7 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
 
 const sectionGroupAliases: Record<string, string[]> = {
   'koffie-choco-melk': ['koffie-choco-melk', 'koffie-choco-en-melk', 'koffie-melk', 'koffie-choco'],
+  'thee-chai-matcha': ['thee-chai-matcha', 'thee-chai-en-matcha', 'thee-matcha', 'chai-matcha'],
   'alcoholische-sterke-dranken': [
     'alcoholische-sterke-dranken',
     'sterke-dranken',
