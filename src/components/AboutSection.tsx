@@ -25,14 +25,14 @@ const features: Feature[] = [
   {
     iconSrc: "/chargeicon.png",
     iconAlt: "Charge icon",
-    title: "Good vibe,full battery",
+    title: "Good Vibe Full Battery",
     desc: "Charge & Chill. Laad gerust je toestel op terwijl je geniet van een drankje."
   },
   {
     iconSrc: "/dogicon.png",
     iconAlt: "Dog icon",
     title: "Dog Friendly",
-    desc: "Jouw viervoeter is welkom met leiband, water staat klaar."
+    desc: "Jouw viervoeter is van harte welkom bij ons, water & snoepjes staan altijd klaar"
   }
 ];
 
@@ -47,7 +47,7 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative grid grid-cols-2 gap-4"
+            className="relative hidden lg:grid grid-cols-2 gap-4"
           >
             <img 
               src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 

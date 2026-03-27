@@ -99,8 +99,8 @@ const InfoSection = () => {
           </div>
 
           {/* Map */}
-          <div className="h-100 lg:h-auto rounded-3xl overflow-hidden relative">
-            <CustomStyledMap className="absolute inset-0 transition-all duration-500" />
+          <div className="h-100 lg:h-auto rounded-3xl overflow-visible relative">
+            <CustomStyledMap variant="homepage" className="absolute inset-0 transition-all duration-500" />
           </div>
         </div>
       </div>

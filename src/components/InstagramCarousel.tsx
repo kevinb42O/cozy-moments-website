@@ -5,6 +5,7 @@ import {
   ChevronRight,
   Clapperboard,
   ExternalLink,
+  Facebook,
   Heart,
   House,
   Instagram,
@@ -297,17 +298,33 @@ const InstagramCarousel = ({
       ) : null}
 
       <div className="relative overflow-hidden rounded-[2rem] border border-coffee-200 bg-[#F6F4F0] px-4 py-12 sm:px-8 sm:py-16 shadow-[0_35px_90px_rgba(22,55,50,0.16)]">
-        <a
-          href={`https://www.instagram.com/${username}/`}
-          target="_blank"
-          rel="noreferrer"
-          className="group absolute right-4 top-4 z-10 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(130deg,#f9ce34_0%,#ee2a7b_52%,#6228d7_100%)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(98,40,215,0.26)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(238,42,123,0.34)]"
-        >
-          <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 backdrop-blur-sm transition group-hover:bg-white/30">
-            <Instagram size={15} aria-hidden="true" />
-          </span>
-          Volg COZY-Moments
-        </a>
+        <div className="absolute left-4 top-4 z-10 hidden md:flex">
+          <a
+            href={`https://www.instagram.com/${username}/`}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(130deg,#f9ce34_0%,#ee2a7b_52%,#6228d7_100%)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(98,40,215,0.26)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(238,42,123,0.34)]"
+          >
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 backdrop-blur-sm transition group-hover:bg-white/30">
+              <Instagram size={15} aria-hidden="true" />
+            </span>
+            Instagram
+          </a>
+        </div>
+
+        <div className="absolute right-4 top-4 z-10 hidden md:flex">
+          <a
+            href="https://www.facebook.com/profile.php?id=61576070607157"
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 rounded-full bg-[#1877F2] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(24,119,242,0.28)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:bg-[#166FE0] hover:shadow-[0_14px_28px_rgba(24,119,242,0.34)]"
+          >
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 backdrop-blur-sm transition group-hover:bg-white/30">
+              <Facebook size={15} aria-hidden="true" />
+            </span>
+            Facebook
+          </a>
+        </div>
 
         <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 items-center justify-center lg:flex" style={{ perspective: '1200px' }}>
           {previewPosts.map(({ post, side, depth }) => {

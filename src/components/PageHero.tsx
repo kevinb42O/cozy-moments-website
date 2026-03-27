@@ -22,7 +22,7 @@ const PageHero = ({ title, subtitle, description, imageSrc, imagePosition = 'obj
 
   return (
     <>
-      <div ref={ref} className="relative h-[50vh] min-h-100 overflow-hidden flex items-center justify-center pt-20 pb-16 md:pb-24">
+      <div ref={ref} data-page-hero="true" className="relative h-[50vh] min-h-100 overflow-hidden flex items-center justify-center pt-20 pb-16 md:pb-24">
         {/* Parallax Background Image */}
         <motion.div 
           style={{ y, opacity }}

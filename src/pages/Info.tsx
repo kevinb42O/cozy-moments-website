@@ -43,7 +43,7 @@ const Info = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -z-10 -bottom-5 -right-5 w-full h-full border-2 border-gold-500 rounded-2xl" />
+              <div className="absolute -z-10 -bottom-5 right-0 md:-right-5 w-full h-full border-2 border-gold-500 rounded-2xl" />
             </motion.div>
 
             <motion.div 
@@ -146,8 +146,8 @@ const Info = () => {
             transition={{ delay: 0.1 }}
             className="lg:col-span-8 bg-white/95 p-3 rounded-3xl shadow-lg shadow-coffee-900/5 h-[22rem] md:h-[25rem] relative overflow-hidden group border border-white/60"
           >
-            <div className="h-full rounded-2xl overflow-hidden border border-champagne-500/35">
-              <CustomStyledMap className="transition-all duration-700 scale-100 group-hover:scale-105 [&>img]:object-[center_88%]" />
+            <div className="h-full rounded-2xl overflow-visible border border-champagne-500/35">
+              <CustomStyledMap variant="homepage" className="transition-all duration-700 scale-100 group-hover:scale-105 [&>img]:object-[center_88%]" />
             </div>
 
             <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-4 py-3 rounded-xl shadow-lg border border-white/50 hidden sm:flex items-center gap-3">
@@ -223,23 +223,6 @@ const Info = () => {
 
                   <div className="space-y-3">
                     <a
-                      href="https://www.hondaanzee.be"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex w-full items-center gap-2.5 rounded-xl border border-coffee-100 bg-latte-50 px-2.5 py-2 transition-colors duration-200 hover:border-gold-500/45 hover:bg-gold-50/40"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-white border border-coffee-100 flex items-center justify-center shrink-0">
-                        <PawPrint size={18} className="text-gold-600" strokeWidth={2.2} />
-                      </div>
-                      <div className="flex min-w-0 flex-col leading-none">
-                        <div className="font-sans font-extrabold text-[1.12rem] tracking-[-0.02em] text-coffee-900 truncate">
-                          Hond<span className="text-[#18a3eb]">Aan</span><span className="text-coffee-900">Zee</span>
-                        </div>
-                        <span className="text-[7px] font-bold text-coffee-500 uppercase tracking-[0.16em] mt-0.5">De Kustgids</span>
-                      </div>
-                    </a>
-
-                    <a
                       href="https://www.dogsandcats.be/"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -257,7 +240,23 @@ const Info = () => {
                           decoding="async"
                         />
                       </div>
-                      <span className="text-[10px] uppercase tracking-wider font-bold text-gold-600 shrink-0">Blankenberge</span>
+                    </a>
+
+                    <a
+                      href="https://www.hondaanzee.be"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center gap-2.5 rounded-xl border border-coffee-100 bg-latte-50 px-2.5 py-2 transition-colors duration-200 hover:border-gold-500/45 hover:bg-gold-50/40"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-white border border-coffee-100 flex items-center justify-center shrink-0">
+                        <PawPrint size={18} className="text-gold-600" strokeWidth={2.2} />
+                      </div>
+                      <div className="ml-1.5 flex min-w-0 flex-col leading-none">
+                        <div className="font-sans font-extrabold text-[1.12rem] tracking-[-0.02em] text-coffee-900 truncate">
+                          Hond<span className="text-[#18a3eb]">Aan</span><span className="text-coffee-900">Zee</span>
+                        </div>
+                        <span className="text-[7px] font-bold text-coffee-500 uppercase tracking-[0.16em] mt-0.5">De Kustgids</span>
+                      </div>
                     </a>
                   </div>
                 </div>

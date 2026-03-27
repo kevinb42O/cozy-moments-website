@@ -69,7 +69,7 @@ const MenuSection = () => {
                 { name: 'bieren', count: 'Belgisch & blond', link: '/menu?category=beer' },
                 { name: 'wijnen & bubbels', count: 'Glas & fles', link: '/menu?category=wine' },
                 { name: 'cocktails', count: 'Klassiek & creatief', link: '/menu#cocktails' },
-                { name: 'alcoholische sterke dranken', count: 'Rijk & krachtig', link: '/menu#alcoholische-sterke-dranken' },
+                { name: 'sterke dranken', count: 'Rijk & krachtig', link: '/menu#alcoholische-sterke-dranken' },
               ].map((cat, i) => (
                 <motion.div
                   key={cat.name}
@@ -82,11 +82,11 @@ const MenuSection = () => {
                     to={cat.link}
                     className="group flex items-center justify-between py-5 px-2 rounded-xl border border-transparent hover:border-gold-500/35 hover:bg-latte-100/55 transition-colors duration-500"
                   >
-                    <div className="flex items-baseline gap-4">
+                    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                       <span className="text-[10px] font-mono text-coffee-400 tabular-nums">0{i + 1}</span>
-                      <span className="text-xl md:text-2xl font-serif text-coffee-900 group-hover:text-gold-600 transition-colors duration-300">{cat.name}</span>
+                      <span className="whitespace-nowrap text-base sm:text-xl md:text-2xl font-serif text-coffee-900 group-hover:text-gold-600 transition-colors duration-300">{cat.name}</span>
                     </div>
-                    <div className="flex w-[15rem] shrink-0 items-center justify-end gap-4 text-right">
+                    <div className="flex shrink-0 items-center justify-end gap-2 sm:gap-4 text-right sm:w-[15rem]">
                       <span className="hidden sm:block text-xs font-sans uppercase tracking-wider text-coffee-500">{cat.count}</span>
                       <ArrowRight size={16} className="text-coffee-400 group-hover:text-gold-600 group-hover:translate-x-1 transition-all duration-300" />
                     </div>

@@ -14,7 +14,43 @@ const Navbar = () => {
   const [isInHomeHeroSection, setIsInHomeHeroSection] = useState(false);
   const [isInHomeMenuSection, setIsInHomeMenuSection] = useState(false);
   const [isInHomePremiumSections, setIsInHomePremiumSections] = useState(false);
+  const [isInAnyHeroSection, setIsInAnyHeroSection] = useState(false);
+  const [isInFooterSection, setIsInFooterSection] = useState(false);
   const location = useLocation();
+
+  const isSectionAtProbe = (element: HTMLElement | null, probeY: number) => {
+    if (!element) return false;
+    const rect = element.getBoundingClientRect();
+    return rect.top <= probeY && rect.bottom >= probeY;
+  };
+
+  const detectAnyHeroSection = () => {
+    const probeY = globalThis.innerHeight * 0.4;
+    const homepageHero = globalThis.document.getElementById('home-hero-section');
+    if (isSectionAtProbe(homepageHero, probeY)) {
+      return true;
+    }
+
+    const pageHero = globalThis.document.querySelector<HTMLElement>('[data-page-hero="true"]');
+    return isSectionAtProbe(pageHero, probeY);
+  };
+
+  const syncMobileMenuContext = () => {
+    setIsInAnyHeroSection(detectAnyHeroSection());
+
+    const footerSection = globalThis.document.getElementById('site-footer');
+    if (!footerSection) {
+      setIsInFooterSection(false);
+      return;
+    }
+
+    const rect = footerSection.getBoundingClientRect();
+    const viewportHeight = globalThis.innerHeight;
+    const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+    const visibleRatio = visibleHeight / viewportHeight;
+    const inFooterSection = visibleRatio >= 0.35 || rect.top <= viewportHeight * 0.45;
+    setIsInFooterSection(inFooterSection);
+  };
 
   useEffect(() => {
     let ticking = false;
@@ -78,10 +114,87 @@ const Navbar = () => {
     };
 
     detectHeaderSections();
+    const rafId = globalThis.requestAnimationFrame(detectHeaderSections);
+    const timeoutId = globalThis.setTimeout(detectHeaderSections, 120);
     globalThis.addEventListener('scroll', handlePositionChange);
     globalThis.addEventListener('resize', handlePositionChange);
 
     return () => {
+      globalThis.cancelAnimationFrame(rafId);
+      globalThis.clearTimeout(timeoutId);
+      globalThis.removeEventListener('scroll', handlePositionChange);
+      globalThis.removeEventListener('resize', handlePositionChange);
+    };
+  }, [location.pathname]);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const detectFooterSection = () => {
+      const footerSection = globalThis.document.getElementById('site-footer');
+      if (!footerSection) {
+        setIsInFooterSection(false);
+        return;
+      }
+
+      const rect = footerSection.getBoundingClientRect();
+      const viewportHeight = globalThis.innerHeight;
+      const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+      const visibleRatio = visibleHeight / viewportHeight;
+      const inFooterSection = visibleRatio >= 0.35 || rect.top <= viewportHeight * 0.45;
+      setIsInFooterSection(inFooterSection);
+    };
+
+    const handlePositionChange = () => {
+      if (!ticking) {
+        globalThis.requestAnimationFrame(() => {
+          detectFooterSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    detectFooterSection();
+    const rafId = globalThis.requestAnimationFrame(detectFooterSection);
+    const timeoutId = globalThis.setTimeout(detectFooterSection, 120);
+    globalThis.addEventListener('scroll', handlePositionChange);
+    globalThis.addEventListener('resize', handlePositionChange);
+
+    return () => {
+      globalThis.cancelAnimationFrame(rafId);
+      globalThis.clearTimeout(timeoutId);
+      globalThis.removeEventListener('scroll', handlePositionChange);
+      globalThis.removeEventListener('resize', handlePositionChange);
+    };
+  }, [location.pathname]);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const detectHeroSection = () => {
+      setIsInAnyHeroSection(detectAnyHeroSection());
+    };
+
+    const handlePositionChange = () => {
+      if (!ticking) {
+        globalThis.requestAnimationFrame(() => {
+          detectHeroSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    detectHeroSection();
+    const rafId = globalThis.requestAnimationFrame(detectHeroSection);
+    const timeoutId = globalThis.setTimeout(detectHeroSection, 120);
+    globalThis.addEventListener('scroll', handlePositionChange);
+    globalThis.addEventListener('resize', handlePositionChange);
+
+    return () => {
+      globalThis.cancelAnimationFrame(rafId);
+      globalThis.clearTimeout(timeoutId);
       globalThis.removeEventListener('scroll', handlePositionChange);
       globalThis.removeEventListener('resize', handlePositionChange);
     };
@@ -105,6 +218,7 @@ const Navbar = () => {
   const isDarkHeroPage = ['/', '/info', '/menu', '/social', '/klantenkaart'].includes(location.pathname);
   const onHomepagePremiumOrHero = !isInHomeMenuSection && (isInHomeHeroSection || isInHomePremiumSections);
   const useWhiteText = location.pathname === '/' ? onHomepagePremiumOrHero : (isDarkHeroPage && !scrolled);
+  const mobileMenuUseLightText = isInAnyHeroSection || isInFooterSection;
   const keepHomeActiveReadableInHero = location.pathname === '/' && isInHomeHeroSection;
 
   return (
@@ -177,8 +291,15 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`md:hidden relative z-10 p-2 rounded-full transition-colors duration-300 ${getTextColor(isOpen, useWhiteText, 'text-latte-100 hover:bg-white/10', 'text-coffee-800 hover:bg-black/5')}`}
+              onClick={() => {
+                if (!isOpen) {
+                  syncMobileMenuContext();
+                }
+                setIsOpen(!isOpen);
+              }}
+              className={`md:hidden relative z-10 p-2 rounded-full transition-colors duration-300 ${isOpen
+                ? (mobileMenuUseLightText ? 'text-latte-100 hover:bg-white/10' : 'text-coffee-800 hover:bg-black/5')
+                : getTextColor(false, useWhiteText, 'text-latte-100 hover:bg-white/10', 'text-coffee-800 hover:bg-black/5')}`}
               aria-label={isOpen ? 'Sluit menu' : 'Open menu'}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -233,8 +354,8 @@ const Navbar = () => {
                       to={link.path}
                       className={`block px-4 py-3 rounded-xl text-center font-medium uppercase tracking-widest transition-all ${
                         location.pathname === link.path 
-                          ? 'bg-white/60 text-coffee-900 shadow-sm' 
-                          : 'text-coffee-700 hover:bg-white/30'
+                          ? (mobileMenuUseLightText ? 'bg-white/20 text-latte-100 shadow-sm' : 'bg-white/60 text-coffee-900 shadow-sm')
+                          : (mobileMenuUseLightText ? 'text-latte-100/90 hover:text-white hover:bg-white/10' : 'text-coffee-700 hover:bg-white/30')
                       }`}
                     >
                       {link.name}
