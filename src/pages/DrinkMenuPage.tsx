@@ -264,9 +264,52 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
   ],
 };
 
+const sectionGroupAliases: Record<string, string[]> = {
+  'alcoholische-sterke-dranken': [
+    'alcoholische-sterke-dranken',
+    'sterke-dranken',
+    'sterkedrank',
+    'sterke',
+    'spirits',
+    'alcoholische-sterke-dranken',
+  ],
+  cocktails: ['cocktails', 'cocktail'],
+};
+
+const resolveSectionGroupKey = (section: DrinkMenuSection): string | null => {
+  const comparableFields = [section.id, section.title, section.sectionCode].map(normalizeComparableText);
+
+  for (const key of Object.keys(sectionGroupDefinitions)) {
+    const normalizedKey = normalizeComparableText(key);
+    if (comparableFields.includes(normalizedKey)) {
+      return key;
+    }
+
+    const aliases = sectionGroupAliases[key] ?? [key];
+    const normalizedAliases = aliases.map(normalizeComparableText);
+
+    if (comparableFields.some((field) => normalizedAliases.includes(field))) {
+      return key;
+    }
+
+    const tokens = normalizedAliases
+      .flatMap((alias) => alias.split('-'))
+      .filter((token) => token.length >= 3);
+
+    const haystack = comparableFields.join(' ');
+    const tokenScore = tokens.reduce((score, token) => (haystack.includes(token) ? score + 1 : score), 0);
+
+    if (tokenScore >= 2) {
+      return key;
+    }
+  }
+
+  return null;
+};
+
 const resolveSectionGroups = (section: DrinkMenuSection): ResolvedSectionGroup[] => {
-  const normalizedSectionId = normalizeComparableText(section.id);
-  const definitions = sectionGroupDefinitions[normalizedSectionId] ?? [];
+  const groupKey = resolveSectionGroupKey(section);
+  const definitions = groupKey ? sectionGroupDefinitions[groupKey] ?? [] : [];
 
   if (definitions.length === 0) {
     return [{ title: '', items: section.items }];
@@ -703,7 +746,7 @@ const DrinkMenuPage = () => {
     const hashTarget = hash.replace('#', '');
 
     const targetId = hashTarget
-      ? hashTarget
+      ? (resolveSectionIdFromCategory(siteSettings.drink_menu_sections, hashTarget) ?? hashTarget)
       : category
         ? resolveSectionIdFromCategory(siteSettings.drink_menu_sections, category)
         : null;
