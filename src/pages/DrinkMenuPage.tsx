@@ -53,7 +53,7 @@ const buildMenuItems = (items: Array<[string, string]>): DrinkMenuItem[] => {
   return items.map(([name, price]) => ({
     id: normalizeComparableText(`${name}-${price}`),
     name,
-    price: `EUR ${price}`,
+    price: /\d/.test(price) ? `€ ${price}` : price,
     isVisible: true,
     openBottleProductId: null,
   }));
