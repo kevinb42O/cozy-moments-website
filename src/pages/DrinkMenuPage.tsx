@@ -178,7 +178,6 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
       title: 'Iced coffee & smaken',
       itemNames: [
         'Iced Coffee',
-        '+ Slagroom',
         '+ Hazelnootsiroop',
         '+ Caramelsiroop',
         '+ Speculoossiroop',
@@ -206,6 +205,7 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
         'Warme Cecemel',
         'Warme Chocolademelk Baru',
         'Warme Melk + Callebaut Chocolade*',
+        '+ Slagroom',
         '+ Mini Marshmallows',
       ],
     },
