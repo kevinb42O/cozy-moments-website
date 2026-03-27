@@ -253,6 +253,40 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
       itemNames: ['+ Raspberry', '+ Strawberry', '+ Mango'],
     },
   ],
+  '0-0-alcohol': [
+    {
+      title: 'Alcoholvrije bieren',
+      itemNames: [
+        'Stella 0,0',
+        'Liefmans Fruitesse 0,0',
+        'Liefmans Peach 0,0',
+        'Lindemans kriek 0,0',
+        'Lindemans Pecheresse 0,0',
+        'Coast Zero',
+        'Carlsberg 0,0',
+        'Sport Zot Alcoholvrij',
+        'Kasteelbier Rouge 0,0',
+        'Kasteelbier Tropical 0,0',
+        'Leffe Blond/Bruin 0,0',
+        'Hoegaarden Citrus 0,0',
+        'Tripel Karmeliet Alcoholvrij',
+      ],
+    },
+    {
+      title: 'Alcoholvrije wijnen',
+      itemNames: ['Keth Pinot Blanc 0,0', 'Divin Pinot Noir 0,0'],
+    },
+    {
+      title: 'Mocktails & specials',
+      itemNames: [
+        'Virgin Mojito',
+        'Virgin Pina Colada',
+        'Kidibul',
+        'Funny Pisang Orange',
+        "Gordon's 0,0 Premium Pink Gin (inclusief tonic)",
+      ],
+    },
+  ],
   'alcoholische-sterke-dranken': [
     {
       title: 'Aperitief & bitter',
@@ -361,6 +395,7 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
 const sectionGroupAliases: Record<string, string[]> = {
   'koffie-choco-melk': ['koffie-choco-melk', 'koffie-choco-en-melk', 'koffie-melk', 'koffie-choco'],
   'thee-chai-matcha': ['thee-chai-matcha', 'thee-chai-en-matcha', 'thee-matcha', 'chai-matcha'],
+  '0-0-alcohol': ['0-0-alcohol', '0-0-dranken', '0-0', 'alcoholvrij', 'alcohol-vrij', 'nul-nul-alcohol'],
   'alcoholische-sterke-dranken': [
     'alcoholische-sterke-dranken',
     'sterke-dranken',
