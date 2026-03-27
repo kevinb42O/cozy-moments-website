@@ -308,8 +308,8 @@ const mergeCuratedSections = (sections: DrinkMenuSection[]): DrinkMenuSection[] 
       return existingComparableFields.some((field) => curatedComparableFields.includes(field));
     });
 
+    // Keep sections from Supabase authoritative; only add curated fallback when missing.
     if (existingIndex >= 0) {
-      merged[existingIndex] = curatedSection;
       return;
     }
 
