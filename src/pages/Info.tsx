@@ -88,8 +88,8 @@ const Info = () => {
       </section>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24">
-        <div className="rounded-[2rem] border border-white/60 bg-white/35 p-4 sm:p-6 lg:p-8 backdrop-blur-sm shadow-[0_24px_60px_rgba(44,29,12,0.08)]">
+      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24 overflow-visible">
+        <div className="rounded-[2rem] border border-white/60 bg-white/35 p-4 sm:p-6 lg:p-8 backdrop-blur-sm shadow-[0_24px_60px_rgba(44,29,12,0.08)] overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
           {/* Contact Cards Column */}
@@ -144,15 +144,14 @@ const Info = () => {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="lg:col-span-8 bg-white/95 p-3 rounded-3xl shadow-lg shadow-coffee-900/5 h-[22rem] md:h-[25rem] relative overflow-hidden group border border-white/60"
+            className="lg:col-span-8 bg-white/95 p-3 rounded-3xl shadow-lg shadow-coffee-900/5 h-[22rem] md:h-[25rem] relative overflow-visible group border border-white/60"
           >
             <div className="h-full rounded-2xl overflow-visible border border-champagne-500/35">
-              <CustomStyledMap variant="homepage" className="transition-all duration-700 scale-100 group-hover:scale-105 [&>img]:object-[center_88%]" />
-            </div>
-
-            <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-4 py-3 rounded-xl shadow-lg border border-white/50 hidden sm:flex items-center gap-3">
-              <div className="w-2 h-2 bg-champagne-500 rounded-full" />
-              <span className="text-coffee-900 font-medium text-sm font-sans">Hartje Blankenberge</span>
+              <CustomStyledMap
+                variant="homepage"
+                overlayPositionClassName="z-30 top-0 -right-4 -translate-y-[46%] md:right-[22%] md:-translate-y-[68%]"
+                className="transition-all duration-700 scale-100 group-hover:scale-105 [&>img]:object-[center_88%]"
+              />
             </div>
           </motion.div>
 

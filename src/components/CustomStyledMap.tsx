@@ -3,10 +3,12 @@ const GOOGLE_MAPS_LINK = 'https://maps.google.com/?q=Grote+Markt+2%2F0002%2C+837
 interface CustomStyledMapProps {
   className?: string;
   variant?: 'default' | 'homepage';
+  overlayPositionClassName?: string;
 }
 
-const CustomStyledMap = ({ className = '', variant = 'default' }: CustomStyledMapProps) => {
+const CustomStyledMap = ({ className = '', variant = 'default', overlayPositionClassName }: CustomStyledMapProps) => {
   const isHomepageVariant = variant === 'homepage';
+  const overlayPositionClasses = overlayPositionClassName ?? 'right-2 top-2 sm:right-3 sm:top-3 md:-right-14 md:-top-14';
 
   return (
     <div className="relative h-full w-full overflow-visible">
@@ -35,7 +37,7 @@ const CustomStyledMap = ({ className = '', variant = 'default' }: CustomStyledMa
       </a>
 
       {isHomepageVariant ? (
-        <div className="pointer-events-none absolute right-2 top-2 rounded-2xl border border-white/65 bg-white/25 p-1.5 shadow-[0_10px_28px_rgba(15,42,39,0.26)] backdrop-blur-sm transition-transform duration-500 sm:right-3 sm:top-3 sm:p-2 md:-right-14 md:-top-14">
+        <div className={`pointer-events-none absolute rounded-2xl border border-white/65 bg-white/25 p-1.5 shadow-[0_10px_28px_rgba(15,42,39,0.26)] backdrop-blur-sm transition-transform duration-500 sm:p-2 ${overlayPositionClasses}`}>
           <img
             src="/cozymapimage.png"
             alt=""
