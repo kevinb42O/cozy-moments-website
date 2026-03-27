@@ -37,14 +37,304 @@ const normalizeComparableText = (value: string): string => {
 const categoryAliases: Record<string, string[]> = {
   wine: ['wine', 'wijn', 'wijnen', 'bubbels', 'bubbles', 'prosecco', 'cava', 'champagne'],
   beer: ['beer', 'bier', 'bieren', 'speciaalbier', 'speciaalbieren'],
-  cocktail: ['cocktail', 'cocktails', 'alcoholvrij', 'mocktail', 'mocktails', 'zero-zero', 'virgin'],
+  cocktail: ['cocktail', 'cocktails'],
   '0-0-dranken': ['0-0-dranken', '0.0-dranken', 'alcoholvrij', 'zero-zero', 'mocktail', 'mocktails', 'virgin'],
   'alcoholische-sterke-dranken': ['alcoholische-sterke-dranken', 'sterke-dranken', 'sterkedrank', 'sterke', 'spirit', 'spirits', 'gin', 'rum', 'vodka', 'whisky'],
   'verfrissende-dranken': ['verfrissende-dranken', 'verfrissend', 'fris', 'frisdrank', 'frisdranken', 'limonade', 'ice-tea', 'ijsthee'],
 };
 
+const preferredCategoryTargets: Record<string, string[]> = {
+  cocktail: ['cocktails', 'cocktail'],
+  cocktails: ['cocktails', 'cocktail'],
+  'alcoholische-sterke-dranken': ['alcoholische-sterke-dranken', 'sterke-dranken'],
+};
+
+const buildMenuItems = (items: Array<[string, string]>): DrinkMenuItem[] => {
+  return items.map(([name, price]) => ({
+    id: normalizeComparableText(`${name}-${price}`),
+    name,
+    price: `EUR ${price}`,
+    isVisible: true,
+    openBottleProductId: null,
+  }));
+};
+
+const curatedSectionDefinitions: DrinkMenuSection[] = [
+  {
+    id: 'alcoholische-sterke-dranken',
+    sectionCode: 'ALCOHOLISCHE_STERKE_DRANKEN',
+    title: 'Alcoholische Sterke Dranken',
+    isVisible: true,
+    items: buildMenuItems([
+      ['Martini Bianco', '5,50'],
+      ['Martini Rosso', '5,50'],
+      ['Kir', '6,50'],
+      ['Kir Royal', '7,50'],
+      ['Picon Vin Blanc', '9,00'],
+      ['Rode Porto Martinez', '5,50'],
+      ['Rode Porto Smith Woodhouse', '11,00'],
+      ['Rode Sherry Colosia Oloroso', '5,50'],
+      ['Witte Porto Martinez', '5,50'],
+      ['Ricard Pastis', '6,50'],
+      ['Pineau des Charentes', '5,50'],
+      ['Campari', '6,50'],
+      ['Amaretto Disaronno', '6,80'],
+      ['Baileys', '6,80'],
+      ['Cointreau', '7,00'],
+      ['Grand Marnier', '7,00'],
+      ['Licor 43', '6,80'],
+      ['Passoa', '6,50'],
+      ['Pisang', '6,50'],
+      ['Safari', '6,50'],
+      ['Limoncello', '7,00'],
+      ['Malibu', '6,50'],
+      ['Bulldog', '7,50'],
+      ["Hendrick's", '8,50'],
+      ['Copperhead', '9,50'],
+      ['Gin Mare', '9,50'],
+      ['Gin Mare Capri', '12,00'],
+      ['Tanqueray', '7,50'],
+      ['Fever Tree (supplement)', '3,50'],
+      ['Martell', '8,00'],
+      ['Bisquit & Dubouche', '8,00'],
+      ['Eristoff', '6,50'],
+      ['Eristoff Red', '6,50'],
+      ['Eristoff Passion', '6,50'],
+      ['AU Vodka Blue Raspberry', '8,00'],
+      ['AU Vodka Pink Lemonade', '8,00'],
+      ['Grey Goose', '9,50'],
+      ['AANRADER: AU Vodka + Sprite', 'vraag naar prijs'],
+      ['Johnnie Walker Red', '6,50'],
+      ['Johnnie Walker Black', '7,00'],
+      ['Johnnie Walker Ruby', '7,50'],
+      ['Johnnie Walker Blue baby', '15,00'],
+      ['Johnnie Walker Blue', '22,00'],
+      ['J&B', '6,50'],
+      ['Glenfiddich 12', '10,00'],
+      ['Chivas Regal', '7,20'],
+      ['Oban', '15,00'],
+      ['Bacardi Carta Blanca', '6,50'],
+      ['Bacardi Carta Negra', '6,50'],
+      ['Bacardi Carta Oro', '6,50'],
+      ['Bacardi Anejo Cuatro', '7,00'],
+      ['Bacardi Reserva Ocho', '8,50'],
+      ['Havana Club Anejo 7 Anos', '9,50'],
+      ['Rhum J.M. Jardin Fruite', '10,00'],
+      ['Rhum J.M. Fumee Volcanique', '10,00'],
+      ['The Kraken Black Spiced Rum', '7,00'],
+      ['Sister Isles Rum', '12,50'],
+      ['Saint James Royal Ambre', '6,50'],
+      ['Captain Morgan Dark Rum', '6,50'],
+      ['Red Rope Cocoa Rum', '9,00'],
+      ['Dictador Colombiana', '9,50'],
+      ['Diplomatico Reserva Exclusiva', '10,00'],
+      ['Appleton Estate Signature Rum', '7,00'],
+    ]),
+  },
+  {
+    id: 'cocktails',
+    sectionCode: 'COCKTAILS',
+    title: 'Cocktails',
+    isVisible: true,
+    items: buildMenuItems([
+      ['Mojito', '10,50'],
+      ['Pornstar Martini', '10,50'],
+      ['Negroni', '10,50'],
+      ['Lazy Red Cheeks', '10,50'],
+      ['Aperol Spritz', '11,50'],
+      ['Limoncello Spritz', '11,50'],
+      ['Sex On The Beach', '11,50'],
+    ]),
+  },
+];
+
+type SectionGroupDefinition = {
+  title: string;
+  itemNames: string[];
+};
+
+type ResolvedSectionGroup = {
+  title: string;
+  items: DrinkMenuItem[];
+};
+
+const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
+  'alcoholische-sterke-dranken': [
+    {
+      title: 'Aperitief & bitter',
+      itemNames: [
+        'Martini Bianco',
+        'Martini Rosso',
+        'Kir',
+        'Kir Royal',
+        'Picon Vin Blanc',
+        'Rode Porto Martinez',
+        'Rode Porto Smith Woodhouse',
+        'Rode Sherry Colosia Oloroso',
+        'Witte Porto Martinez',
+        'Ricard Pastis',
+        'Pineau des Charentes',
+        'Campari',
+      ],
+    },
+    {
+      title: 'Likeuren',
+      itemNames: [
+        'Amaretto Disaronno',
+        'Baileys',
+        'Cointreau',
+        'Grand Marnier',
+        'Licor 43',
+        'Passoa',
+        'Pisang',
+        'Safari',
+        'Limoncello',
+        'Malibu',
+      ],
+    },
+    {
+      title: 'Gin',
+      itemNames: ['Bulldog', "Hendrick's", 'Copperhead', 'Gin Mare', 'Gin Mare Capri', 'Tanqueray', 'Fever Tree (supplement)'],
+    },
+    {
+      title: 'Cognac',
+      itemNames: ['Martell', 'Bisquit & Dubouche'],
+    },
+    {
+      title: 'Vodka',
+      itemNames: [
+        'Eristoff',
+        'Eristoff Red',
+        'Eristoff Passion',
+        'AU Vodka Blue Raspberry',
+        'AU Vodka Pink Lemonade',
+        'Grey Goose',
+        'AANRADER: AU Vodka + Sprite',
+      ],
+    },
+    {
+      title: 'Whisky',
+      itemNames: [
+        'Johnnie Walker Red',
+        'Johnnie Walker Black',
+        'Johnnie Walker Ruby',
+        'Johnnie Walker Blue baby',
+        'Johnnie Walker Blue',
+        'J&B',
+        'Glenfiddich 12',
+        'Chivas Regal',
+        'Oban',
+      ],
+    },
+    {
+      title: 'Rum',
+      itemNames: [
+        'Bacardi Carta Blanca',
+        'Bacardi Carta Negra',
+        'Bacardi Carta Oro',
+        'Bacardi Anejo Cuatro',
+        'Bacardi Reserva Ocho',
+        'Havana Club Anejo 7 Anos',
+        'Rhum J.M. Jardin Fruite',
+        'Rhum J.M. Fumee Volcanique',
+        'The Kraken Black Spiced Rum',
+        'Sister Isles Rum',
+        'Saint James Royal Ambre',
+        'Captain Morgan Dark Rum',
+        'Red Rope Cocoa Rum',
+        'Dictador Colombiana',
+        'Diplomatico Reserva Exclusiva',
+        'Appleton Estate Signature Rum',
+      ],
+    },
+  ],
+  cocktails: [
+    {
+      title: 'Klassiekers',
+      itemNames: ['Mojito', 'Pornstar Martini', 'Negroni', 'Lazy Red Cheeks'],
+    },
+    {
+      title: 'Spritz & fruity',
+      itemNames: ['Aperol Spritz', 'Limoncello Spritz', 'Sex On The Beach'],
+    },
+  ],
+};
+
+const resolveSectionGroups = (section: DrinkMenuSection): ResolvedSectionGroup[] => {
+  const normalizedSectionId = normalizeComparableText(section.id);
+  const definitions = sectionGroupDefinitions[normalizedSectionId] ?? [];
+
+  if (definitions.length === 0) {
+    return [{ title: '', items: section.items }];
+  }
+
+  const itemByName = new Map(section.items.map((item) => [normalizeComparableText(item.name), item]));
+  const usedItemIds = new Set<string>();
+
+  const groups = definitions
+    .map((definition) => {
+      const items = definition.itemNames
+        .map((itemName) => itemByName.get(normalizeComparableText(itemName)))
+        .filter((item): item is DrinkMenuItem => Boolean(item));
+
+      items.forEach((item) => usedItemIds.add(item.id));
+
+      return {
+        title: definition.title,
+        items,
+      };
+    })
+    .filter((group) => group.items.length > 0);
+
+  const remainingItems = section.items.filter((item) => !usedItemIds.has(item.id));
+  if (remainingItems.length > 0) {
+    groups.push({ title: 'Overige', items: remainingItems });
+  }
+
+  return groups.length > 0 ? groups : [{ title: '', items: section.items }];
+};
+
+const getComparableFields = (section: DrinkMenuSection): string[] => {
+  return [section.id, section.title, section.sectionCode].map(normalizeComparableText);
+};
+
+const mergeCuratedSections = (sections: DrinkMenuSection[]): DrinkMenuSection[] => {
+  const merged = [...sections];
+
+  curatedSectionDefinitions.forEach((curatedSection) => {
+    const curatedComparableFields = getComparableFields(curatedSection);
+    const existingIndex = merged.findIndex((existingSection) => {
+      const existingComparableFields = getComparableFields(existingSection);
+      return existingComparableFields.some((field) => curatedComparableFields.includes(field));
+    });
+
+    if (existingIndex >= 0) {
+      merged[existingIndex] = curatedSection;
+      return;
+    }
+
+    merged.push(curatedSection);
+  });
+
+  return merged;
+};
+
 const resolveSectionIdFromCategory = (sections: DrinkMenuSection[], category: string): string | null => {
   const normalizedCategory = normalizeComparableText(category);
+
+  const preferredTargets = preferredCategoryTargets[normalizedCategory] ?? null;
+  if (preferredTargets) {
+    const normalizedPreferredTargets = preferredTargets.map(normalizeComparableText);
+    const directMatch = sections.find((section) => {
+      const comparable = getComparableFields(section);
+      return comparable.some((value) => normalizedPreferredTargets.includes(value));
+    });
+
+    if (directMatch) {
+      return directMatch.id;
+    }
+  }
+
   const aliasTokens = categoryAliases[normalizedCategory] ?? [normalizedCategory];
   const tokens = aliasTokens
     .flatMap((token) => token.split('-'))
@@ -359,8 +649,12 @@ const DrinkMenuPage = () => {
       }
 
       const normalizedSettings = normalizeSiteSettings(data);
-      setSiteSettings(normalizedSettings);
-      setActiveId(normalizedSettings.drink_menu_sections[0]?.id ?? '');
+      const hydratedSettings: SiteSettings = {
+        ...normalizedSettings,
+        drink_menu_sections: mergeCuratedSections(normalizedSettings.drink_menu_sections),
+      };
+      setSiteSettings(hydratedSettings);
+      setActiveId(hydratedSettings.drink_menu_sections[0]?.id ?? '');
       setIsLoading(false);
     };
 
@@ -377,7 +671,11 @@ const DrinkMenuPage = () => {
               (payload) => {
                 if (!isMounted) return;
                 const normalizedSettings = normalizeSiteSettings(payload.new);
-                setSiteSettings(normalizedSettings);
+                const hydratedSettings: SiteSettings = {
+                  ...normalizedSettings,
+                  drink_menu_sections: mergeCuratedSections(normalizedSettings.drink_menu_sections),
+                };
+                setSiteSettings(hydratedSettings);
               }
             )
             .subscribe()
@@ -630,45 +928,56 @@ const DrinkMenuPage = () => {
                 </motion.div>
 
                 {section.items.length > 0 ? (
-                  <div className="grid grid-cols-1 gap-x-16 gap-y-0 md:grid-cols-2">
-                    {section.items.map((item, itemIndex) => {
-                      const isPromoActive = promoItemIdSet.has(item.id);
+                  <div className="space-y-10">
+                    {resolveSectionGroups(section).map((group, groupIndex) => (
+                      <div key={`${section.id}-${group.title || 'group'}-${groupIndex}`}>
+                        {group.title && (
+                          <h3 className="mb-4 text-xs font-sans font-semibold uppercase tracking-[0.24em] text-coffee-500">
+                            {group.title}
+                          </h3>
+                        )}
+                        <div className="grid grid-cols-1 gap-x-16 gap-y-0 md:grid-cols-2">
+                          {group.items.map((item, itemIndex) => {
+                            const isPromoActive = promoItemIdSet.has(item.id);
 
-                      return (
-                        <motion.div
-                          key={item.id}
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.4, delay: Math.min(itemIndex * 0.03, 0.3), ease }}
-                          className={`group flex items-baseline justify-between rounded-2xl border px-4 py-4 transition-colors duration-200 ${
-                            isPromoActive
-                              ? 'border-gold-500/35 bg-gold-500/10 shadow-[0_16px_30px_-24px_rgba(184,151,90,0.95)]'
-                              : 'border-transparent border-b-coffee-900/5'
-                          }`}
-                        >
-                          <div className="min-w-0 flex-1 pr-4">
-                            <span className={`block text-base font-sans font-medium transition-colors duration-200 ${
-                              isPromoActive
-                                ? 'text-coffee-900'
-                                : 'text-coffee-900 group-hover:text-gold-600'
-                            }`}>
-                              {item.name}
-                            </span>
-                            {isPromoActive && (
-                              <span className="mt-2 inline-flex rounded-full border border-gold-600/35 bg-gold-500/15 px-3 py-1 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
-                                Extra stempel op klantenkaart
-                              </span>
-                            )}
-                          </div>
-                          <span className={`shrink-0 tabular-nums text-sm font-semibold ${
-                            isPromoActive ? 'text-gold-700' : 'text-coffee-800'
-                          }`}>
-                            {item.price}
-                          </span>
-                        </motion.div>
-                      );
-                    })}
+                            return (
+                              <motion.div
+                                key={item.id}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: Math.min(itemIndex * 0.03, 0.3), ease }}
+                                className={`group flex items-baseline justify-between rounded-2xl border px-4 py-4 transition-colors duration-200 ${
+                                  isPromoActive
+                                    ? 'border-gold-500/35 bg-gold-500/10 shadow-[0_16px_30px_-24px_rgba(184,151,90,0.95)]'
+                                    : 'border-transparent border-b-coffee-900/5'
+                                }`}
+                              >
+                                <div className="min-w-0 flex-1 pr-4">
+                                  <span className={`block text-base font-sans font-medium transition-colors duration-200 ${
+                                    isPromoActive
+                                      ? 'text-coffee-900'
+                                      : 'text-coffee-900 group-hover:text-gold-600'
+                                  }`}>
+                                    {item.name}
+                                  </span>
+                                  {isPromoActive && (
+                                    <span className="mt-2 inline-flex rounded-full border border-gold-600/35 bg-gold-500/15 px-3 py-1 text-[11px] font-sans font-semibold uppercase tracking-[0.18em] text-gold-700">
+                                      Extra stempel op klantenkaart
+                                    </span>
+                                  )}
+                                </div>
+                                <span className={`shrink-0 tabular-nums text-sm font-semibold ${
+                                  isPromoActive ? 'text-gold-700' : 'text-coffee-800'
+                                }`}>
+                                  {item.price}
+                                </span>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <p className="text-sm text-coffee-600">Deze sectie bevat nog geen zichtbare items.</p>

@@ -68,8 +68,8 @@ const MenuSection = () => {
                 { name: '0.0% dranken', count: 'Licht & vrij', link: '/menu?category=0.0% dranken' },
                 { name: 'bieren', count: 'Belgisch & blond', link: '/menu?category=beer' },
                 { name: 'wijnen & bubbels', count: 'Glas & fles', link: '/menu?category=wine' },
-                { name: 'cocktails', count: 'Klassiek & creatief', link: '/menu?category=cocktail' },
-                { name: 'alcoholische sterke dranken', count: 'Rijk & krachtig', link: '/menu?category=alcoholische sterke dranken' },
+                { name: 'cocktails', count: 'Klassiek & creatief', link: '/menu#cocktails' },
+                { name: 'alcoholische sterke dranken', count: 'Rijk & krachtig', link: '/menu#alcoholische-sterke-dranken' },
               ].map((cat, i) => (
                 <motion.div
                   key={cat.name}
