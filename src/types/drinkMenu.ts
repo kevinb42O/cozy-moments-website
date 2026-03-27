@@ -6,12 +6,19 @@ export type DrinkMenuItem = {
   openBottleProductId?: string | null;
 };
 
+export type DrinkMenuGroup = {
+  id: string;
+  title: string;
+  itemIds: string[];
+};
+
 export type DrinkMenuSection = {
   id: string;
   sectionCode: string;
   title: string;
   isVisible: boolean;
   items: DrinkMenuItem[];
+  groups?: DrinkMenuGroup[];
 };
 
 export type ActivePromo = {

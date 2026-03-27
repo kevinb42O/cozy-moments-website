@@ -5,7 +5,7 @@ import PageHero from '../components/PageHero';
 import Seo from '../components/SEO';
 import { PROMO_ROTATION_INTERVAL_MS } from '../constants';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
-import type { ActivePromo, DrinkMenuItem, DrinkMenuSection, SiteSettings } from '../types/drinkMenu';
+import type { ActivePromo, DrinkMenuGroup, DrinkMenuItem, DrinkMenuSection, SiteSettings } from '../types/drinkMenu';
 
 const ease: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
@@ -410,6 +410,9 @@ const sectionGroupAliases: Record<string, string[]> = {
 const resolveSectionGroupKey = (section: DrinkMenuSection): string | null => {
   const comparableFields = [section.id, section.title, section.sectionCode].map(normalizeComparableText);
 
+  // First pass: exact key match or alias match across all keys before falling back to fuzzy scoring.
+  // This prevents a key earlier in the list from stealing a match via token scoring when a later
+  // key would have matched exactly (e.g. '0-0-alcohol' tokens matching 'alcoholische-sterke-dranken').
   for (const key of Object.keys(sectionGroupDefinitions)) {
     const normalizedKey = normalizeComparableText(key);
     if (comparableFields.includes(normalizedKey)) {
@@ -422,6 +425,12 @@ const resolveSectionGroupKey = (section: DrinkMenuSection): string | null => {
     if (comparableFields.some((field) => normalizedAliases.includes(field))) {
       return key;
     }
+  }
+
+  // Second pass: token-scoring fuzzy fallback, only reached if no exact/alias match was found.
+  for (const key of Object.keys(sectionGroupDefinitions)) {
+    const aliases = sectionGroupAliases[key] ?? [key];
+    const normalizedAliases = aliases.map(normalizeComparableText);
 
     const tokens = normalizedAliases
       .flatMap((alias) => alias.split('-'))
@@ -470,6 +479,47 @@ const resolveSectionGroups = (section: DrinkMenuSection): ResolvedSectionGroup[]
   }
 
   return groups.length > 0 ? groups : [{ title: '', items: section.items }];
+};
+
+const resolveDataDrivenGroups = (section: DrinkMenuSection): ResolvedSectionGroup[] => {
+  const groups = section.groups ?? [];
+  if (groups.length === 0) {
+    return [];
+  }
+
+  const itemById = new Map(section.items.map((item) => [item.id, item]));
+  const groupedItemIds = new Set<string>();
+
+  const resolvedGroups = groups
+    .map((group) => {
+      const items = group.itemIds
+        .map((itemId) => itemById.get(itemId))
+        .filter((item): item is DrinkMenuItem => Boolean(item));
+
+      items.forEach((item) => groupedItemIds.add(item.id));
+
+      return {
+        title: group.title,
+        items,
+      };
+    })
+    .filter((group) => group.items.length > 0);
+
+  const remainingItems = section.items.filter((item) => !groupedItemIds.has(item.id));
+  if (remainingItems.length > 0) {
+    resolvedGroups.push({ title: 'Overige', items: remainingItems });
+  }
+
+  return resolvedGroups;
+};
+
+const resolveSectionGroupsForRender = (section: DrinkMenuSection): ResolvedSectionGroup[] => {
+  const dataDrivenGroups = resolveDataDrivenGroups(section);
+  if (dataDrivenGroups.length > 0) {
+    return dataDrivenGroups;
+  }
+
+  return resolveSectionGroups(section);
 };
 
 const getComparableFields = (section: DrinkMenuSection): string[] => {
@@ -617,6 +667,41 @@ const normalizeMenuItem = (value: unknown): DrinkMenuItem | null => {
   };
 };
 
+const normalizeMenuGroups = (value: unknown, validItemIds: Set<string>): DrinkMenuGroup[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  const globallyUsedItemIds = new Set<string>();
+
+  return value.flatMap((entry, groupIndex) => {
+    if (!isRecord(entry) || typeof entry.title !== 'string') {
+      return [];
+    }
+
+    const itemIds = Array.isArray(entry.itemIds)
+      ? entry.itemIds.filter((itemId): itemId is string => typeof itemId === 'string')
+      : [];
+
+    const normalizedItemIds: string[] = [];
+
+    itemIds.forEach((itemId) => {
+      if (!validItemIds.has(itemId) || globallyUsedItemIds.has(itemId)) {
+        return;
+      }
+
+      globallyUsedItemIds.add(itemId);
+      normalizedItemIds.push(itemId);
+    });
+
+    return [{
+      id: typeof entry.id === 'string' ? entry.id : `group-${groupIndex + 1}`,
+      title: entry.title,
+      itemIds: normalizedItemIds,
+    }];
+  });
+};
+
 const normalizeMenuSections = (value: unknown): DrinkMenuSection[] => {
   if (!Array.isArray(value)) {
     return [];
@@ -646,6 +731,8 @@ const normalizeMenuSections = (value: unknown): DrinkMenuSection[] => {
           .filter((item): item is DrinkMenuItem => item?.isVisible === true)
       : [];
 
+    const groups = normalizeMenuGroups(section.groups, new Set(items.map((item) => item.id)));
+
     return [
       {
         id: section.id,
@@ -653,6 +740,7 @@ const normalizeMenuSections = (value: unknown): DrinkMenuSection[] => {
         title: section.title,
         isVisible: section.isVisible,
         items,
+        groups: groups.length > 0 ? groups : undefined,
       },
     ];
   });
@@ -1107,7 +1195,7 @@ const DrinkMenuPage = () => {
 
                 {section.items.length > 0 ? (
                   <div className="space-y-10">
-                    {resolveSectionGroups(section).map((group, groupIndex) => (
+                    {resolveSectionGroupsForRender(section).map((group, groupIndex) => (
                       <div key={`${section.id}-${group.title || 'group'}-${groupIndex}`}>
                         {group.title && (
                           <h3 className="mb-4 text-xs font-sans font-semibold uppercase tracking-[0.24em] text-coffee-500">
