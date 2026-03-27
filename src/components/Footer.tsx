@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
+import { Facebook, Instagram, Mail, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CLEAN, ADDRESS_LINE_1, ADDRESS_LINE_2 } from '../constants';
 
@@ -76,9 +76,8 @@ const Footer = () => {
                   href={`https://maps.google.com/?q=${encodeURIComponent(ADDRESS_LINE_1 + ', ' + ADDRESS_LINE_2)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-fit mx-auto md:mx-0 items-start gap-2 text-cream-200/80 hover:text-champagne-500 transition-all duration-200"
+                  className="inline-flex w-fit mx-auto md:mx-0 items-start text-cream-200/80 hover:text-champagne-500 transition-all duration-200"
                 >
-                  <MapPin size={15} className="mt-0.5 shrink-0" />
                   <span className="text-center md:text-left">{ADDRESS_LINE_1}<br />{ADDRESS_LINE_2}</span>
                 </a>
               </li>
