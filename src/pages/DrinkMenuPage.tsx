@@ -186,12 +186,12 @@ const sectionGroupDefinitions: Record<string, SectionGroupDefinition[]> = {
         '+ Witte Chocoladesiroop',
         '+ Creme Brulee siroop',
         '+ Chocolate Cookie siroop',
+        '+ Amaretto Siroop (0% alcohol)',
       ],
     },
     {
       title: 'Coffee specials',
       itemNames: [
-        '+ Amaretto Siroop (0% alcohol)',
         'Italian Coffee (Amaretto)',
         'French Coffee (Cointreau)',
         'Spanish Coffee (Licor 43)',
