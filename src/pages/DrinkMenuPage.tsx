@@ -1257,8 +1257,8 @@ const DrinkMenuPage = () => {
       <div className="bg-coffee-900 text-latte-100">
         <div className="max-w-4xl mx-auto px-6 py-16 text-center">
           <p className="font-serif text-2xl md:text-3xl leading-snug">
-            Kleine extra&apos;s maken{' '}
-            <span className="italic text-gold-500">het moment</span>
+            Kleine extra&apos;s maken
+            <span className="block md:inline italic text-gold-500">het moment</span>
           </p>
         </div>
       </div>
