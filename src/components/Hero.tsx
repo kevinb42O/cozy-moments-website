@@ -28,7 +28,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <span className="block font-sans text-sm md:text-base uppercase tracking-[0.3em] mb-4 text-gold-500">
-            Est. 2023 • Blankenberge
+            Est. 2025 • Blankenberge
           </span>
           <h1 className="mb-8 flex justify-center">
             <img
