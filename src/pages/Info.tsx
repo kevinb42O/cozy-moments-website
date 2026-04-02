@@ -3,6 +3,10 @@ import { MapPin, Phone, Clock, Star, PawPrint } from 'lucide-react';
 import SEO from '../components/SEO';
 import PageHero from '../components/PageHero';
 import CustomStyledMap from '../components/CustomStyledMap';
+import { OPENING_HOURS, OPENING_HOURS_NOTE } from '../constants';
+
+// Maps JS getDay() (0=Sun…6=Sat) to Mon-Sun array index (0=Mon…6=Sun)
+const todayIndex = (new Date().getDay() + 6) % 7;
 
 const Info = () => {
   return (
@@ -171,35 +175,34 @@ const Info = () => {
                   <h3 className="font-rounded font-bold text-2xl">Openingsuren</h3>
                 </div>
                 
-                <div className="space-y-3 relative z-10 font-sans">
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="opacity-80">Maandag</span>
-                    <span className="font-mono text-gold-500">10:00 - 22:00</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="opacity-80">Dinsdag</span>
-                    <span className="font-mono text-gold-500">10:00 - 22:00</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="opacity-80">Woensdag</span>
-                    <span className="font-mono text-gold-500">Gesloten</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="opacity-80">Donderdag</span>
-                    <span className="font-mono text-gold-500">10:00 - 22:00</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="opacity-80">Vrijdag</span>
-                    <span className="font-mono text-gold-500">10:00 - 22:00</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="opacity-80">Zaterdag</span>
-                    <span className="font-mono text-gold-500">10:00 - 22:00</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="opacity-80">Zondag</span>
-                    <span className="font-mono text-gold-500">Gesloten</span>
-                  </div>
+                <div className="space-y-2 relative z-10 font-sans">
+                  {OPENING_HOURS.map(({ label, hours }, i) => {
+                    const isToday = i === todayIndex;
+                    const isLast = i === OPENING_HOURS.length - 1;
+                    return (
+                      <div
+                        key={label}
+                        className={`flex justify-between items-center px-2 py-1.5 rounded-lg transition-colors ${
+                          isToday
+                            ? 'bg-gold-500/20 -mx-2'
+                            : !isLast ? 'border-b border-white/10' : ''
+                        }`}
+                      >
+                        <span className={isToday ? 'font-bold text-latte-100' : 'opacity-80'}>
+                          {label}
+                          {isToday && <span className="ml-2 text-[10px] font-sans font-bold uppercase tracking-widest text-gold-400">vandaag</span>}
+                        </span>
+                        <span className={`font-mono ${
+                          hours
+                            ? isToday ? 'text-gold-300 font-bold' : 'text-gold-500'
+                            : 'opacity-40 italic text-sm'
+                        }`}>
+                          {hours ?? 'Gesloten'}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  <p className="text-xs opacity-40 italic pt-3 leading-relaxed">{OPENING_HOURS_NOTE}</p>
                 </div>
               </motion.div>
 

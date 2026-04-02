@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CLEAN, ADDRESS_LINE_1, ADDRESS_LINE_2 } from '../constants';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CLEAN, ADDRESS_LINE_1, ADDRESS_LINE_2, OPENING_HOURS, OPENING_HOURS_NOTE } from '../constants';
 import CustomStyledMap from './CustomStyledMap';
 
 const InfoSection = () => {
@@ -62,36 +62,16 @@ const InfoSection = () => {
                 </div>
                 <div>
                   <h4 className="font-rounded font-bold text-lg text-coffee-900">Openingsuren</h4>
-                  <div className="text-coffee-700 space-y-1 font-sans">
-                    <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Maandag:</span>
-                      <span>10:00 - 22:00</span>
-                    </div>
-                    <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Dinsdag:</span>
-                      <span>10:00 - 22:00</span>
-                    </div>
-                    <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Woensdag:</span>
-                      <span>Gesloten</span>
-                    </div>
-                    <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Donderdag:</span>
-                      <span>10:00 - 22:00</span>
-                    </div>
-                    <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Vrijdag:</span>
-                      <span>10:00 - 22:00</span>
-                    </div>
-                    <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Zaterdag:</span>
-                      <span>10:00 - 22:00</span>
-                    </div>
-                    <div className="flex justify-between w-full max-w-50">
-                      <span className="font-medium">Zondag:</span>
-                      <span>Gesloten</span>
-                    </div>
-                    <p className="text-sm opacity-60 italic pt-2">Openingsuren kunnen variëren op feestdagen.</p>
+                  <div className="text-coffee-700 space-y-1 font-sans mt-1">
+                    {OPENING_HOURS.map(({ label, hours }) => (
+                      <div key={label} className="flex justify-between w-full max-w-52 gap-4">
+                        <span className="font-medium">{label}</span>
+                        <span className={hours ? '' : 'opacity-50 italic'}>
+                          {hours ?? 'Gesloten'}
+                        </span>
+                      </div>
+                    ))}
+                    <p className="text-sm opacity-60 italic pt-2">{OPENING_HOURS_NOTE}</p>
                   </div>
                 </div>
               </div>
