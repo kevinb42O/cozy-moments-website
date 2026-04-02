@@ -13,12 +13,12 @@ export const PROMO_ROTATION_INTERVAL_MS = 10_000;
  */
 export type OpeningHour = { label: string; hours: string | null };
 export const OPENING_HOURS: OpeningHour[] = [
-  { label: 'Maandag',   hours: null },
-  { label: 'Dinsdag',   hours: null },
+  { label: 'Maandag',   hours: '10:00 – 22:00' },
+  { label: 'Dinsdag',   hours: '10:00 – 22:00' },
   { label: 'Woensdag',  hours: null },
-  { label: 'Donderdag', hours: '10:30 – 18:00' },
-  { label: 'Vrijdag',   hours: '10:30 – 18:00' },
-  { label: 'Zaterdag',  hours: '10:30 – 18:00' },
-  { label: 'Zondag',    hours: '10:30 – 18:00' },
+  { label: 'Donderdag', hours: '10:00 – 22:00' },
+  { label: 'Vrijdag',   hours: '10:00 – 22:00' },
+  { label: 'Zaterdag',  hours: '10:00 – 22:00' },
+  { label: 'Zondag',    hours: null },
 ];
 export const OPENING_HOURS_NOTE = 'Openingsuren kunnen variëren op feest- en schoolvakantiesdagen.';
