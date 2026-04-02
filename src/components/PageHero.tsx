@@ -22,7 +22,7 @@ const PageHero = ({ title, subtitle, description, imageSrc, imagePosition = 'obj
 
   return (
     <>
-      <div ref={ref} data-page-hero="true" className="relative h-[50vh] min-h-100 overflow-hidden flex items-center justify-center pt-20 pb-16 md:pb-24">
+      <div ref={ref} data-page-hero="true" className="relative h-[50vh] min-h-100 overflow-hidden flex items-center justify-center pt-20 pb-16 md:pb-24 bg-coffee-900">
         {/* Parallax Background Image */}
         <motion.div 
           style={{ y, opacity }}
@@ -55,9 +55,16 @@ const PageHero = ({ title, subtitle, description, imageSrc, imagePosition = 'obj
           </motion.div>
         </div>
       </div>
-      {/* Wave divider — matches homepage hero wave */}
-      <div className="relative z-10 -mt-5.5 md:-mt-28 pointer-events-none">
-        <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
+      {/* Wave divider — fully overlaps hero bottom for gapless rendering on all screens */}
+      <div
+        className="relative z-10 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          height: 'clamp(1.375rem, 8.33vw, 10rem)',
+          marginTop: 'calc(-1 * clamp(1.375rem, 8.33vw, 10rem))',
+        }}
+      >
+        <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" className="w-full h-full block" preserveAspectRatio="none">
           <path d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z" className="fill-latte-100" />
         </svg>
       </div>

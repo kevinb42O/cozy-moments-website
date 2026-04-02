@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+
+const INACTIVITY_DELAY = 3000; // ms before hiding on desktop
 
 const getTextColor = (isOpen: boolean, useWhiteText: boolean, lightColor: string, darkColor: string) => {
   if (isOpen) return darkColor;
@@ -16,7 +18,66 @@ const Navbar = () => {
   const [isInHomePremiumSections, setIsInHomePremiumSections] = useState(false);
   const [isInAnyHeroSection, setIsInAnyHeroSection] = useState(false);
   const [isInFooterSection, setIsInFooterSection] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
+  const inactivityTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
+
+  // Desktop-only inactivity auto-hide
+  const resetInactivityTimer = useCallback(() => {
+    // Always show immediately on any activity
+    setNavHidden(false);
+    if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
+    inactivityTimer.current = setTimeout(() => {
+      setNavHidden(true);
+    }, INACTIVITY_DELAY);
+  }, []);
+
+  useEffect(() => {
+    const mql = globalThis.matchMedia('(min-width: 768px)');
+
+    const attachListeners = () => {
+      if (!mql.matches) {
+        // Mobile: always visible, clear any pending timer
+        setNavHidden(false);
+        if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
+        return;
+      }
+      const events: (keyof WindowEventMap)[] = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
+      events.forEach((evt) => globalThis.addEventListener(evt, resetInactivityTimer, { passive: true }));
+      // Kick off the first timer
+      resetInactivityTimer();
+      return () => {
+        events.forEach((evt) => globalThis.removeEventListener(evt, resetInactivityTimer));
+        if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
+      };
+    };
+
+    let cleanup = attachListeners();
+
+    const handleBreakpointChange = () => {
+      cleanup?.();
+      cleanup = attachListeners();
+    };
+    mql.addEventListener('change', handleBreakpointChange);
+
+    return () => {
+      cleanup?.();
+      mql.removeEventListener('change', handleBreakpointChange);
+    };
+  }, [resetInactivityTimer]);
+
+  // Expose hidden state to the document so sticky elements (e.g. menu filters) can react
+  useEffect(() => {
+    document.documentElement.setAttribute('data-nav-hidden', navHidden ? 'true' : 'false');
+  }, [navHidden]);
+
+  // Keep nav visible while mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      setNavHidden(false);
+      if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
+    }
+  }, [isOpen]);
 
   const isSectionAtProbe = (element: HTMLElement | null, probeY: number) => {
     if (!element) return false;
@@ -222,7 +283,10 @@ const Navbar = () => {
   const keepHomeActiveReadableInHero = location.pathname === '/' && isInHomeHeroSection;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 sm:pt-6">
+    <div
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 sm:pt-6 transition-transform duration-500 ease-in-out"
+      style={{ transform: navHidden ? 'translateY(-120%)' : 'translateY(0)' }}
+    >
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

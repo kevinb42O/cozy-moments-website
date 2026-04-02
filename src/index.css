@@ -62,6 +62,16 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+/* ─── Nav auto-hide: adjust sticky elements on desktop ───── */
+@media (min-width: 768px) {
+  html[data-nav-hidden="true"] .nav-aware-sticky {
+    top: 0 !important;
+  }
+}
+.nav-aware-sticky {
+  transition: top 0.5s ease-in-out;
+}
+
 /* ─── Promo banner crossfade ───────────────────────────────── */
 .promo-banner-content {
   transition: opacity 0.4s ease-in-out;

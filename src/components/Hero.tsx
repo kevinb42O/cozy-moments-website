@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
+    <>
     <section
       id="home-hero-section"
       className="relative h-[100svh] min-h-[620px] md:h-[90vh] flex items-center justify-center overflow-hidden bg-coffee-900"
@@ -17,7 +18,7 @@ const Hero = () => {
           fetchPriority="high"
           decoding="sync"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-coffee-900/60 via-coffee-900/40 to-coffee-900/80" />
+        <div className="absolute inset-0 bg-linear-to-b from-coffee-900/60 via-coffee-900/40 to-coffee-900" />
       </div>
 
       {/* Content */}
@@ -71,14 +72,16 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Anchored wave keeps the transition consistent across mobile viewport sizes */}
-      <div className="absolute inset-x-0 bottom-0 z-20 pointer-events-none">
+    </section>
+
+      {/* Wave transition — outside overflow-hidden for gapless rendering on all screens */}
+      <div className="relative -mt-px bg-coffee-900 pointer-events-none" aria-hidden="true">
         <svg
           viewBox="0 0 1440 120"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-[58px] sm:h-[72px] md:h-[110px] block"
+          className="w-full block"
+          style={{ height: 'clamp(3.5rem, 8vw, 10rem)' }}
           preserveAspectRatio="none"
-          aria-hidden="true"
         >
           <path
             d="M0,60 C320,110 640,10 960,70 C1120,95 1300,30 1440,50 L1440,120 L0,120 Z"
@@ -86,7 +89,7 @@ const Hero = () => {
           />
         </svg>
       </div>
-    </section>
+    </>
   );
 };
 

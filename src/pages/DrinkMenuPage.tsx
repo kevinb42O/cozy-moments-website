@@ -1116,7 +1116,7 @@ const DrinkMenuPage = () => {
       )}
 
       {siteSettings.drink_menu_sections.length > 0 && (
-        <div className="sticky top-20 sm:top-24 z-40 border-b border-coffee-900/5 bg-latte-100/80 backdrop-blur-xl">
+        <div className="nav-aware-sticky sticky top-20 sm:top-24 z-40 border-b border-coffee-900/5 bg-latte-100/80 backdrop-blur-xl">
           <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
             <div className="relative overflow-hidden rounded-3xl border border-coffee-900/8 bg-latte-100/95 shadow-[0_12px_30px_-24px_rgba(26,46,42,0.55)]">
               <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-linear-to-r from-latte-100/95 to-transparent" />
